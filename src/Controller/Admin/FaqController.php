@@ -6,6 +6,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * Class FaqController
+ * @package App\Controller\Admin
+ * @Route("/admin")
+ */
 class FaqController extends AbstractController
 {
     /**
