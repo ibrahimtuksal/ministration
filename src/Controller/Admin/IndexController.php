@@ -17,4 +17,11 @@ class IndexController extends AbstractController
             'controller_name' => 'IndexController',
         ]);
     }
+
+    public function header(): Response
+    {
+        return $this->render('admin/includes/header.html.twig', [
+
+        ]);
+    }
 }
