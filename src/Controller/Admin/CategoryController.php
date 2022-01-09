@@ -2,24 +2,150 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Category;
+use App\Form\CategoryFormType;
+use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 /**
  * Class CategoryController
  * @package App\Controller\Admin
- * @Route("/admin")
+ * @Route("/admin/category")
  */
 class CategoryController extends AbstractController
 {
+
     /**
-     * @Route("/admin/category", name="admin_category")
+     * @var EntityManagerInterface
      */
-    public function index(): Response
+    private EntityManagerInterface $em;
+    /**
+     * @var SluggerInterface
+     */
+    private SluggerInterface $slugger;
+
+    public function __construct(EntityManagerInterface $entityManager, SluggerInterface $slugger)
     {
-        return $this->render('admin/category/index.html.twig', [
-            'controller_name' => 'CategoryController',
-        ]);
+        $this->em = $entityManager;
+        $this->slugger = $slugger;
+    }
+
+    /**
+     * @Route("/", name="admin_category")
+     * @Template()
+     */
+    public function index(): array
+    {
+        $category = $this->em->getRepository(Category::class)->findAll();
+        return [
+            'categorys' => $category
+        ];
+    }
+
+    /**
+     * @Route("/add", name="admin_category_add")
+     * @Template()
+     * @param Request $request
+     * @return array|RedirectResponse
+     */
+    public function add(Request $request)
+    {
+        $category = new Category();
+        $form = $this->createForm(CategoryFormType::class, $category);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()){
+            $category->setSlug($this->slugger->slug($form->get('title')->getData()));
+
+            $brochureFile  = $form->get('photo')->getData();
+            if ($brochureFile) {
+                $dir = $this->getParameter('uploads_dir');
+                $originalFilename = pathinfo($brochureFile->getClientOriginalName(), PATHINFO_FILENAME);
+
+                $safeFilename = $this->slugger->slug($originalFilename);
+                $newFilename = $safeFilename.'-'.uniqid().'.'.$brochureFile->guessExtension();
+                try {
+                    $brochureFile->move(
+                        $dir,
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    $this->addFlash('error', 'Hata');
+                    throw new UnprocessableEntityHttpException('Dosya Yüklenemedi');
+                }
+                $category->setPhoto("/uploads/".$newFilename);
+            }
+
+            $this->em->persist($category);
+            $this->em->flush();
+            $this->addFlash('success', 'Başarıyla Eklendi.');
+            return $this->redirectToRoute('admin_category');
+        }
+
+        return [
+            'form' => $form->createView(),
+        ];
+    }
+
+    /**
+     * @Route("/update/{category}", name="admin_category_update")
+     * @Template()
+     * @param Request $request
+     * @return array|RedirectResponse
+     */
+    public function update(int $category, Request $request)
+    {
+        $category = $this->em->getRepository(Category::class)->find($category);
+        $form = $this->createForm(CategoryFormType::class, $category);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()){
+            if ($brochureFile = $form->get('photo')->getData()){
+                $dir = $this->getParameter('uploads_dir');
+                $originalFilename = pathinfo($brochureFile->getClientOriginalName(), PATHINFO_FILENAME);
+
+                $safeFilename = $this->slugger->slug($originalFilename);
+                $newFilename = $safeFilename.'-'.uniqid().'.'.$brochureFile->guessExtension();
+                try {
+                    $brochureFile->move(
+                        $dir,
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    $this->addFlash('error', 'Hata');
+                    throw new UnprocessableEntityHttpException('Dosya Yüklenemedi');
+                }
+                $category->setPhoto("/uploads/".$newFilename);
+            }
+
+            $category->setSlug($this->slugger->slug($form->get('title')->getData()));
+            $this->em->persist($category);
+            $this->em->flush();
+            $this->addFlash('success', 'Başarıyla Eklendi.');
+            return $this->redirectToRoute('admin_category');
+        }
+        return [
+            'form' => $form->createView(),
+            'category' => $category
+        ];
+    }
+
+    /**
+     * @Route("/delete/{category}", name="admin_category_delete")
+     * @param int $category
+     * @return RedirectResponse
+     */
+    public function delete(int $category)
+    {
+        $category = $this->em->getRepository(Category::class)->find($category);
+        $this->em->remove($category);
+        $this->em->flush();
+        $this->addFlash('success',"Kategori Silindi");
+        return $this->redirectToRoute('admin_category');
     }
 }

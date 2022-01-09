@@ -1,0 +1,14 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Kategori Düzenle{% endblock %}
+
+{% block body %}
+    {% if category.photo %}
+        <img src="{{ category.photo }}" style="height: 200px; object-fit: cover;" class="mx-auto img-fluid" alt="category">
+
+    {% endif %}
+    <p class="display-6 text-center">Kategori Düzenle</p>
+    <hr>
+    {{ form(form) }}
+
+{% endblock %}

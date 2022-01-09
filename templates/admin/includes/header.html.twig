@@ -3,6 +3,7 @@
         <div class="col-md-12 text-center">
             <p class="display-4"><a href="{{ path('admin') }}" class="text-dark" style="text-decoration: none;">Yönetim Paneli</a></p>
             <p class="h4">{{ app.user.username }}</p>
+            <p class="h5">Yetkiniz <span class="text-danger">5/5</span></p>
             <a href="{{ path('app_logout') }}" class="btn btn-danger"><i class="fas fa-power-off"></i></a>
             <hr>
         </div>
@@ -10,10 +11,15 @@
 </div>
 
 <div class="container">
-    <div class="row">
+    <div class="row justify-content-md-center">
         <div class="col-md-2 my-1 d-grid gap-2">
-            <a href="javascript:void(0)" class="btn btn-dark">
-
+            <a href="{{ path('admin_category') }}" class="btn btn-dark">
+                Kategori
+            </a>
+        </div>
+        <div class="col-md-2 my-1 d-grid gap-2">
+            <a href="{{ path('admin_brand') }}" class="btn btn-dark">
+                Marka
             </a>
         </div>
     </div>
