@@ -2,9 +2,11 @@
 <html>
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title %}Welcome!{% endblock %}</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
-    <link rel="stylesheet" href="{{ asset('vendor/css/bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendor/css/bootstrap-nightshade.css') }}">
+
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
           integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
     {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
@@ -25,7 +27,33 @@
     </div>
 </div>
 
-<script src="{{ asset('vendor/js/bootstrap.js') }}"></script>
+
+<script src="{{ asset('vendor/js/bootstrap.bundle.js') }}"></script>
+
+<script src="{{ asset('vendor/js/darkmode.js') }}"></script>
+
+<script>
+    document.querySelector("#darkmode-button").onclick = function(e){
+        darkmode.toggleDarkMode();
+    }
+    document.querySelector("#darkmode-off-button").onclick = function(e){
+        darkmode.setDarkMode(false);  // save=true is default
+    }
+    document.querySelector("#darkmode-on-button").onclick = function(e){
+        darkmode.setDarkMode(true);  // save=true is default
+    }
+    document.querySelector("#darkmode-off-button-no-save").onclick = function(e){
+        darkmode.setDarkMode(false, false);
+    }
+    document.querySelector("#darkmode-on-button-no-save").onclick = function(e){
+        darkmode.setDarkMode(true, false);
+    }
+    document.querySelector("#darkmode-forget").onclick = function(e){
+        darkmode.resetDarkMode();
+    }
+</script>
+
+
 <script
         src="https://code.jquery.com/jquery-3.6.0.slim.min.js"
         integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI="

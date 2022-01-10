@@ -1,8 +1,11 @@
 <div class="container pt-5">
     <div class="row justify-content-md-center">
         <div class="col-md-12 text-center">
-            <p class="display-4"><a href="{{ path('admin') }}" class="text-dark" style="text-decoration: none;">Yönetim Paneli</a></p>
+            <p class="display-4"><a href="{{ path('admin') }}" style="text-decoration: none;">Yönetim Paneli</a></p>
             <p class="h4">{{ app.user.username }}</p>
+            <a id="darkmode-button" class="btn px-5 btn-outline-secondary">
+                <i class="fas fa-adjust"></i>
+            </a>
             <p class="h5">Yetkiniz <span class="text-danger">5/5</span></p>
             <a href="{{ path('app_logout') }}" class="btn btn-danger"><i class="fas fa-power-off"></i></a>
             <hr>
@@ -30,6 +33,11 @@
         <div class="col-md-2 my-1 d-grid gap-2">
             <a href="{{ path('admin_blog') }}" class="btn btn-dark">
                 Blog
+            </a>
+        </div>
+        <div class="col-md-2 my-1 d-grid gap-2">
+            <a href="{{ path('admin_faq') }}" class="btn btn-dark">
+                S.S.S
             </a>
         </div>
     </div>
