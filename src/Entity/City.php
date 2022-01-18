@@ -12,6 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class City
 {
+    CONST ISTANBUL = 40;
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -34,9 +35,15 @@ class City
      */
     private $districts;
 
+    /**
+     * @ORM\OneToMany(targetEntity=CityWithCategory::class, mappedBy="city")
+     */
+    private $cityWithCategories;
+
     public function __construct()
     {
         $this->districts = new ArrayCollection();
+        $this->cityWithCategories = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -92,6 +99,36 @@ class City
             // set the owning side to null (unless already changed)
             if ($district->getCity() === $this) {
                 $district->setCity(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|CityWithCategory[]
+     */
+    public function getCityWithCategories(): Collection
+    {
+        return $this->cityWithCategories;
+    }
+
+    public function addCityWithCategory(CityWithCategory $cityWithCategory): self
+    {
+        if (!$this->cityWithCategories->contains($cityWithCategory)) {
+            $this->cityWithCategories[] = $cityWithCategory;
+            $cityWithCategory->setCity($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCityWithCategory(CityWithCategory $cityWithCategory): self
+    {
+        if ($this->cityWithCategories->removeElement($cityWithCategory)) {
+            // set the owning side to null (unless already changed)
+            if ($cityWithCategory->getCity() === $this) {
+                $cityWithCategory->setCity(null);
             }
         }
 

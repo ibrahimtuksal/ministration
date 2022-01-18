@@ -39,9 +39,20 @@ class Category
      */
     private $brands;
 
+    /**
+     * @ORM\OneToMany(targetEntity=CityWithCategory::class, mappedBy="Category", cascade={"remove"})
+     */
+    private $cityWithCategories;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $is_city;
+
     public function __construct()
     {
         $this->brands = new ArrayCollection();
+        $this->cityWithCategories = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -111,6 +122,48 @@ class Category
                 $brand->setCategory(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|CityWithCategory[]
+     */
+    public function getCityWithCategories(): Collection
+    {
+        return $this->cityWithCategories;
+    }
+
+    public function addCityWithCategory(CityWithCategory $cityWithCategory): self
+    {
+        if (!$this->cityWithCategories->contains($cityWithCategory)) {
+            $this->cityWithCategories[] = $cityWithCategory;
+            $cityWithCategory->setCategory($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCityWithCategory(CityWithCategory $cityWithCategory): self
+    {
+        if ($this->cityWithCategories->removeElement($cityWithCategory)) {
+            // set the owning side to null (unless already changed)
+            if ($cityWithCategory->getCategory() === $this) {
+                $cityWithCategory->setCategory(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getIsCity(): ?bool
+    {
+        return $this->is_city;
+    }
+
+    public function setIsCity(bool $is_city): self
+    {
+        $this->is_city = $is_city;
 
         return $this;
     }

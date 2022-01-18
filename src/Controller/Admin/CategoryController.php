@@ -3,6 +3,8 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Category;
+use App\Entity\City;
+use App\Entity\CityWithCategory;
 use App\Form\CategoryFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -82,6 +84,7 @@ class CategoryController extends AbstractController
                 $category->setPhoto("/uploads/".$newFilename);
             }
 
+            $category->setIsCity(false);
             $this->em->persist($category);
             $this->em->flush();
             $this->addFlash('success', 'Başarıyla Eklendi.');
@@ -146,6 +149,30 @@ class CategoryController extends AbstractController
         $this->em->remove($category);
         $this->em->flush();
         $this->addFlash('success',"Kategori Silindi");
+        return $this->redirectToRoute('admin_category');
+    }
+
+    /**
+     * @Route("/create-city/{category}", name="admin_category_city_create")
+     * @param int $category
+     */
+    public function CityWithCategoryCreate(int $category)
+    {
+        /** @var Category $category */
+        $category = $this->em->getRepository(Category::class)->find($category);
+
+        $city = $this->em->getRepository(City::class)->findAll();
+
+        foreach ($city as $value){
+            $cityWithCategory = new CityWithCategory();
+            $cityWithCategory->setCategory($category);
+            $cityWithCategory->setCity($value);
+            $this->em->persist($cityWithCategory);
+        }
+        $category->setIsCity(true);
+        $this->em->flush();
+
+        $this->addFlash('success', 'Şehirler oluşturuldu');
         return $this->redirectToRoute('admin_category');
     }
 }

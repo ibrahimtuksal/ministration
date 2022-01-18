@@ -12,6 +12,7 @@
             <th scope="col">#</th>
             <th scope="col">Başlık</th>
             <th scope="col">Fotoğraf</th>
+            <th scope="col">Şehirleri Oluştur</th>
             <th scope="col">Düzenle</th>
             <th scope="col">Sil</th>
         </tr>
@@ -26,6 +27,17 @@
                         <img src="{{ category.photo }}" width="100" height="30" style="object-fit: cover;" alt="photo">
                     {% else %}
                         YOK
+                    {% endif %}
+                </td>
+                <td>
+                    {% if category.isCity %}
+                        <a href="#" class="btn btn-warning btn-sm disabled">
+                            Şehirleri Oluşturulmuş <i class="fas fa-pencil"></i>
+                        </a>
+                    {% else %}
+                        <a href="{{ path('admin_category_city_create', {category:category.id}) }}" class="btn btn-primary btn-sm">
+                            Şehirleri Oluştur <i class="fas fa-pencil"></i>
+                        </a>
                     {% endif %}
                 </td>
                 <td><a href="{{ path('admin_category_update', {category:category.id}) }}" class="btn btn-primary btn-sm">Düzenle <i class="fas fa-pencil"></i></a></td>
