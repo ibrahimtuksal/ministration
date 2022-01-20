@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\CityWithCategory;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -30,8 +31,10 @@ class IndexController extends AbstractController
      */
     public function index(): Response
     {
+        $cityWithCategory = $this->em->getRepository(CityWithCategory::class)->findBy(['city' => 40, 'Category' => 6]);
+
         return $this->render('admin/index/index.html.twig', [
-            'controller_name' => 'IndexController',
+            'cityWithCategory' => $cityWithCategory
         ]);
     }
 
