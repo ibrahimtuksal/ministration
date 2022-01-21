@@ -1,20 +1,37 @@
-{% extends 'base.html.twig' %}
+{% extends 'admin/base.html.twig' %}
 
-{% block title %}Hello SliderController!{% endblock %}
+{% block title %}Slider{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/MAMP/htdocs/service_web_site/src/Controller/Admin/SliderController.php'|file_link(0) }}">src/Controller/Admin/SliderController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/MAMP/htdocs/service_web_site/templates/admin/slider/index.html.twig'|file_link(0) }}">templates/admin/slider/index.html.twig</a></code></li>
-    </ul>
-</div>
+    <div class="row">
+        <div class="col-md-2 d-grid gap-2 offset-md-10"><a href="{{ path('admin_slider_add') }}" class="btn btn-warning">Ekle <i class="fas fa-plus"></i></a></div>
+    </div>
+    <table class="table table-hover table-responsive text-center">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Başlık</th>
+            <th scope="col">Fotoğraf</th>
+            <th scope="col">Düzenle</th>
+            <th scope="col">Sil</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for s in sliders %}
+            <tr>
+                <th scope="row">{{ loop.index }}</th>
+                <td>{{ s.title }}</td>
+                <td>
+                    {% if s.photo %}
+                        <img src="{{ s.photo }}" width="100" height="30" style="object-fit: cover;" alt="photo">
+                    {% else %}
+                        YOK
+                    {% endif %}
+                </td>
+                <td><a href="{{ path('admin_slider_update', {'slider':s.id}) }}" class="btn btn-primary btn-sm">Düzenle <i class="fas fa-pencil"></i></a></td>
+                <td><a href="{{ path('admin_slider_delete', {'slider':s.id}) }}" class="btn btn-danger btn-sm">Sil <i class="fas fa-trash"></i></a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 {% endblock %}

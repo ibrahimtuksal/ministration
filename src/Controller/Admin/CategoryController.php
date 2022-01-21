@@ -155,6 +155,7 @@ class CategoryController extends AbstractController
     /**
      * @Route("/create-city/{category}", name="admin_category_city_create")
      * @param int $category
+     * @return RedirectResponse
      */
     public function CityWithCategoryCreate(int $category)
     {

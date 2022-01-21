@@ -3,11 +3,11 @@
 {% block title %}Admin{% endblock %}
 
 {% block body %}
-    {% for c in cityWithCategory %}
-        {% for d in c.city.districts %}
-            {% for n in d.neighborhoods %}
-                {{ n.name }}
-            {% endfor %}
-        {% endfor %}
-    {% endfor %}
+{#    {% for c in cityWithCategory %}#}
+{#        {% for d in c.city.districts %}#}
+{#            {% for n in d.neighborhoods %}#}
+{#                {{ n.name }}#}
+{#            {% endfor %}#}
+{#        {% endfor %}#}
+{#    {% endfor %}#}
 {% endblock %}
