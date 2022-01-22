@@ -16,6 +16,22 @@
 <div class="container">
     <div class="row justify-content-md-center">
         <div class="col-md-2 my-1 d-grid gap-2">
+            <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButtonSM" data-bs-toggle="dropdown" aria-expanded="false">
+                Genel Ayarlar
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButtonSM">
+                <li><a class="dropdown-item" href="#">Ayarlar</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="{{ path('admin_slider') }}">Slider (Kayan fotoğraflar)</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="{{ path('admin_faq') }}">S.S.S</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="{{ path('admin_corporate') }}">Kurumsal</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="{{ path('admin_phone') }}">Numara Ayarları</a></li>
+            </ul>
+        </div>
+        <div class="col-md-2 my-1 d-grid gap-2">
             <a href="{{ path('admin_category') }}" class="btn btn-dark">
                 Kategori
             </a>
@@ -26,23 +42,8 @@
             </a>
         </div>
         <div class="col-md-2 my-1 d-grid gap-2">
-            <a href="{{ path('admin_phone') }}" class="btn btn-dark">
-                Numara Ayarları <i class="fas fa-phone"></i>
-            </a>
-        </div>
-        <div class="col-md-2 my-1 d-grid gap-2">
             <a href="{{ path('admin_blog') }}" class="btn btn-dark">
                 Blog
-            </a>
-        </div>
-        <div class="col-md-2 my-1 d-grid gap-2">
-            <a href="{{ path('admin_slider') }}" class="btn btn-dark">
-                Slider
-            </a>
-        </div>
-        <div class="col-md-2 my-1 d-grid gap-2">
-            <a href="{{ path('admin_faq') }}" class="btn btn-dark">
-                S.S.S
             </a>
         </div>
     </div>

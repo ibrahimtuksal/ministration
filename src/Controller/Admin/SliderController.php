@@ -97,6 +97,7 @@ class SliderController extends AbstractController
      * @Route("/update/{slider}", name="admin_slider_update")
      * @Template()
      * @param Request $request
+     * @param int $slider
      * @return array|RedirectResponse
      */
     public function update(int $slider, Request $request)
