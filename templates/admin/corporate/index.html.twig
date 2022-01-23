@@ -3,6 +3,13 @@
 {% block title %}FAQ{% endblock %}
 
 {% block body %}
+    <div class="row justify-content-md-center">
+        <div class="col-md-8">
+            <div class="alert alert-info text-center">
+                Indexlenen İçerik Anasayfa da gözükür
+            </div>
+        </div>
+    </div>
     <div class="row">
         <div class="col-md-2 d-grid gap-2 offset-md-10"><a href="{{ path('admin_corporate_add') }}" class="btn btn-warning">Ekle <i class="fas fa-plus"></i></a></div>
     </div>
@@ -20,10 +27,16 @@
             <tr>
                 <th scope="row">{{ loop.index }}</th>
                 <td>{{ c.title }}</td>
-                <td><a href="{{ path('admin_corporate_update', {'corporate':c.id}) }}" class="btn btn-primary btn-sm">Düzenle <i class="fas fa-pencil"></i></a></td>
+                {% if c.isIndex %}
+                    <td><a href="#!" class="btn disabled btn-success btn-sm">Indexlendi <i class="fas fa-check"></i></a></td>
+                {% else %}
+                    <td><a href="{{ path('admin_corporate_operation', {'corporate':c.id}) }}" class="btn btn-warning btn-sm">Indexle</a></td>
+                {% endif %}
+                <td><a href="{{ path('admin_corporate_update', {'corporate':c.id}) }}" class="btn btn-primary btn-sm">Düzenle <i class="fas fa-pencil-alt"></i></a></td>
                 <td><a href="{{ path('admin_corporate_delete', {'corporate':c.id}) }}" class="btn btn-danger btn-sm">Sil <i class="fas fa-trash"></i></a></td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 {% endblock %}
+

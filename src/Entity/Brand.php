@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\BrandRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -42,6 +44,16 @@ class Brand
      * @ORM\JoinColumn(nullable=false)
      */
     private $category;
+
+    /**
+     * @ORM\OneToMany(targetEntity=BrandContent::class, mappedBy="brand")
+     */
+    private $brandContents;
+
+    public function __construct()
+    {
+        $this->brandContents = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -104,6 +116,36 @@ class Brand
     public function setCategory(?Category $category): self
     {
         $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|BrandContent[]
+     */
+    public function getBrandContents(): Collection
+    {
+        return $this->brandContents;
+    }
+
+    public function addBrandContent(BrandContent $brandContent): self
+    {
+        if (!$this->brandContents->contains($brandContent)) {
+            $this->brandContents[] = $brandContent;
+            $brandContent->setBrand($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBrandContent(BrandContent $brandContent): self
+    {
+        if ($this->brandContents->removeElement($brandContent)) {
+            // set the owning side to null (unless already changed)
+            if ($brandContent->getBrand() === $this) {
+                $brandContent->setBrand(null);
+            }
+        }
 
         return $this;
     }

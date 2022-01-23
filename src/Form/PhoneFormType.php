@@ -13,7 +13,9 @@ class PhoneFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+            ->add('title')
             ->add('phone')
+            ->add('wpTitle')
             ->add('whatsapp')
             ->add('button', SubmitType::class, [
                 'label' => 'Kaydet',

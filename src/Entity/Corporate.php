@@ -32,6 +32,11 @@ class Corporate
      */
     private $content;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $is_index;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -69,6 +74,18 @@ class Corporate
     public function setContent(string $content): self
     {
         $this->content = $content;
+
+        return $this;
+    }
+
+    public function getIsIndex(): ?bool
+    {
+        return $this->is_index;
+    }
+
+    public function setIsIndex(?bool $is_index): self
+    {
+        $this->is_index = $is_index;
 
         return $this;
     }

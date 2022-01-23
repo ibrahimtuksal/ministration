@@ -28,6 +28,10 @@
 </div>
 
 
+
+<script src="{{ asset('vendor/js/vendors.min.js') }}"></script>
+<script src="{{ asset('vendor/js/jquery-input-mask-phone-number.js') }}"></script>
+<script src="{{ asset('vendor/js/style.js') }}"></script>
 <script src="{{ asset('vendor/js/bootstrap.bundle.js') }}"></script>
 
 <script src="{{ asset('vendor/js/darkmode.js') }}"></script>
@@ -53,12 +57,6 @@
     }
 </script>
 
-
-<script
-        src="https://code.jquery.com/jquery-3.6.0.slim.min.js"
-        integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI="
-        crossorigin="anonymous">
-</script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 {% for flashMessage in app.session.flashbag.get('error') %}
     <script type="text/javascript">
@@ -86,6 +84,19 @@
         });
     </script>
 {% endfor %}
+
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+    <div id="successToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <strong class="me-auto">Başarılı</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+            Değişiklikler Başarıyla Kaydedildi
+        </div>
+    </div>
+</div>
+
 {% block javascripts %}
     {{ encore_entry_script_tags('app') }}
 {% endblock %}

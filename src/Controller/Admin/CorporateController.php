@@ -42,7 +42,7 @@ class CorporateController extends AbstractController
      */
     public function index()
     {
-        $corporates = $this->em->getRepository(Corporate::class)->findAll();
+        $corporates = $this->em->getRepository(Corporate::class)->findBy([],['is_index' => 'DESC']);
         return [
             'corporates' => $corporates
         ];
@@ -107,6 +107,25 @@ class CorporateController extends AbstractController
         $this->em->remove($corporate);
         $this->em->flush();
         $this->addFlash('success',"Kurumsal Silindi");
+        return $this->redirectToRoute('admin_corporate');
+    }
+
+    /**
+     * @Route("/operation/{corporate}", name="admin_corporate_operation")
+     * @param int $corporate
+     * @return RedirectResponse
+     */
+    public function operation(int $corporate)
+    {
+        $indexCorporate = $this->em->getRepository(Corporate::class)->findOneBy(['is_index' => true]);
+        if ($indexCorporate instanceof Corporate) {
+            $indexCorporate->setIsIndex(false);
+        }
+        $corporate = $this->em->getRepository(Corporate::class)->find($corporate);
+        $corporate->setIsIndex(true);
+
+        $this->em->flush();
+
         return $this->redirectToRoute('admin_corporate');
     }
 

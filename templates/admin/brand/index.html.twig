@@ -13,6 +13,7 @@
             <th scope="col">Başlık</th>
             <th scope="col">Kategori</th>
             <th scope="col">Fotoğraf</th>
+            <th scope="col">İçerik</th>
             <th scope="col">Düzenle</th>
             <th scope="col">Sil</th>
         </tr>
@@ -24,6 +25,28 @@
                 <td>{{ b.title }}</td>
                 <td>{{ b.category.title }}</td>
                 <td><img src="{{ b.photo }}" width="100" height="30" style="object-fit: cover;" alt="photo"></td>
+                <td>
+                    <button class="btn btn-dark dropdown-toggle btn-sm" type="button" id="brand{{ loop.index }}" data-bs-toggle="dropdown" aria-expanded="false">
+                        İçerik Ekle
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="{{ loop.index }}">
+                        <li><a class="dropdown-item border-bottom text-center" href="{{ path('admin_brand_content_add', {'brand':b.id}) }}">Yeni İçerik Ekle</a></li>
+                        {% for bc in b.brandContents %}
+                            <li class="text-center">
+                                <h6 class="dropdown-header">{{ bc.title }}</h6>
+                                <div class="dropdown-item">
+                                    <div class="btn-group " role="group" aria-label="First group">
+                                        <a href="{{ path('admin_brand_content_update', {'brandContent':bc.id}) }}" class="btn btn-primary btn-block"><i class="fas fa-pencil-alt"></i></a>
+                                        <a href="{{ path('admin_brand_content_delete', {'brandContent':bc.id}) }}" class="btn btn-danger btn-block"><i class="fas fa-trash"></i></a>
+                                    </div>
+                                </div>
+                            </li>
+                            {% if loop.index != loop.last %}
+                                <li><hr class="dropdown-divider"></li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                </td>
                 <td><a href="{{ path('admin_brand_update', {'brand': b.id}) }}" class="btn btn-primary btn-sm">Düzenle <i class="fas fa-pencil"></i></a></td>
                 <td><a href="{{ path('admin_brand_delete', {'brand': b.id}) }}" class="btn btn-danger btn-sm">Sil <i class="fas fa-trash"></i></a></td>
             </tr>

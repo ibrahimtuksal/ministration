@@ -14,9 +14,9 @@
 
 </head>
 <body>
-{#{{ render(controller(#}
-{#    'App\\Controller\\Admin\\IndexController:header'#}
-{#)) }}#}
+{{ render(controller(
+    'App\\Controller\\HomeController:header'
+)) }}
 {% block body %}{% endblock %}
 
 <script src="{{ asset('front-end/js/jquery-3.4.1.min.js') }}"></script>

@@ -1,0 +1,61 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Kategori{% endblock %}
+
+{% block body %}
+    <table class="table table-responsive text-center">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Şehir</th>
+            <th scope="col">Aktif/Pasif</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for c in citys %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ c.name }}</td>
+                <td>
+                    <div class="col-md-2 offset-md-5">
+                        <div class="form-check form-switch mx-auto text-center">
+                            <input class="form-check-input" data-city-id="{{ c.id }}" type="checkbox" id="flexSwitchCheckChecked"
+                                    {% if c.isActive %}
+                                    checked
+                                    {% endif %}
+                            >
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        $(document).ready(function () {
+            $('.form-check-input').each(function () {
+                $(this).on('change', function () {
+                    let cityId = $(this).data('city-id');
+                    $.ajax({
+                        url:"{{ path('ajax_admin_city_change') }}",
+                        type: "POST",
+                        dataType: "json",
+                        data: {
+                            cityId:cityId
+                        },
+                        async: true,
+                        success: function (data)
+                        {
+                            if(data === true){
+                                successToast();
+                            }
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+{% endblock %}

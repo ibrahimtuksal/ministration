@@ -27,6 +27,16 @@ class Phone
      */
     private $whatsapp;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $title;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $wpTitle;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -52,6 +62,30 @@ class Phone
     public function setWhatsapp(?string $whatsapp): self
     {
         $this->whatsapp = $whatsapp;
+
+        return $this;
+    }
+
+    public function getTitle(): ?string
+    {
+        return $this->title;
+    }
+
+    public function setTitle(?string $title): self
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    public function getWpTitle(): ?string
+    {
+        return $this->wpTitle;
+    }
+
+    public function setWpTitle(string $wpTitle): self
+    {
+        $this->wpTitle = $wpTitle;
 
         return $this;
     }
