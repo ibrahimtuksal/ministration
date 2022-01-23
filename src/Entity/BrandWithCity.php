@@ -29,6 +29,8 @@ class BrandWithCity
      */
     private $brand;
 
+    private array $activeCity;
+
     public function getId(): ?int
     {
         return $this->id;

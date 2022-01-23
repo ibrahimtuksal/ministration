@@ -11,6 +11,9 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class General
 {
+
+    CONST GLOBAL = 1;
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue

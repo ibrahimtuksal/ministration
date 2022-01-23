@@ -31,7 +31,7 @@
                            aria-haspopup="true" aria-expanded="false"> Hizmetler </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             {% for c in categorys %}
-                                <a class="dropdown-item" href="#">{{ c.title }}</a>
+                                <a class="dropdown-item" href="{{ path('category', {'categorySlug':c.slug}) }}">{{ c.title }}</a>
                             {% endfor %}
                         </div>
                     </li>

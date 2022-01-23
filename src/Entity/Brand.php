@@ -71,6 +71,19 @@ class Brand
         return $this->id;
     }
 
+    public function getActiveCity(array $city): ?array
+    {
+
+        $activeCity = [];
+        /** @var BrandWithCity $value */
+        foreach ($city as $value){
+            if ($value->getCity()->getIsActive()){
+                $activeCity[] = $value->getCity();
+            }
+        }
+        return $activeCity;
+    }
+
     public function getTitle(): ?string
     {
         return $this->title;
