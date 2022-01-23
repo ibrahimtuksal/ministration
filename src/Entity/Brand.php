@@ -50,9 +50,20 @@ class Brand
      */
     private $brandContents;
 
+    /**
+     * @ORM\OneToMany(targetEntity=BrandWithCity::class, mappedBy="brand")
+     */
+    private $brandWithCities;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $is_city;
+
     public function __construct()
     {
         $this->brandContents = new ArrayCollection();
+        $this->brandWithCities = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -146,6 +157,48 @@ class Brand
                 $brandContent->setBrand(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|BrandWithCity[]
+     */
+    public function getBrandWithCities(): Collection
+    {
+        return $this->brandWithCities;
+    }
+
+    public function addBrandWithCity(BrandWithCity $brandWithCity): self
+    {
+        if (!$this->brandWithCities->contains($brandWithCity)) {
+            $this->brandWithCities[] = $brandWithCity;
+            $brandWithCity->setBrand($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBrandWithCity(BrandWithCity $brandWithCity): self
+    {
+        if ($this->brandWithCities->removeElement($brandWithCity)) {
+            // set the owning side to null (unless already changed)
+            if ($brandWithCity->getBrand() === $this) {
+                $brandWithCity->setBrand(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getIsCity(): ?bool
+    {
+        return $this->is_city;
+    }
+
+    public function setIsCity(?bool $is_city): self
+    {
+        $this->is_city = $is_city;
 
         return $this;
     }

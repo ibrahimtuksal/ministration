@@ -1,18 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}BRS Beyaz Eşya Servisi{% endblock %}
-{% block stylesheets %}
-    <style>
-        {% for sPhoto in sliders %}
-        .carousel-item:nth-child({{ loop.index }}) {
-            background-image: url("{{ sPhoto.photo }}");
-            background-repeat: no-repeat;
-            background-size: cover;
-            background-position: center center;
-        }
-        {% endfor %}
-    </style>
-{% endblock %}
+
 {% block body %}
     <div class="container">
         <section id="features" class="text-center my-5">
@@ -33,6 +22,7 @@
                     <h2 class="title my-5 wow fadeIn" data-wow-delay="0.2s">
                         <strong>Hizmetlerimiz</strong>
                     </h2>
+                    <hr>
                 </div>
 
                 {% for c in categorys %}
@@ -40,17 +30,17 @@
                     <div class="col-lg-4 text-center mb-3">
                         <div class="icon-area">
                             <div class="avatar">
-                                <a href="#">
-                                    <img class="img-fluid" src="{{ c.photo }}" alt="qwe">
+                                <a href="{{ path('category',{'categorySlug':c.slug}) }}">
+                                    <img class="img-fluid rounded shadow-lg" src="{{ c.photo }}" alt="qwe">
                                 </a>
                             </div>
                             <br>
-                            <h5 class="dark-grey-text font-weight-bold mt-2"><a href="#" class="text-dark">{{ c.title }}</a></h5>
+                            <h5 class="dark-grey-text font-weight-bold mt-2"><a href="{{ path('category',{'categorySlug':c.slug}) }}" class="text-dark">{{ c.title }}</a></h5>
                             <div class="mt-1">
                                 <p class="mx-3 grey-text">
 
                                 </p>
-                                <a href="tel:{{ phone.phone }}" class="btn btn-success btn-sm">{{ c.title }} İçin Ara <i class="fas fa-phone"></i></a>
+                                <a href="tel:{{ phone.phone }}" class="btn btn-success btn-sm">{{ phone.title }} <i class="fas fa-phone"></i></a>
                             </div>
                         </div>
                     </div>
@@ -63,12 +53,5 @@
 
         </section>
     </div>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
+
 {% endblock %}

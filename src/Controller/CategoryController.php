@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Brand;
 use App\Entity\Category;
+use App\Entity\City;
+use App\Entity\Phone;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -20,27 +22,34 @@ class CategoryController extends AbstractController
     /**
      * @var EntityManagerInterface
      */
-    private EntityManagerInterface $entityManager;
+    private EntityManagerInterface $em;
 
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(EntityManagerInterface $em)
     {
-        $this->entityManager = $entityManager;
+        $this->em = $em;
     }
 
     /**
-     * @Route("/{category}", name="category")
+     * @Route("/{categorySlug}", name="category")
      * @Template()
+     * @param string $categorySlug
+     * @return array
      */
-    public function index(int $category)
+    public function index(string $categorySlug)
     {
         /** @var Category $category */
-        $category = $this->entityManager->getRepository(Category::class)->findOneBy(['slug' => $category]);
+        $category = $this->em->getRepository(Category::class)->findOneBy(['slug' => $categorySlug]);
 
-        /** @var Brand $brands */
-        $brands = $this->entityManager->getRepository(Brand::class)->findBy(['category' => $category]);
+        /** @var Phone $phone */
+        $phone = $this->em->getRepository(Phone::class)->find(1);
+
+        /** @var City $city */
+        $city = $this->em->getRepository(City::class)->findBy(['is_active' => true]);
 
         return [
-            'brands' => $brands
+            'category' => $category,
+            'phone' => $phone,
+            'city' => $city
         ];
     }
 }

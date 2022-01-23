@@ -45,10 +45,16 @@ class City
      */
     private $is_active;
 
+    /**
+     * @ORM\OneToMany(targetEntity=BrandWithCity::class, mappedBy="city")
+     */
+    private $brandWithCities;
+
     public function __construct()
     {
         $this->districts = new ArrayCollection();
         $this->cityWithCategories = new ArrayCollection();
+        $this->brandWithCities = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -148,6 +154,36 @@ class City
     public function setIsActive(?bool $is_active): self
     {
         $this->is_active = $is_active;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|BrandWithCity[]
+     */
+    public function getBrandWithCities(): Collection
+    {
+        return $this->brandWithCities;
+    }
+
+    public function addBrandWithCity(BrandWithCity $brandWithCity): self
+    {
+        if (!$this->brandWithCities->contains($brandWithCity)) {
+            $this->brandWithCities[] = $brandWithCity;
+            $brandWithCity->setCity($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBrandWithCity(BrandWithCity $brandWithCity): self
+    {
+        if ($this->brandWithCities->removeElement($brandWithCity)) {
+            // set the owning side to null (unless already changed)
+            if ($brandWithCity->getCity() === $this) {
+                $brandWithCity->setCity(null);
+            }
+        }
 
         return $this;
     }

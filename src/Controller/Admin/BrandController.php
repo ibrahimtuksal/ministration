@@ -3,7 +3,9 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Brand;
+use App\Entity\BrandWithCity;
 use App\Entity\Category;
+use App\Entity\City;
 use App\Form\BrandFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -85,6 +87,7 @@ class BrandController extends AbstractController
             }
             $brand->setPhoto("/uploads/".$newFilename);
             $brand->setCategory($category);
+            $brand->setIsCity(false);
             $this->em->persist($brand);
             $this->em->flush();
             $this->addFlash('success', 'Başarıyla Eklendi');
@@ -166,6 +169,31 @@ class BrandController extends AbstractController
         $this->em->remove($brand);
         $this->em->flush();
         $this->addFlash('success',"Marka Silindi");
+        return $this->redirectToRoute('admin_brand');
+    }
+
+    /**
+     * @Route("/create-city/{brand}", name="admin_brand_city_create")
+     * @param int $brand
+     * @return RedirectResponse
+     */
+    public function CityWithBrandCreate(int $brand)
+    {
+        /** @var Brand $brand */
+        $brand = $this->em->getRepository(Brand::class)->find($brand);
+
+        $city = $this->em->getRepository(City::class)->findAll();
+
+        foreach ($city as $value){
+            $brandWithCity = new BrandWithCity();
+            $brandWithCity->setBrand($brand);
+            $brandWithCity->setCity($value);
+            $this->em->persist($brandWithCity);
+        }
+        $brand->setIsCity(true);
+        $this->em->flush();
+
+        $this->addFlash('success', 'Şehirler oluşturuldu');
         return $this->redirectToRoute('admin_brand');
     }
 }

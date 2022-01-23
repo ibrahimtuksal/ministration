@@ -1,4 +1,16 @@
 <!-- Navigation & Intro -->
+{% block stylesheets %}
+    <style>
+        {% for sPhoto in sliders %}
+        .carousel-item:nth-child({{ loop.index }}) {
+            background-image: url("{{ sPhoto.photo }}");
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center center;
+        }
+        {% endfor %}
+    </style>
+{% endblock %}
 <header>
 
     <!-- Navbar -->

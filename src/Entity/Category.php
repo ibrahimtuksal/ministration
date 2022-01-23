@@ -49,6 +49,11 @@ class Category
      */
     private $is_city;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $content;
+
     public function __construct()
     {
         $this->brands = new ArrayCollection();
@@ -164,6 +169,18 @@ class Category
     public function setIsCity(bool $is_city): self
     {
         $this->is_city = $is_city;
+
+        return $this;
+    }
+
+    public function getContent(): ?string
+    {
+        return $this->content;
+    }
+
+    public function setContent(?string $content): self
+    {
+        $this->content = $content;
 
         return $this;
     }

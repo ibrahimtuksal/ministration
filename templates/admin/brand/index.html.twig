@@ -13,6 +13,7 @@
             <th scope="col">Başlık</th>
             <th scope="col">Kategori</th>
             <th scope="col">Fotoğraf</th>
+            <th scope="col">Şehir</th>
             <th scope="col">İçerik</th>
             <th scope="col">Düzenle</th>
             <th scope="col">Sil</th>
@@ -26,8 +27,19 @@
                 <td>{{ b.category.title }}</td>
                 <td><img src="{{ b.photo }}" width="100" height="30" style="object-fit: cover;" alt="photo"></td>
                 <td>
-                    <button class="btn btn-dark dropdown-toggle btn-sm" type="button" id="brand{{ loop.index }}" data-bs-toggle="dropdown" aria-expanded="false">
-                        İçerik Ekle
+                    {% if b.isCity %}
+                        <a href="#" class="btn btn-warning btn-sm disabled">
+                            Şehirleri Oluşturulmuş <i class="fas fa-check"></i>
+                        </a>
+                    {% else %}
+                        <a href="{{ path('admin_brand_city_create', {'brand':b.id}) }}" class="btn btn-primary btn-sm">
+                            Şehirleri Oluştur <i class="fas fa-window-close"></i>
+                        </a>
+                    {% endif %}
+                </td>
+                <td>
+                    <button class="btn btn-secondary dropdown-toggle btn-sm" type="button" id="brand{{ loop.index }}" data-bs-toggle="dropdown" aria-expanded="false">
+                        İçerik
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="{{ loop.index }}">
                         <li><a class="dropdown-item border-bottom text-center" href="{{ path('admin_brand_content_add', {'brand':b.id}) }}">Yeni İçerik Ekle</a></li>
