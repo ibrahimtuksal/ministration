@@ -2,6 +2,7 @@
 
 namespace App\Generator;
 
+use App\Entity\Category;
 use App\Entity\General;
 use App\Entity\Phone;
 use Doctrine\ORM\EntityManagerInterface;
@@ -29,6 +30,8 @@ class GlobalGenerator
      */
     public General $general;
 
+    public array $category;
+
     /**
      * @var EntityManagerInterface
      */
@@ -41,6 +44,7 @@ class GlobalGenerator
         $this->phone = $this->setPhone();
         $this->isSlider = $this->setIsSlider();
         $this->general = $this->setGeneral();
+        $this->category = $this->setCategory();
     }
 
     public function setGeneral(): General
@@ -69,6 +73,11 @@ class GlobalGenerator
         $phone = $this->em->getRepository(Phone::class)->find(Phone::PHONE);
 
         return $phone;
+    }
+    private function setCategory()
+    {
+     $category = $this->em->getRepository(Category::class)->findAll();
+     return $category;
     }
 
 }
