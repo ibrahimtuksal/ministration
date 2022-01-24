@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ content.brand.title }} {{ content.brand.category.title }} {{ content.title }}{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <section id="features" class="text-center my-5">
+            <h2 class="title my-5 wow fadeIn" data-wow-delay="0.2s">
+                <strong>{{ content.title }}</strong>
+            </h2>
+            <p class="grey-text w-responsive mx-auto mb-5 wow fadeIn" data-wow-delay="0.2s">
+                {{ content.content |raw }}
+            </p>
+            <a class="text-center btn btn-primary " href="tel:{{ global.phone.phone }}">{{ global.phone.title }} <i class="fas fa-phone"></i></a>
+            <a class="text-center btn btn-success" target="_blank" href="https://wa.me/{{ global.phone.whatsapp }}">{{ global.phone.wpTitle }} <i class="fab fa-whatsapp"></i></a>
+
+        </section>
+    </div>
+{% endblock %}

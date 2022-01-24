@@ -7,6 +7,21 @@
     <link rel="stylesheet" href="{{ asset('front-end/css/mdb.min.css') }}">
     <link rel="stylesheet" href="{{ asset('front-end/css/style.css') }}">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+    <meta name="twitter:card" content="{{ global.name }}" />
+    <meta name='robots' content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' />
+    <meta property="og:locale" content="tr_TR" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="{{ global.name }} Türkiye&#039;nin {{ global.general.serviceName }} 7/24 Hizmet Ustanı Hemen Bul" />
+    <meta property="og:description" content="{{ global.name }} Türkiye&#039;nin {{ global.general.serviceName }} 7/24 Hizmet  {{ global.name }} {{ global.general.serviceName }}" />
+    <meta property="og:url" content="{{ global.general.siteUrl }}" />
+    <meta property="og:site_name" content="{{ global.name }}" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf8">
+    <meta name="language" content="Turkish">
+    <meta property="og:locale" content="tr_TR" />
+    <meta name="publisher" content="VS 2022" />
+    <meta name="revisit-after" content="1 days">
+    <meta name="author" content="{{ global.name }}">
+    <meta name="description" content="{{ global.name }} 7/24 Hizmet {{ global.general.serviceName }}">
     {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
     {% block stylesheets %}
         {{ encore_entry_link_tags('app') }}
@@ -17,22 +32,12 @@
 {{ render(controller(
     'App\\Controller\\HomeController:header'
 )) }}
+<main>
 {% block body %}{% endblock %}
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>    <br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
+</main>
+
+{% include 'home/footer.html.twig' %}
+
 <script src="{{ asset('front-end/js/jquery-3.4.1.min.js') }}"></script>
 <script src="{{ asset('front-end/js/popper.min.js') }}"></script>
 <script src="{{ asset('front-end/js/bootstrap.min.js') }}"></script>

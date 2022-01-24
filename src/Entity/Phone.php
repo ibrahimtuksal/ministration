@@ -10,6 +10,9 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Phone
 {
+
+    CONST PHONE = 1;
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue

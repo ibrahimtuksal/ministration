@@ -5,6 +5,9 @@ namespace App\Controller;
 use App\Entity\Brand;
 use App\Entity\Category;
 use App\Entity\City;
+use App\Entity\CityWithCategory;
+use App\Entity\District;
+use App\Entity\Neighborhood;
 use App\Entity\Phone;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -40,16 +43,83 @@ class CategoryController extends AbstractController
         /** @var Category $category */
         $category = $this->em->getRepository(Category::class)->findOneBy(['slug' => $categorySlug]);
 
-        /** @var Phone $phone */
-        $phone = $this->em->getRepository(Phone::class)->find(1);
-
         /** @var City $city */
         $city = $this->em->getRepository(City::class)->findBy(['is_active' => true]);
 
         return [
             'category' => $category,
-            'phone' => $phone,
             'city' => $city
+        ];
+    }
+
+    /**
+     * @Route("/sehir/{citySlug}/{categorySlug}", name="category_city")
+     * @Template()
+     * @param string $citySlug
+     * @param string $categorySlug
+     * @return array
+     */
+    public function city(string $citySlug, string $categorySlug)
+    {
+        /** @var Category $category */
+        $category = $this->em->getRepository(Category::class)->findOneBy(['slug' => $categorySlug]);
+
+        /** @var City $city */
+        $city = $this->em->getRepository(City::class)->findBy(['slug' => $citySlug]);
+
+        $cityWithCategory = $this->em->getRepository(CityWithCategory::class)->findOneBy(['city' => $city, 'Category' => $category]);
+        return [
+            'cityWithCategory' => $cityWithCategory
+        ];
+    }
+
+    /**
+     * @Route("/ilce/{districtSlug}/{categorySlug}", name="category_district")
+     * @Template()
+     * @param string $districtSlug
+     * @param string $categorySlug
+     * @return array
+     */
+    public function district(string $districtSlug, string $categorySlug)
+    {
+        /** @var Category $category */
+        $category = $this->em->getRepository(Category::class)->findOneBy(['slug' => $categorySlug]);
+
+        /** @var District $district */
+        $district = $this->em->getRepository(District::class)->findOneBy(['slug' => $districtSlug]);
+
+        $cityWithCategory = $this->em->getRepository(CityWithCategory::class)->findOneBy(['city' => $district->getCity(), 'Category' => $category]);
+        return [
+            'cityWithCategory' => $cityWithCategory,
+            'district' => $district
+        ];
+    }
+
+    /**
+     * @Route("/mahalle/{neighborhoodSlug}/{categorySlug}", name="category_neighborhood")
+     * @Template()
+     * @param string $neighborhoodSlug
+     * @param string $categorySlug
+     * @return array
+     */
+    public function neighborhood(string $neighborhoodSlug, string $categorySlug)
+    {
+        /** @var Category $category */
+        $category = $this->em->getRepository(Category::class)->findOneBy(['slug' => $categorySlug]);
+
+        /** @var Neighborhood $neighborhood */
+        $neighborhood = $this->em->getRepository(Neighborhood::class)->findOneBy(['slug' => $neighborhoodSlug]);
+
+        $cityWithCategory = $this->em->getRepository(CityWithCategory::class)->findOneBy(
+            [
+                'city' => $neighborhood->getDistrict()->getCity(),
+                'Category' => $category
+            ]);
+
+        return [
+            'cityWithCategory' => $cityWithCategory,
+            'neighborhood' => $neighborhood,
+            'district' => $neighborhood->getDistrict()
         ];
     }
 }

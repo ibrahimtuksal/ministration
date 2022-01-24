@@ -51,6 +51,21 @@ class General
      */
     private $categoryName;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $is_slider;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $siteUrl;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $serviceName;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -124,6 +139,42 @@ class General
     public function setCategoryName(string $categoryName): self
     {
         $this->categoryName = $categoryName;
+
+        return $this;
+    }
+
+    public function getIsSlider(): ?bool
+    {
+        return $this->is_slider;
+    }
+
+    public function setIsSlider(?bool $is_slider): self
+    {
+        $this->is_slider = $is_slider;
+
+        return $this;
+    }
+
+    public function getSiteUrl(): ?string
+    {
+        return $this->siteUrl;
+    }
+
+    public function setSiteUrl(?string $siteUrl): self
+    {
+        $this->siteUrl = $siteUrl;
+
+        return $this;
+    }
+
+    public function getServiceName(): ?string
+    {
+        return $this->serviceName;
+    }
+
+    public function setServiceName(?string $serviceName): self
+    {
+        $this->serviceName = $serviceName;
 
         return $this;
     }

@@ -1,12 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}BRS Beyaz Eşya Servisi{% endblock %}
+{% block title %}{{ district.name | capitalize }} {{ cityWithCategory.category.title }}{% endblock %}
 
 {% block body %}
     <div class="container">
         <section id="features" class="text-center my-5">
+            <h2 class="title my-5 wow fadeIn" data-wow-delay="0.2s">
+                <strong>{{ district.name | capitalize }} {{ cityWithCategory.category.title }}</strong>
+            </h2>
             <p class="grey-text w-responsive mx-auto mb-5 wow fadeIn" data-wow-delay="0.2s">
-                {{ category.content |raw }}
+                {{ cityWithCategory.category.content |raw }}
             </p>
             <a class="text-center btn btn-primary " href="tel:{{ global.phone.phone }}">{{ global.phone.title }} <i class="fas fa-phone"></i></a>
             <a class="text-center btn btn-success" target="_blank" href="https://wa.me/{{ global.phone.whatsapp }}">{{ global.phone.wpTitle }} <i class="fab fa-whatsapp"></i></a>
@@ -22,25 +25,25 @@
 
                 <!-- Section heading -->
                 <h3 class="text-center title my-5 pt-4 pb-5 dark-grey-text font-weight-bold wow fadeIn" data-wow-delay="0.2s">
-                    <strong>{{ category.title }} Markaları</strong>
+                    <strong>{{ district.name | capitalize }} {{ cityWithCategory.category.title }} Markaları</strong>
                 </h3>
 
                 <!-- First row -->
                 <div class="row wow fadeIn" data-wow-delay="0.4s">
 
-                    {% for brand in category.brands %}
+                    {% for brand in cityWithCategory.category.brands %}
                         <div class="col-md-4 mb-5 text-center">
 
                             <!-- Panel -->
                             <div class="card card-body white hoverable">
-                                <a href="{{ path('brand',{'brandSlug':brand.slug, 'categorySlug': category.slug}) }}">
+                                <a href="{{ path('brand',{'brandSlug':brand.slug, 'categorySlug': cityWithCategory.category.slug}) }}">
                                     <img src="{{ brand.photo }}" class="img-fluid" alt="{{ brand.title }}">
                                 </a>
                                 <p class="title font-weight-bold dark-grey-text text-center text-uppercase spacing mt-4 mx-4">
                                     <strong>{{ brand.title }}</strong>
                                 </p>
                                 <p class="grey-text font-small text-center mx-4">
-                                    <a href="{{ path('brand',{'brandSlug':brand.slug, 'categorySlug': category.slug}) }}" class="btn btn-success btn-rounded">{{ brand.title }} {{ category.title}} <i class="fas fa-arrow-right"></i></a>
+                                    <a href="{{ path('brand',{'brandSlug':brand.slug, 'categorySlug': cityWithCategory.category.slug}) }}" class="btn btn-success btn-rounded">{{ brand.title }} {{ cityWithCategory.category.title}} <i class="fas fa-arrow-right"></i></a>
                                     <br>
                                     <a href="tel:{{ global.phone.phone }}" class="btn btn-outline-success btn-sm">{{ global.phone.title }}</a>
                                     <br>
@@ -69,22 +72,27 @@
         <!-- Section: Team v.1 -->
         <section class="team-section text-center my-5" id="team">
             <h3 class="text-center title my-5 dark-grey-text font-weight-bold wow fadeIn" data-wow-delay="0.2s">
-                <strong>Hizmet Verdiğimiz Şehirler</strong>
+                <strong>Hizmet Verdiğimiz Mahalleler</strong>
             </h3>
             <hr>
             <div class="row justify-content-md-center">
-
-                {% for c in city %}
+                {% for n in district.neighborhoods %}
                     <div class="col-lg-4 col-md-12 mb-5">
                         <div class="card testimonial-card">
-                            <div class="card-up success-color-dark"></div>
+                            <div class="card-up success-color text-center align-items-center">
+                                <p class="text-white fs-2">
+                                    <strong>
+                                        {{ cityWithCategory.category.title }} {{ n.name }}
+                                    </strong>
+                                </p>
+                            </div>
                             <div class="card-body">
                                 <h4 class="mt-1">
-                                    <strong>{{ c.name }}</strong>
+                                    <strong>{{ n.name }}</strong>
                                 </h4>
                                 <hr>
                                 <p class="dark-grey-text">
-                                    <a href="{{ path('category_city',{'citySlug':c.slug,'categorySlug':category.slug}) }}" class="btn btn-success btn-rounded">{{ category.title }} {{ c.name }}<i class="fas fa-arrow-right"></i></a>
+                                    <a href="{{ path('category_neighborhood', {'neighborhoodSlug':n.slug,'categorySlug':cityWithCategory.category.slug}) }}" class="btn btn-outline-success btn-rounded">{{ cityWithCategory.category.title }} {{ n.name }}<i class="fas fa-arrow-right"></i></a>
                                 </p>
                             </div>
                         </div>
@@ -94,8 +102,6 @@
             </div>
 
         </section>
-
-
     </div>
 
 

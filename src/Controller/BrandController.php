@@ -3,10 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\Brand;
+use App\Entity\BrandContent;
 use App\Entity\BrandWithCity;
 use App\Entity\Category;
 use App\Entity\City;
 use App\Entity\District;
+use App\Entity\Neighborhood;
 use App\Entity\Phone;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -114,9 +116,71 @@ class BrandController extends AbstractController
         /** @var Brand $brand */
         $brand = $this->em->getRepository(Brand::class)->findOneBy(['slug' => $brandSlug]);
 
-        /** @var City $city */
+        /** @var District $district */
         $district = $this->em->getRepository(District::class)->findOneBy(['slug' => $districtSlug]);
 
-        return [];
+        /** @var BrandWithCity $brandWithCity */
+        $brandWithCity = $this->em->getRepository(BrandWithCity::class)->findOneBy(['city' => $district->getCity(), 'brand' => $brand]);
+
+        return [
+            'brand' => $brand,
+            'category' => $category,
+            'brandWithCity' => $brandWithCity,
+            'district' => $district
+        ];
+    }
+
+
+    /**
+     * @Route("/mahalle/{neighborhoodSlug}/{brandSlug}/{categorySlug}", name="brand_neighborhood")
+     * @Template()
+     * @param string $neighborhoodSlug
+     * @param string $brandSlug
+     * @param string $categorySlug
+     * @return array
+     */
+    public function neighborhood(string $neighborhoodSlug, string $brandSlug, string $categorySlug)
+    {
+        /** @var Category $category */
+        $category = $this->em->getRepository(Category::class)->findOneBy(['slug' => $categorySlug]);
+
+        /** @var Brand $brand */
+        $brand = $this->em->getRepository(Brand::class)->findOneBy(['slug' => $brandSlug]);
+
+        /** @var Neighborhood $neighborhood */
+        $neighborhood = $this->em->getRepository(Neighborhood::class)->findOneBy(['slug' => $neighborhoodSlug]);
+
+        /** @var BrandWithCity $brandWithCity */
+        $brandWithCity = $this->em->getRepository(BrandWithCity::class)->findOneBy(['city' => $neighborhood->getDistrict()->getCity(), 'brand' => $brand]);
+
+        return [
+            'brand' => $brand,
+            'category' => $category,
+            'brandWithCity' => $brandWithCity,
+            'neighborhood' => $neighborhood
+        ];
+    }
+
+    /**
+     * @Route("/icerik/{brandSlug}/{categorySlug}/{brandContentSlug}", name="brand_content")
+     * @Template()
+     * @param string $brandSlug
+     * @param string $categorySlug
+     * @param string $brandContentSlug
+     * @return array
+     */
+    public function content(string $brandSlug, string $categorySlug, string $brandContentSlug)
+    {
+
+        /** @var Category $category */
+        $category = $this->em->getRepository(Category::class)->findOneBy(['slug' => $categorySlug]);
+        /** @var Brand $brand */
+        $brand = $this->em->getRepository(Brand::class)->findOneBy(['slug' => $brandSlug]);
+        /** @var BrandContent $content */
+        $content = $this->em->getRepository(BrandContent::class)->findOneBy(['brand' => $brand, 'slug' => $brandContentSlug]);
+
+        return [
+            'content' => $content
+        ];
     }
 }
