@@ -77,7 +77,7 @@ class BlogController extends AbstractController
                     $this->addFlash('error', 'Hata');
                     throw new UnprocessableEntityHttpException('Dosya Yüklenemedi');
                 }
-                $blog->setPhoto("/uploads/".$newFilename);
+                $blog->setPhoto("/public/uploads/".$newFilename);
             }
 
             $this->em->persist($blog);
@@ -122,7 +122,7 @@ class BlogController extends AbstractController
                     $this->addFlash('error', 'Hata');
                     throw new UnprocessableEntityHttpException('Dosya Yüklenemedi');
                 }
-                $blog->setPhoto("/uploads/".$newFilename);
+                $blog->setPhoto("/public/uploads/".$newFilename);
             }
 
             $this->em->flush();

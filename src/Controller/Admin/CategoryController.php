@@ -81,7 +81,7 @@ class CategoryController extends AbstractController
                     $this->addFlash('error', 'Hata');
                     throw new UnprocessableEntityHttpException('Dosya Yüklenemedi');
                 }
-                $category->setPhoto("/uploads/".$newFilename);
+                $category->setPhoto("/public/uploads/".$newFilename);
             }
 
             $category->setIsCity(false);
@@ -123,7 +123,7 @@ class CategoryController extends AbstractController
                     $this->addFlash('error', 'Hata');
                     throw new UnprocessableEntityHttpException('Dosya Yüklenemedi');
                 }
-                $category->setPhoto("/uploads/".$newFilename);
+                $category->setPhoto("/public/uploads/".$newFilename);
             }
 
             $category->setSlug($this->slugger->slug($form->get('title')->getData()));

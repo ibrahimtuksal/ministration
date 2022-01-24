@@ -85,7 +85,7 @@ class BrandController extends AbstractController
                 $this->addFlash('error', 'Hata');
                 throw new UnprocessableEntityHttpException('Dosya Yüklenemedi');
             }
-            $brand->setPhoto("/uploads/".$newFilename);
+            $brand->setPhoto("/public/uploads/".$newFilename);
             $brand->setCategory($category);
             $brand->setIsCity(false);
             $this->em->persist($brand);
@@ -141,7 +141,7 @@ class BrandController extends AbstractController
                     $this->addFlash('error', 'Hata');
                     throw new UnprocessableEntityHttpException('Dosya Yüklenemedi');
                 }
-                $brand->setPhoto("/uploads/".$newFilename);
+                $brand->setPhoto("/public/uploads/".$newFilename);
             }
 
             $brand->setCategory($category);

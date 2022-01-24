@@ -79,7 +79,7 @@ class SliderController extends AbstractController
                     $this->addFlash('error', 'Hata');
                     throw new UnprocessableEntityHttpException('Dosya Yüklenemedi');
                 }
-                $slider->setPhoto("/uploads/".$newFilename);
+                $slider->setPhoto("/public/uploads/".$newFilename);
             }
 
             $this->em->persist($slider);
@@ -121,7 +121,7 @@ class SliderController extends AbstractController
                     $this->addFlash('error', 'Hata');
                     throw new UnprocessableEntityHttpException('Dosya Yüklenemedi');
                 }
-                $slider->setPhoto("/uploads/".$newFilename);
+                $slider->setPhoto("/public/uploads/".$newFilename);
             }
 
             $this->em->persist($slider);
