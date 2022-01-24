@@ -19,12 +19,12 @@ class CommentController extends AbstractController
     }
 
     /**
-     * @Route("/comment", name="comment")
+     * @Route("/yorumlar", name="comment")
      */
     public function index(): Response
     {
         /** @var UserComment $comment */
-        $comment = $this->entityManager->getRepository(UserComment::class)->findBy([], ['id' => 'DESC']);
+        $comment = $this->entityManager->getRepository(UserComment::class)->findBy(['is_active' => true], ['id' => 'DESC']);
         return $this->render('comment/index.html.twig', [
             'comment' => $comment,
         ]);
