@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}BRS Beyaz Eşya Servisi{% endblock %}
+
+{% block body %}
+    <div class="container pt-5">
+        <div class="row justify-content-md-center">
+            <div class="col-md-10">
+                <p class="display-4 text-center">Yorumlar <i class="fas fa-comments "></i></p>
+                <hr>
+            </div>
+        </div>
+        {% for cm in comment %}
+            <div class="row justify-content-md-center">
+                <div class="col-md-10">
+                    <p class="h5 pb-1"><b class="fs-5">İsim:</b> {{ cm.name }}</p>
+                    <p class="h5 pb-1"><b class="fs-5">Tarih:</b> {{ cm.createdAt | date('d:m:Y H:i:s') }}</p>
+                    <p class="h5 pb-1"><b class="fs-5">Yorumu:</b> {{ cm.comment }}</p>
+                    {% if loop.index != loop.last %}
+                        <hr>
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

@@ -6,6 +6,7 @@ use App\Entity\Category;
 use App\Entity\Corporate;
 use App\Entity\Phone;
 use App\Entity\Slider;
+use App\Entity\UserComment;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
