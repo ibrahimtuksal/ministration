@@ -73,9 +73,6 @@
                                 <br>
                                 <h5 class="dark-grey-text font-weight-bold mt-2"><a href="{{ path('blog',{'blogSlug':blog.slug}) }}" class="text-dark">{{ blog.title }}</a></h5>
                                 <div class="mt-1">
-                                    <p class="mx-3 grey-text">
-                                        {{ blog.content | slice(0,25)| raw }}
-                                    </p>
                                     <br>
                                     <a class="text-center btn btn-warning " href="{{ path('blog',{'blogSlug':blog.slug}) }}">Devamını oku <i class="fas fa-arrow-right"></i></a>
                                     <a class="text-center btn btn-sm btn-primary " href="tel:{{ global.phone.phone }}">{{ global.phone.title }} <i class="fas fa-phone"></i></a>
