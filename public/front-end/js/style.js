@@ -1,0 +1,5 @@
+(function ($) {
+
+// buraya yazılacak
+
+}(jQuery));
