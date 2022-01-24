@@ -3,9 +3,34 @@
 {% block title %}Kategori{% endblock %}
 
 {% block body %}
-    <div class="row">
-        <div class="col-md-2 d-grid gap-2 offset-md-10"><a href="{{ path('admin_brand_add') }}" class="btn btn-warning">Ekle <i class="fas fa-plus"></i></a></div>
+    <div class="row mb-4">
+        <div class="col-md-10">
+            <form action="{{ path('admin_brand_transfer') }}" method="post">
+                <div class="row">
+                    <div class="col-md-4">
+                        <select name="one" class="form-select" id="one">
+                            {% for c in categorys %}
+                                <option value="{{ c.id }}">{{ c.title }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-1 text-center"><i class="fas fa-arrow-right fs-2"></i></div>
+                    <div class="col-md-4">
+                        <select name="two" class="form-select" id="two">
+                            {% for c in categorys %}
+                                <option value="{{ c.id }}">{{ c.title }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-3 align-items-center align-self-center">
+                        <button type="submit" class="btn btn-success">Markaları Aktar <i class="fas fa-check"></i></button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-2 d-grid gap-2"><a href="{{ path('admin_brand_add') }}" class="btn btn-warning">Ekle <i class="fas fa-plus"></i></a></div>
     </div>
+
     <table class="table table-hover table-responsive text-center">
         <thead>
         <tr>

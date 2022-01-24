@@ -48,8 +48,10 @@ class BrandController extends AbstractController
     {
         $brands = $this->em->getRepository(Brand::class)->findAll();
 
+        $categorys = $this->em->getRepository(Category::class)->findAll();
         return [
-            'brands' => $brands
+            'brands' => $brands,
+            'categorys' => $categorys
         ];
     }
 
@@ -196,4 +198,31 @@ class BrandController extends AbstractController
         $this->addFlash('success', 'Şehirler oluşturuldu');
         return $this->redirectToRoute('admin_brand');
     }
+
+    /**
+     * @Route("/transfer", name="admin_brand_transfer", methods={"POST"})
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function transfer(Request $request)
+    {
+        $quoted = $this->em->getRepository(Category::class)->find($request->request->get('one'));
+        $transmitted = $this->em->getRepository(Category::class)->find($request->request->get('two'));
+
+        $brands = $this->em->getRepository(Brand::class)->findBy(['category' => $quoted]);
+        /** @var Brand $brand */
+        foreach ($brands as $brand){
+            $transferBrand = new Brand();
+            $transferBrand->setIsCity(false);
+            $transferBrand->setCategory($transmitted);
+            $transferBrand->setTitle($brand->getTitle());
+            $transferBrand->setSlug($brand->getSlug());
+            $transferBrand->setPhoto($brand->getPhoto());
+            $this->em->persist($transferBrand);
+        }
+        $this->em->flush();
+        $this->addFlash('success', 'Transfer İşlemi Tamamlandı');
+        return $this->redirectToRoute('admin_brand');
+    }
+
 }
