@@ -75,9 +75,9 @@
                         <a class="nav-link dropdown-toggle title" id="navbarDropdownMenuLink" data-toggle="dropdown"
                            aria-haspopup="true" aria-expanded="false"> Kurumsal </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-
-                                <a class="dropdown-item" href="">qwe</a>
-
+                            {% for corporate in corporates %}
+                                <a class="dropdown-item" href="{{ path('corporate', {'corporateSlug':corporate.slug}) }}">{{ corporate.title }}</a>
+                            {% endfor %}
                         </div>
                     </li>
                     <li class="nav-item ml-4">

@@ -60,10 +60,13 @@ class HomeController extends AbstractController
         /** @var Category $category */
         $category = $this->em->getRepository(Category::class)->findAll();
 
+        $corporates = $this->em->getRepository(Corporate::class)->findAll();
+
         return $this->render('home/header.html.twig', [
             'sliders' => $sliders,
             'phone' => $phone,
-            'categorys' => $category
+            'categorys' => $category,
+            'corporates' => $corporates
         ]);
     }
 }
