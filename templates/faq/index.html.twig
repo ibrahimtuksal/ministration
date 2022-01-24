@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Sıkça Sorulan Sorular{% endblock %}
+
+{% block body %}
+
+<div class="container">
+
+    <!-- Section: FAQ 1 -->
+    <section class="mt-3 mb-5 pt-1 pb-5">
+
+        <!-- Section heading -->
+        <h3 class="text-center title my-5 pt-4 pb-5 dark-grey-text font-weight-bold wow fadeIn" data-wow-delay="0.2s">
+            <strong>Sıkça Sorulan Sorular</strong>
+        </h3>
+
+        <div class="row wow fadeIn justify-content-md-center" data-wow-delay="0.4s">
+            {% for faq in faqs %}
+                <div class="col-md-4 mb-5 text-center">
+                    <div class="text-left">
+                        <p class="title font-weight-bold dark-grey-text text-uppercase spacing mt-4 mx-4">
+                            <i class="fas fa-square orange-text mr-2" aria-hidden="true"></i>
+                            <strong>{{ faq.question }}</strong>
+                        </p>
+                        <p class="grey-text font-small mx-4">
+                            {{ faq.answer }}
+                        </p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <!-- Grid row -->
+
+    </section>
+    <!-- Section: FAQ 1 -->
+</div>
+
+{% endblock %}
