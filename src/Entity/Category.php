@@ -35,7 +35,7 @@ class Category
     private $photo;
 
     /**
-     * @ORM\OneToMany(targetEntity=Brand::class, mappedBy="category")
+     * @ORM\OneToMany(targetEntity=Brand::class, mappedBy="category", cascade={"remove"})
      */
     private $brands;
 

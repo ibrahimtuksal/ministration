@@ -46,12 +46,12 @@ class Brand
     private $category;
 
     /**
-     * @ORM\OneToMany(targetEntity=BrandContent::class, mappedBy="brand")
+     * @ORM\OneToMany(targetEntity=BrandContent::class, mappedBy="brand", cascade={"remove"})
      */
     private $brandContents;
 
     /**
-     * @ORM\OneToMany(targetEntity=BrandWithCity::class, mappedBy="brand")
+     * @ORM\OneToMany(targetEntity=BrandWithCity::class, mappedBy="brand", cascade={"remove"})
      */
     private $brandWithCities;
 
