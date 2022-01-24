@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Blog;
 use App\Entity\Category;
 use App\Entity\Corporate;
 use App\Entity\Phone;
@@ -40,11 +41,14 @@ class HomeController extends AbstractController
         $phone = $this->em->getRepository(Phone::class)->find(1);
         /** @var Category $category */
         $category = $this->em->getRepository(Category::class)->findAll();
+        $blogs = $this->em->getRepository(Blog::class)->findAll();
+
         return [
             'sliders' => $sliders,
             'phone' => $phone,
             'corporateIndex' => $corporateIndex,
-            'categorys' => $category
+            'categorys' => $category,
+            'blogs' => $blogs
         ];
     }
 
@@ -62,12 +66,14 @@ class HomeController extends AbstractController
         $category = $this->em->getRepository(Category::class)->findAll();
 
         $corporates = $this->em->getRepository(Corporate::class)->findAll();
+        $blogs = $this->em->getRepository(Blog::class)->findAll();
 
         return $this->render('home/header.html.twig', [
             'sliders' => $sliders,
             'phone' => $phone,
             'categorys' => $category,
-            'corporates' => $corporates
+            'corporates' => $corporates,
+            'blogs' => $blogs
         ]);
     }
 }
