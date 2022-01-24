@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\CityWithCategory;
+use App\Entity\UserComment;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -40,8 +41,9 @@ class IndexController extends AbstractController
 
     public function header(): Response
     {
+        $commentCount = $this->em->getRepository(UserComment::class)->findBy(['is_active' => false]);
         return $this->render('admin/includes/header.html.twig', [
-
+            'commentCount' => count($commentCount),
         ]);
     }
 }

@@ -1,5 +1,7 @@
 (function ($) {
 
-// buraya yazılacak
+    //localStorage.setItem('secret_agree', '1');
+
+
 
 }(jQuery));

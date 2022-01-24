@@ -1,0 +1,30 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Yorumlar {{ comment.name}} {% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <div class="row justify-content-md-center">
+            <div class="col-md-12">
+                <p class="text-center h3">
+                    İsim: {{ comment.name }}
+                </p>
+                <p class="text-center h3">
+                    Telefon No: {{ comment.phone }}
+                </p>
+                <p class="text-center h5">
+                    Yorum: {{ comment.comment }}
+                </p>
+
+                <div class="d-grid gap-2">
+                    <a href="{{ path('admin_comment_confirm', {'comment':comment.id}) }}" class="btn btn-sm btn-success">
+                        Onayla
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+

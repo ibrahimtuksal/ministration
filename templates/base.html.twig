@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="{{ asset('front-end/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('front-end/css/mdb.min.css') }}">
     <link rel="stylesheet" href="{{ asset('front-end/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('front-end/css/notiflix.css') }}">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
     <meta name="twitter:card" content="{{ global.name }}" />
     <meta name='robots' content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' />
@@ -42,8 +43,51 @@
 <script src="{{ asset('front-end/js/jquery-3.4.1.min.js') }}"></script>
 <script src="{{ asset('front-end/js/popper.min.js') }}"></script>
 <script src="{{ asset('front-end/js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('front-end/js/notiflix.js') }}"></script>
+{% for flashMessage in app.session.flashbag.get('error') %}
+    <script type="text/javascript">
+        $(document).ready(function() {
+            Notiflix.Report.failure(
+                'Hata',
+                '{{ flashMessage }}',
+                'Tamam',
+            );
+        });
+    </script>
+{% endfor %}
+{% for flashMessage in app.session.flashbag.get('success') %}
+    <script type="text/javascript">
+        $(document).ready(function() {
+            Notiflix.Report.success(
+                'Başarılı',
+                '{{ flashMessage }}',
+                'Tamam',
+            );
+        });
+    </script>
+{% endfor %}
+<script src="{{ asset('front-end/js/style.js') }}"></script>
 <script src="{{ asset('front-end/js/mdb.min.js') }}"></script>
-
+<script>
+    $(document).ready(function () {
+        $('a[data-name="comment_send"]').on('click', function () {
+            let item = {
+                name:$('input[name="name"]'),
+                phone:$('input[name="phone"]'),
+                comment:$('textarea[name="comment"]'),
+                ajaxUrl:$(this).data('ajax-url')
+            };
+            if (item.phone.val() < 1 || item.comment.val() < 1 || item.name.val() < 1){
+                Notiflix.Report.failure(
+                    'Hata',
+                    'Lütfen tüm alanları doldurunuz',
+                    'Tamam',
+                );
+                return false;
+            }
+        });
+    });
+</script>
 {% block javascripts %}
 
 {% endblock %}

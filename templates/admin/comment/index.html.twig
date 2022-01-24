@@ -1,0 +1,37 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Yorumlar {{ comments | length }} {% endblock %}
+
+{% block body %}
+    <table class="table table-hover table-responsive text-center">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">İsim</th>
+            <th scope="col">Numara</th>
+            <th scope="col">Yorumu Gör</th>
+            <th scope="col">Onayla</th>
+            <th scope="col">Sil</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for c in comments %}
+            <tr>
+                <th scope="row">{{ loop.index }}</th>
+                <td>{{ c.name }}</td>
+                <td>{{ c.phone }}</td>
+                <td><a href="{{ path('admin_comment_see',{'comment':c.id}) }}" class="btn btn-sm btn-warning">Yorumu gör</a></td>
+                {% if c.isActive %}
+                    <td><a href="#" class="btn btn-sm btn-success disabled">Onaylandı</a></td>
+                {% else %}
+                    <td><a href="{{ path('admin_comment_confirm', {'comment':c.id}) }}" class="btn btn-sm btn-primary">Onayla</a></td>
+                {% endif %}
+                <td>
+                    <a href="{{ path('admin_comment_delete', {'comment':c.id}) }}" class="btn btn-sm btn-danger">Sil <i class="fas fa-trash"></i></a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+
