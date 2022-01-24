@@ -33,7 +33,7 @@ class BrandController extends AbstractController
     }
 
     /**
-     * @Route("/{brandSlug}/{categorySlug}", name="brand")
+     * @Route("/marka/{brandSlug}/{categorySlug}", name="brand")
      * @Template()
      * @param string $categorySlug
      * @param string $brandSlug

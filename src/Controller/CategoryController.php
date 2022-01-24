@@ -33,7 +33,7 @@ class CategoryController extends AbstractController
     }
 
     /**
-     * @Route("/{categorySlug}", name="category")
+     * @Route("/hizmet/{categorySlug}", name="category")
      * @Template()
      * @param string $categorySlug
      * @return array
