@@ -51,14 +51,14 @@
 
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light fixed-top scrolling-navbar white">
-        <div class="container">
+        <div class="container-fluid">
             <a class="navbar-brand font-weight-bold title" href="{{ path('home') }}">BRS Beyaz Eşya Servisi</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02"
                     aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-                <ul class="list-unstyled navbar-nav mr-auto">
+                <ul class="list-unstyled navbar-nav mx-auto">
                     <li class="nav-item ml-4">
                         <a class="nav-link title" href="{{ path('home') }}" data-offset="90">Ana sayfa</a>
                     </li>
@@ -70,6 +70,24 @@
                                 <a class="dropdown-item" href="{{ path('category', {'categorySlug':c.slug}) }}">{{ c.title }}</a>
                             {% endfor %}
                         </div>
+                    </li>
+                    <li class="nav-item dropdown ml-4 mb-0">
+                        <a class="nav-link dropdown-toggle title" id="navbarDropdownMenuLink" data-toggle="dropdown"
+                           aria-haspopup="true" aria-expanded="false"> Kurumsal </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+
+                                <a class="dropdown-item" href="">qwe</a>
+
+                        </div>
+                    </li>
+                    <li class="nav-item ml-4">
+                        <a class="nav-link title" href="{{ path('home') }}" data-offset="90">Blog</a>
+                    </li>
+                    <li class="nav-item ml-4">
+                        <a class="nav-link title" href="{{ path('home') }}" data-offset="90">S.S.S</a>
+                    </li>
+                    <li class="nav-item ml-4">
+                        <a class="nav-link title" href="{{ path('home') }}" data-offset="90">Yorumlar</a>
                     </li>
                 </ul>
                 <!-- Social Icon  -->
