@@ -13,57 +13,60 @@
         </section>
 
     </div>
-    <!-- Second container -->
-    <div class="container-fluid" style="background-color: #f4f4fa">
-        <div class="container py-4">
 
-            <!-- Section: Services -->
-            <section class="my-3 pb-3">
+    {% if category.brands |length > 0 %}
+        <!-- Second container -->
+        <div class="container-fluid" style="background-color: #f4f4fa">
+            <div class="container py-4">
 
-                <!-- Section heading -->
-                <h3 class="text-center title my-5 pt-4 pb-5 dark-grey-text font-weight-bold wow fadeIn" data-wow-delay="0.2s">
-                    <strong>{{ category.title }} Markaları</strong>
-                </h3>
+                <!-- Section: Services -->
+                <section class="my-3 pb-3">
 
-                <!-- First row -->
-                <div class="row wow fadeIn" data-wow-delay="0.4s">
+                    <!-- Section heading -->
+                    <h3 class="text-center title my-5 pt-4 pb-5 dark-grey-text font-weight-bold wow fadeIn" data-wow-delay="0.2s">
+                        <strong>{{ category.title }} Markaları</strong>
+                    </h3>
 
-                    {% for brand in category.brands %}
-                        <div class="col-md-4 mb-5 text-center">
+                    <!-- First row -->
+                    <div class="row wow fadeIn" data-wow-delay="0.4s">
 
-                            <!-- Panel -->
-                            <div class="card card-body white hoverable">
-                                <a href="{{ path('brand',{'brandSlug':brand.slug, 'categorySlug': category.slug}) }}">
-                                    <img src="{{ brand.photo }}" class="img-fluid" alt="{{ brand.title }}">
-                                </a>
-                                <p class="title font-weight-bold dark-grey-text text-center text-uppercase spacing mt-4 mx-4">
-                                    <strong>{{ brand.title }}</strong>
-                                </p>
-                                <p class="grey-text font-small text-center mx-4">
-                                    <a href="{{ path('brand',{'brandSlug':brand.slug, 'categorySlug': category.slug}) }}" class="btn btn-success btn-rounded">{{ brand.title }} {{ category.title}} <i class="fas fa-arrow-right"></i></a>
-                                    <br>
-                                    <a href="tel:{{ global.phone.phone }}" class="btn btn-success btn-sm">{{ global.phone.title }}</a>
-                                    <a class="text-center btn btn-sm btn-success" target="_blank" href="https://wa.me/{{ global.phone.whatsapp }}">{{ global.phone.wpTitle }} <i class="fab fa-whatsapp"></i></a>
+                        {% for brand in category.brands %}
+                            <div class="col-md-4 mb-5 text-center">
 
-                                    <br>
-                                    <a href="tel:{{ global.phone.phone }}" class="">{{ global.phone.phone }}</a>
-                                </p>
+                                <!-- Panel -->
+                                <div class="card card-body white hoverable">
+                                    <a href="{{ path('brand',{'brandSlug':brand.slug, 'categorySlug': category.slug}) }}">
+                                        <img src="{{ brand.photo }}" class="img-fluid" alt="{{ brand.title }}">
+                                    </a>
+                                    <p class="title font-weight-bold dark-grey-text text-center text-uppercase spacing mt-4 mx-4">
+                                        <strong>{{ brand.title }}</strong>
+                                    </p>
+                                    <p class="grey-text font-small text-center mx-4">
+                                        <a href="{{ path('brand',{'brandSlug':brand.slug, 'categorySlug': category.slug}) }}" class="btn btn-success btn-rounded">{{ brand.title }} {{ category.title}} <i class="fas fa-arrow-right"></i></a>
+                                        <br>
+                                        <a href="tel:{{ global.phone.phone }}" class="btn btn-success btn-sm">{{ global.phone.title }}</a>
+                                        <a class="text-center btn btn-sm btn-success" target="_blank" href="https://wa.me/{{ global.phone.whatsapp }}">{{ global.phone.wpTitle }} <i class="fab fa-whatsapp"></i></a>
+
+                                        <br>
+                                        <a href="tel:{{ global.phone.phone }}" class="">{{ global.phone.phone }}</a>
+                                    </p>
+                                </div>
+                                <!-- Panel -->
+
                             </div>
-                            <!-- Panel -->
+                        {% endfor %}
 
-                        </div>
-                    {% endfor %}
+                    </div>
+                    <!-- First row -->
 
-                </div>
-                <!-- First row -->
+                </section>
+                <!-- Section: Services -->
 
-            </section>
-            <!-- Section: Services -->
-
+            </div>
         </div>
-    </div>
-    <!-- Second container -->
+        <!-- Second container -->
 
+    {% endif %}
     <!-- Second container -->
 
     <div class="container">
