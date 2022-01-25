@@ -45,7 +45,9 @@
                                 <p class="grey-text font-small text-center mx-4">
                                     <a href="{{ path('brand',{'brandSlug':brand.slug, 'categorySlug': cityWithCategory.category.slug}) }}" class="btn btn-success btn-rounded">{{ brand.title }} {{ cityWithCategory.category.title}} <i class="fas fa-arrow-right"></i></a>
                                     <br>
-                                    <a href="tel:{{ global.phone.phone }}" class="btn btn-outline-success btn-sm">{{ global.phone.title }}</a>
+                                    <a href="tel:{{ global.phone.phone }}" class="btn btn-success btn-sm">{{ global.phone.title }}</a>
+                                    <a class="text-center btn btn-sm btn-success" target="_blank" href="https://wa.me/{{ global.phone.whatsapp }}">{{ global.phone.wpTitle }} <i class="fab fa-whatsapp"></i></a>
+
                                     <br>
                                     <a href="tel:{{ global.phone.phone }}" class="">{{ global.phone.phone }}</a>
                                 </p>

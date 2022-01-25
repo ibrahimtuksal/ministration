@@ -42,6 +42,9 @@
                                 <hr>
                                 <p class="dark-grey-text">
                                     <a href="{{ path('brand_neighborhood', {'neighborhoodSlug':n.slug, 'brandSlug':brand.slug, 'categorySlug':category.slug}) }}" class="btn btn-outline-success btn-rounded">{{ brand.title }} {{ category.title }} {{ neighborhood.name }}<i class="fas fa-arrow-right"></i></a>
+                                    <a href="tel:{{ global.phone.phone }}" class="btn btn-success btn-sm">{{ global.phone.title }}</a>
+                                    <a class="text-center btn btn-sm btn-success" target="_blank" href="https://wa.me/{{ global.phone.whatsapp }}">{{ global.phone.wpTitle }} <i class="fab fa-whatsapp"></i></a>
+
                                 </p>
                             </div>
                         </div>
