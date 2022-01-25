@@ -41,6 +41,7 @@ class HomeController extends AbstractController
         $phone = $this->em->getRepository(Phone::class)->find(1);
         /** @var Category $category */
         $category = $this->em->getRepository(Category::class)->findAll();
+
         $blogs = $this->em->getRepository(Blog::class)->findAll();
 
         return [

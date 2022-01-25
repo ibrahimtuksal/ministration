@@ -6,15 +6,17 @@
     <div class="container">
         <section id="features" class="text-center my-5">
 
-            <!-- Section heading -->
-            <h2 class="title my-5 wow fadeIn" data-wow-delay="0.2s">
-                <strong>{{ corporateIndex.title }}</strong>
-            </h2>
+            {% if corporateIndex %}
+                <!-- Section heading -->
+                <h2 class="title my-5 wow fadeIn" data-wow-delay="0.2s">
+                    <strong>{{ corporateIndex.title }}</strong>
+                </h2>
 
-            <!-- Section description -->
-            <p class="grey-text w-responsive mx-auto mb-5 wow fadeIn" data-wow-delay="0.2s">
-                {{ corporateIndex.content | raw}}
-            </p>
+                <!-- Section description -->
+                <p class="grey-text w-responsive mx-auto mb-5 wow fadeIn" data-wow-delay="0.2s">
+                    {{ corporateIndex.content | raw}}
+                </p>
+            {% endif %}
 
             <!-- Grid row -->
             <div class="row wow fadeIn justify-content-md-center" data-wow-delay="0.2s">
