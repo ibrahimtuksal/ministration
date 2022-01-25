@@ -33,7 +33,7 @@
                         <div class="icon-area">
                             <div class="avatar">
                                 <a href="{{ path('category',{'categorySlug':c.slug}) }}">
-                                    <img class="img-fluid rounded shadow-lg" src="{{ c.photo }}" alt="qwe">
+                                    <img class="img-fluid rounded shadow-lg" src="{{ c.photo }}" alt="{{ c.title }}">
                                 </a>
                             </div>
                             <br>
@@ -69,7 +69,7 @@
                             <div class="icon-area">
                                 <div class="avatar">
                                     <a href="{{ path('blog',{'blogSlug':blog.slug}) }}">
-                                        <img class="img-fluid rounded shadow-lg" src="{{ blog.photo }}" alt="qwe">
+                                        <img class="img-fluid rounded shadow-lg" src="{{ blog.photo }}" alt="{{ blog.title }}">
                                     </a>
                                 </div>
                                 <br>
