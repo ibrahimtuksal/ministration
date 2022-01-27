@@ -45,7 +45,7 @@ class BrandController extends AbstractController
         $category = $this->em->getRepository(Category::class)->findOneBy(['slug' => $categorySlug]);
 
         /** @var Brand $brand */
-        $brand = $this->em->getRepository(Brand::class)->findOneBy(['slug' => $brandSlug]);
+        $brand = $this->em->getRepository(Brand::class)->findOneBy(['slug' => $brandSlug, 'category' => $category]);
 
         /** @var BrandWithCity $brandWithCity */
         $brandWithCity = $this->em->getRepository(BrandWithCity::class)->findBy(['brand' => $brand]);
@@ -76,7 +76,7 @@ class BrandController extends AbstractController
         $category = $this->em->getRepository(Category::class)->findOneBy(['slug' => $categorySlug]);
 
         /** @var Brand $brand */
-        $brand = $this->em->getRepository(Brand::class)->findOneBy(['slug' => $brandSlug]);
+        $brand = $this->em->getRepository(Brand::class)->findOneBy(['slug' => $brandSlug, 'category' => $category]);
 
         /** @var City $city */
         $city = $this->em->getRepository(City::class)->findOneBy(['slug' => $citySlug]);
@@ -114,7 +114,7 @@ class BrandController extends AbstractController
         $category = $this->em->getRepository(Category::class)->findOneBy(['slug' => $categorySlug]);
 
         /** @var Brand $brand */
-        $brand = $this->em->getRepository(Brand::class)->findOneBy(['slug' => $brandSlug]);
+        $brand = $this->em->getRepository(Brand::class)->findOneBy(['slug' => $brandSlug, 'category' => $category]);
 
         /** @var District $district */
         $district = $this->em->getRepository(District::class)->findOneBy(['slug' => $districtSlug]);
@@ -145,7 +145,7 @@ class BrandController extends AbstractController
         $category = $this->em->getRepository(Category::class)->findOneBy(['slug' => $categorySlug]);
 
         /** @var Brand $brand */
-        $brand = $this->em->getRepository(Brand::class)->findOneBy(['slug' => $brandSlug]);
+        $brand = $this->em->getRepository(Brand::class)->findOneBy(['slug' => $brandSlug, 'category' => $category]);
 
         /** @var Neighborhood $neighborhood */
         $neighborhood = $this->em->getRepository(Neighborhood::class)->findOneBy(['slug' => $neighborhoodSlug]);
@@ -175,7 +175,7 @@ class BrandController extends AbstractController
         /** @var Category $category */
         $category = $this->em->getRepository(Category::class)->findOneBy(['slug' => $categorySlug]);
         /** @var Brand $brand */
-        $brand = $this->em->getRepository(Brand::class)->findOneBy(['slug' => $brandSlug]);
+        $brand = $this->em->getRepository(Brand::class)->findOneBy(['slug' => $brandSlug, 'category' => $category]);
         /** @var BrandContent $content */
         $content = $this->em->getRepository(BrandContent::class)->findOneBy(['brand' => $brand, 'slug' => $brandContentSlug]);
 
