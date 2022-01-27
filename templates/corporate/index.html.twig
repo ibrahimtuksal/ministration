@@ -10,8 +10,8 @@
                 {{ corporate.content |raw }}
             </p>
 
-            <a class="text-center btn btn-primary " href="tel:{{ global.phone.phone }}">{{ global.phone.title }} <i class="fas fa-phone"></i></a>
-            <a class="text-center btn btn-success" target="_blank" href="https://wa.me/{{ global.phone.whatsapp }}">{{ global.phone.wpTitle }} <i class="fab fa-whatsapp"></i></a>
+            <a class="text-center btn btn-primary " {% if global.general.isGoogletag %} onclick="return gtag_report_conversion('tel:{{ global.phone.phone }}');" {% endif%} href="tel:{{ global.phone.phone }}">{{ global.phone.title }} <i class="fas fa-phone"></i></a>
+            <a class="text-center btn btn-success" {% if global.general.isGoogletag %} onclick="return gtag_report_conversion('https://wa.me/{{ global.phone.whatsapp }}');" {% endif%} target="_blank" href="https://wa.me/{{ global.phone.whatsapp }}">{{ global.phone.wpTitle }} <i class="fab fa-whatsapp"></i></a>
 
         </section>
 

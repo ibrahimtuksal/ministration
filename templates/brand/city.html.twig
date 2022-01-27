@@ -10,8 +10,8 @@
                 {{ brand.content |raw }}
             </p>
 
-            <a class="text-center btn btn-primary " href="tel:{{ phone.phone }}">{{ phone.title }} <i class="fas fa-phone"></i></a>
-            <a class="text-center btn btn-success" target="_blank" href="https://wa.me/{{ phone.whatsapp }}">{{ phone.wpTitle }} <i class="fab fa-whatsapp"></i></a>
+            <a class="text-center btn btn-primary " {% if global.general.isGoogletag %} onclick="return gtag_report_conversion('tel:{{ global.phone.phone }}');" {% endif%} href="tel:{{ phone.phone }}">{{ phone.title }} <i class="fas fa-phone"></i></a>
+            <a class="text-center btn btn-success" target="_blank" {% if global.general.isGoogletag %} onclick="return gtag_report_conversion('https://wa.me/{{ global.phone.whatsapp }}');" {% endif%} href="https://wa.me/{{ phone.whatsapp }}">{{ phone.wpTitle }} <i class="fab fa-whatsapp"></i></a>
         </section>
     </div>
 
@@ -80,7 +80,7 @@
                                 <hr>
                                 <p class="dark-grey-text">
                                     <a href="{{ path('brand_content', {'brandSlug':brand.slug, 'categorySlug':category.slug, 'brandContentSlug':c.slug}) }}" class="btn btn-warning btn-rounded">{{ c.title }}<i class="fas fa-arrow-right"></i></a>
-                                    <a href="tel:{{ global.phone.phone }}" class="btn btn-success btn-sm">{{ global.phone.title }}</a>
+                                    <a {% if global.general.isGoogletag %} onclick="return gtag_report_conversion('tel:{{ global.phone.phone }}');" {% endif%} href="tel:{{ global.phone.phone }}" class="btn btn-success btn-sm">{{ global.phone.title }}</a>
                                     <a class="text-center btn btn-sm btn-success" target="_blank" href="https://wa.me/{{ global.phone.whatsapp }}">{{ global.phone.wpTitle }} <i class="fab fa-whatsapp"></i></a>
 
                                 </p>

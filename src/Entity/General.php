@@ -66,6 +66,21 @@ class General
      */
     private $serviceName;
 
+    /**
+     * @ORM\Column(type="string", length=5000, nullable=true)
+     */
+    private $headCode;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $is_googletag;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $headCss;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -175,6 +190,42 @@ class General
     public function setServiceName(?string $serviceName): self
     {
         $this->serviceName = $serviceName;
+
+        return $this;
+    }
+
+    public function getHeadCode(): ?string
+    {
+        return $this->headCode;
+    }
+
+    public function setHeadCode(?string $headCode): self
+    {
+        $this->headCode = $headCode;
+
+        return $this;
+    }
+
+    public function getIsGoogletag(): ?bool
+    {
+        return $this->is_googletag;
+    }
+
+    public function setIsGoogletag(?bool $is_googletag): self
+    {
+        $this->is_googletag = $is_googletag;
+
+        return $this;
+    }
+
+    public function getHeadCss(): ?string
+    {
+        return $this->headCss;
+    }
+
+    public function setHeadCss(?string $headCss): self
+    {
+        $this->headCss = $headCss;
 
         return $this;
     }

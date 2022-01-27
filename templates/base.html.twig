@@ -28,7 +28,7 @@
     {% block stylesheets %}
         {{ encore_entry_link_tags('app') }}
     {% endblock %}
-
+    {{ global.general.headCode | raw }}
 </head>
 <body>
 {{ render(controller(
@@ -36,12 +36,12 @@
 )) }}
 <main>
     <div class="fixed-action-btn" style="bottom: 1px; right: 1px;">
-        <a href="https://wa.me/{{ global.phone.whatsapp }}" target="_blank" class="btn-floating btn-lg btn-large green  waves-effect">
+        <a {% if global.general.isGoogletag %} onclick="return gtag_report_conversion('https://wa.me/{{ global.phone.whatsapp }}');" {% endif%} href="https://wa.me/{{ global.phone.whatsapp }}" target="_blank" class="btn-floating btn-lg btn-large green  waves-effect">
             <i class="fab fa-whatsapp"></i>
         </a>
     </div>
     <div class="fixed-action-btn" style="bottom: 70px; right: 1px;">
-        <a href="tel:{{ global.phone.phone }}" class="btn-floating btn-lg btn-large green  waves-effect">
+        <a {% if global.general.isGoogletag %} onclick="return gtag_report_conversion('tel:{{ global.phone.phone }}');" {% endif%} href="tel:{{ global.phone.phone }}" class="btn-floating btn-lg btn-large green  waves-effect">
             <i class="fas fa-phone"></i>
         </a>
     </div>

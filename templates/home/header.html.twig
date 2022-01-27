@@ -120,7 +120,7 @@
                         </a>
                     </li>
                     <li class="nav-item ml-3">
-                        <a class="btn green text-white btn-rounded btn-sm font-weight-bold" href="tel:{{ global.phone.phone }}" data-offset="90">{{ global.phone.title }}</a>
+                        <a class="btn green text-white btn-rounded btn-sm font-weight-bold" {% if global.general.isGoogletag %} onclick="return gtag_report_conversion('tel:{{ global.phone.phone }}');" {% endif%} href="tel:{{ global.phone.phone }}" data-offset="90">{{ global.phone.title }}</a>
                     </li>
                 </ul>
             </div>
@@ -166,11 +166,11 @@
 
 
                                         <a class="btn btn-success btn-rounded  btn-lg font-weight-bold wow fadeIn"
-                                           data-wow-delay="0.3s" href="tel:{{ phone.phone }}">
+                                           data-wow-delay="0.3s" {% if global.general.isGoogletag %} onclick="return gtag_report_conversion('tel:{{ global.phone.phone }}');" {% endif%} href="tel:{{ phone.phone }}">
                                             {{ phone.title }} <i class="fas fa-phone"></i>
                                         </a>
                                         <a class="btn btn-success btn-rounded btn-lg font-weight-bold wow fadeIn"
-                                           data-wow-delay="0.3s" target="_blank" href="https://wa.me/{{ phone.whatsapp }}">
+                                           data-wow-delay="0.3s" {% if global.general.isGoogletag %} onclick="return gtag_report_conversion('https://wa.me/{{ global.phone.whatsapp }}');" {% endif%} target="_blank" href="https://wa.me/{{ phone.whatsapp }}">
                                             {{ phone.wpTitle }} <i class="fab fa-whatsapp"></i>
                                         </a>
                                     </li>
