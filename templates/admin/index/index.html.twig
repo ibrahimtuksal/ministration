@@ -3,11 +3,112 @@
 {% block title %}Admin{% endblock %}
 
 {% block body %}
-{#    {% for c in cityWithCategory %}#}
-{#        {% for d in c.city.districts %}#}
-{#            {% for n in d.neighborhoods %}#}
-{#                {{ n.name }}#}
-{#            {% endfor %}#}
-{#        {% endfor %}#}
-{#    {% endfor %}#}
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col-md-12 text-center">
+                {% if app.request.get('first') %}
+                    <p class="h4">{{ app.request.get('first') | default('') }} -- {{ app.request.get('last') | default('') }}</p>
+                {% else %}
+                    <p class="h4">Bugünün Verileri</p>
+                {% endif %}
+                <p class="h5 alert alert-info">
+                    Seçtiğiniz tarihe göre reklamdan gelenler listelenir
+                </p>
+            </div>
+        </div>
+        <form method="get">
+            <div class="row mb-4 justify-content-md-center">
+                <div class="col-md-2">
+                    <label for="first">Başlangıç Tarihi</label>
+                    <input type="date" name="first" id="first" class="form-control">
+                </div>
+                <div class="col-md-2">
+                    <label for="last">Bitiş Tarihi</label>
+                    <input type="date" name="last" id="last" class="form-control">
+                </div>
+            </div>
+            <div class="row justify-content-md-center mb-5">
+                <div class="col-md-2">
+                    <label for="firstt">Başlangıç Zamanı</label>
+                    <input type="time" id="firstt" name="first_time" class="form-control">
+                </div>
+                <div class="col-md-2">
+                    <label for="lastt">Başlangıç Zamanı</label>
+                    <input type="time" id="lastt" name="last_time" class="form-control">
+                </div>
+            </div>
+            <div class="row justify-content-md-center mb-5">
+                <div class="col-md-2">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="isWhat" id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault">
+                            Reklamdan Gelenler
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-5">
+                <div class="col-md-6 d-grid gap-2">
+                    <button class="btn btn-primary">Filtrele</button>
+                </div>
+                <div class="col-md-6 d-grid gap-2">
+                    <a href="{{ path('admin') }}" class="btn btn-warning">Sıfırla</a>
+                </div>
+            </div>
+
+        </form>
+        <div class="row">
+            <div class="col-md-12">
+                <table class="text-center table table-responsive table-hover">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>IP</th>
+                        <th>Agent</th>
+                        <th>Created At</th>
+                        <th>IP Kopyala</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for log in logs %}
+                        {% if log.isWhat %}
+                            {% set isWhat %}
+                                table-success
+                            {% endset %}
+                        {% else %}
+                            {% set isWhat = '' %}
+                        {% endif %}
+                        <tr class="{{ isWhat }}">
+                            <th>{{ loop.index }}</th>
+                            <td>{{ log.ip }}</td>
+                            <td>{{ log.agent }}</td>
+                            <td>{{ log.createdAt | date('Y-m-d H:i:s') }}</td>
+                            <td>
+                                <button type="button" class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                    IP Listesi
+                                </button>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Filtreye Ait İpler</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    {% for log in logs %}
+                        {{ log.ip }}<br>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

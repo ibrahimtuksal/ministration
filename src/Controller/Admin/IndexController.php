@@ -4,8 +4,10 @@ namespace App\Controller\Admin;
 
 use App\Entity\CityWithCategory;
 use App\Entity\UserComment;
+use App\Entity\UserLog;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -30,12 +32,12 @@ class IndexController extends AbstractController
     /**
      * @Route("/", name="admin")
      */
-    public function index(): Response
+    public function index(Request $request): Response
     {
-        $cityWithCategory = $this->em->getRepository(CityWithCategory::class)->findBy(['city' => 40, 'Category' => 6]);
+        $logs = $this->em->getRepository(UserLog::class)->findByNowDay($request);
 
         return $this->render('admin/index/index.html.twig', [
-            'cityWithCategory' => $cityWithCategory
+            'logs' => $logs
         ]);
     }
 

@@ -5,7 +5,9 @@ namespace App\Generator;
 use App\Entity\Category;
 use App\Entity\General;
 use App\Entity\Phone;
+use App\Entity\UserLog;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
 
 class GlobalGenerator
 {
@@ -45,6 +47,21 @@ class GlobalGenerator
         $this->isSlider = $this->setIsSlider();
         $this->general = $this->setGeneral();
         $this->category = $this->setCategory();
+    }
+
+    public function die(Request $request){
+        $log = new UserLog();
+        $log->setIp($request->getClientIp());
+        $log->setCreatedAt(new \DateTime());
+        $log->setAgent($_SERVER['HTTP_USER_AGENT']);
+        if ($request->query->get('ads') === "1")
+        {
+            $log->setIsWhat(true);
+        } else {
+            $log->setIsWhat(false);
+        }
+        $this->em->persist($log);
+        $this->em->flush();
     }
 
     public function setGeneral(): General

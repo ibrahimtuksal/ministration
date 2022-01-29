@@ -8,9 +8,11 @@ use App\Entity\Corporate;
 use App\Entity\Phone;
 use App\Entity\Slider;
 use App\Entity\UserComment;
+use App\Entity\UserLog;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -76,5 +78,23 @@ class HomeController extends AbstractController
             'corporates' => $corporates,
             'blogs' => $blogs
         ]);
+    }
+
+    public function logAdd(Request $request)
+    {
+        $log = new UserLog();
+        $log->setIp($request->getClientIp());
+        $log->setCreatedAt(new \DateTime());
+        $log->setAgent($_SERVER['HTTP_USER_AGENT']);
+        if ($request->query->get('ads') === "1")
+        {
+            $log->setIsWhat(true);
+        } else {
+            $log->setIsWhat(false);
+        }
+        $this->em->persist($log);
+        $this->em->flush();
+
+        return true;
     }
 }
