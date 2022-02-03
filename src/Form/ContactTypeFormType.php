@@ -14,7 +14,7 @@ class ContactTypeFormType extends AbstractType
     {
         $builder
             ->add('name', null, ['label' => 'Tipin Adı'])
-            ->add('icon', null, ['label' => 'İkon'])
+
             ->add('button', SubmitType::class, [
                 'label' => 'Kaydet',
                 'row_attr' => ['class' => 'd-grid gap-2']
