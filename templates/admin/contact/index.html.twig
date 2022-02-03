@@ -100,7 +100,7 @@
                                         <td>{{ c.name }}</td>
                                         <td>{{ c.value.name }}</td>
                                         <td class="{{ c.color.textName }}">{{ c.color.turkishName }}</td>
-                                        <td><i class="{{ c.icon }}"></i></td>
+                                        <td><i class="{{ c.value.icon }}"></i></td>
                                         <td><a href="{{ path('admin_contact_type_update', {'contactType':c.id}) }}" class="btn btn-primary btn-sm">Düzenle <i class="fas fa-pencil"></i></a></td>
                                         <td><a href="{{ path('admin_contact_type_delete', {'contactType': c.id}) }}" class="btn btn-danger btn-sm">Sil <i class="fas fa-trash"></i></a></td>
                                     </tr>
