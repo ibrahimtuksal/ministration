@@ -120,7 +120,7 @@
                         </a>
                     </li>
                     <li class="nav-item ml-3">
-                        <a class="btn green text-white btn-rounded btn-sm font-weight-bold" {% if global.general.isGoogletag %} onclick="return gtag_report_conversion('tel:{{ global.phone.phone }}');" {% endif%} href="tel:{{ global.phone.phone }}" data-offset="90">{{ global.phone.title }}</a>
+                        <a class="btn {{ global.contactFixed.type.color.btnName }} text-white btn-rounded btn-sm font-weight-bold" {% if global.general.isGoogletag %} onclick="return gtag_report_conversion('{{ global.contactFixed.type.value.value }}{{ global.contactFixed.value }}');" {% endif%} href="tel:{{ global.contactFixed.type.value.value }}{{ global.contactFixed.value }}" data-offset="90">{{ global.contactFixed.title }}</a>
                     </li>
                 </ul>
             </div>
@@ -160,19 +160,10 @@
                                         <hr class="hr-light wow fadeIn w-50" data-wow-delay="0.3s">
                                     </li>
                                     <li>
-                                        <h3>{{ global.phone.phone }}</h3>
+                                        <h3>{{ s.description }}</h3>
                                     </li>
                                     <li>
-
-
-                                        <a class="btn btn-success btn-rounded  btn-lg font-weight-bold wow fadeIn"
-                                           data-wow-delay="0.3s" {% if global.general.isGoogletag %} onclick="return gtag_report_conversion('tel:{{ global.phone.phone }}');" {% endif%} href="tel:{{ phone.phone }}">
-                                            {{ phone.title }} <i class="fas fa-phone"></i>
-                                        </a>
-                                        <a class="btn btn-success btn-rounded btn-lg font-weight-bold wow fadeIn"
-                                           data-wow-delay="0.3s" {% if global.general.isGoogletag %} onclick="return gtag_report_conversion('https://wa.me/{{ global.phone.whatsapp }}');" {% endif%} target="_blank" href="https://wa.me/{{ phone.whatsapp }}">
-                                            {{ phone.wpTitle }} <i class="fab fa-whatsapp"></i>
-                                        </a>
+                                        {% include 'home/contact_index_normal.html.twig' %}
                                     </li>
                                 </ul>
                             </div>

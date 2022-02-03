@@ -37,6 +37,11 @@ class Slider
      */
     private $queue;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $description;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -86,6 +91,18 @@ class Slider
     public function setQueue(?int $queue): self
     {
         $this->queue = $queue;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): self
+    {
+        $this->description = $description;
 
         return $this;
     }

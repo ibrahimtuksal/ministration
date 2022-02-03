@@ -1,0 +1,12 @@
+<div style="position:fixed; z-index:998; bottom: 1px; right: 1px;">
+    {% for contact in global.contactSidebar %}
+        <a class="btn-floating btn-lg btn-large {{ contact.type.color.btnName }} waves-effect" {% if global.general.isGoogletag %}
+            onclick="return gtag_report_conversion('tel:{{ contact.value }}');" {% endif%}
+           href="{{ contact.type.value.value }}{{ contact.value }}">
+            <i class="{{ contact.type.icon }}"></i>
+        </a>
+        {% if loop.index != loop.last %}
+            <br>
+        {% endif %}
+    {% endfor %}
+</div>

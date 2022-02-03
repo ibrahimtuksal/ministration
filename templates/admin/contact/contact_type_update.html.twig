@@ -1,0 +1,40 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}İletişim Tipi Düzenle{% endblock %}
+
+{% block body %}
+    <p class="display-6 text-center">İletişim Tipi Düzenle</p>
+    <hr>
+    {{ form_start(form) }}
+    <div class="row">
+        <div class="col">
+            {{ form_row(form.name) }}
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col">
+            <label for="category">Tip</label>
+            <select name="type" class="form-control" id="category">
+                {% for c in contactTypeValues %}
+                    <option value="{{ c.id }}">{{ c.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col">
+            <label for="category">Buton Rengi</label>
+            <select name="color" class="form-control" id="category">
+                {% for c in colors %}
+                    <option
+                            {% if contactType.color.id == c.id %}
+                            selected
+                            {% endif %}
+                            value="{{ c.id }}" class="{{ c.textName }}">{{ c.turkishName }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+    {{ form_end(form) }}
+
+{% endblock %}

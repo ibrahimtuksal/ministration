@@ -3,9 +3,11 @@
 namespace App\Generator;
 
 use App\Entity\Category;
+use App\Entity\Contact;
 use App\Entity\General;
 use App\Entity\Phone;
 use App\Entity\UserLog;
+use App\Service\ContactService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -34,12 +36,24 @@ class GlobalGenerator
 
     public array $category;
 
+    public array $contactIndex;
+
+    public array $contactSidebar;
+
+    public Contact $contactFixed;
+
+    public Contact $contactWhatsApp;
+
     /**
      * @var EntityManagerInterface
      */
     private EntityManagerInterface $em;
+    /**
+     * @var ContactService
+     */
+    private ContactService $contactService;
 
-    public function __construct(EntityManagerInterface $em)
+    public function __construct(EntityManagerInterface $em, ContactService $contactService)
     {
         $this->em = $em;
         $this->name = $this->setName();
@@ -47,6 +61,31 @@ class GlobalGenerator
         $this->isSlider = $this->setIsSlider();
         $this->general = $this->setGeneral();
         $this->category = $this->setCategory();
+        $this->contactService = $contactService;
+        $this->contactIndex = $this->contactIndex();
+        $this->contactSidebar = $this->contactSidebar();
+        $this->contactFixed = $this->contactFixed();
+        $this->contactWhatsApp = $this->contactWhatsApp();
+    }
+
+    public function contactIndex()
+    {
+        return $this->contactService->contactIndex();
+    }
+
+    public function contactFixed()
+    {
+        return $this->contactService->contactFixed();
+    }
+
+    public function contactSidebar()
+    {
+        return $this->contactService->contactSidebar();
+    }
+
+    public function contactWhatsApp()
+    {
+        return $this->contactService->contactWhatsApp();
     }
 
     public function die(Request $request){
@@ -93,8 +132,10 @@ class GlobalGenerator
     }
     private function setCategory()
     {
-     $category = $this->em->getRepository(Category::class)->findAll();
-     return $category;
+        /** @var array $category */
+        $category = $this->em->getRepository(Category::class)->findAll();
+
+        return $category;
     }
 
 }

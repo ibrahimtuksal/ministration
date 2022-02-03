@@ -40,6 +40,11 @@ class District
      */
     private $neighborhoods;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Contact::class, inversedBy="districts")
+     */
+    private $contact;
+
     public function __construct()
     {
         $this->neighborhoods = new ArrayCollection();
@@ -112,6 +117,18 @@ class District
                 $neighborhood->setDistrict(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getContact(): ?Contact
+    {
+        return $this->contact;
+    }
+
+    public function setContact(?Contact $contact): self
+    {
+        $this->contact = $contact;
 
         return $this;
     }

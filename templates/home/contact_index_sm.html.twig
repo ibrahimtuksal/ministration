@@ -1,0 +1,3 @@
+{% for contact in global.contactIndex %}
+    <a class="text-center btn btn-sm {{ contact.type.color.btnName }}" {% if global.general.isGoogletag %} onclick="return gtag_report_conversion('tel:{{ contact.value }}');" {% endif%} href="{{ contact.type.value.value }}{{ contact.value }}">{{ contact.title }} <i class="{{ contact.type.icon }}"></i></a>
+{% endfor %}

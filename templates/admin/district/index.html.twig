@@ -1,0 +1,91 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Kategori{% endblock %}
+
+{% block body %}
+    <div class="accordion accordion-flush" id="city">
+
+        {% for city in activeCity %}
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-heading-{{ city.slug | lower }}">
+                    <button
+                            class="accordion-button collapsed"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#flush-collapse-{{ city.slug | lower }}"
+                            aria-expanded="false"
+                            aria-controls="flush-collapse-{{ city.slug | lower }}">
+                            {{ city.name }}
+                    </button>
+                </h2>
+                <div id="flush-collapse-{{ city.slug | lower }}"
+                     class="accordion-collapse collapse" aria-labelledby="flush-heading-{{ city.slug | lower }}" data-bs-parent="#city">
+                    <div class="accordion-body">
+                        {% for district in city.districts %}
+                            <div class="row justify-content-md-center">
+                                <div class="col-md-4 text-center">
+                                    {{ district.name }}
+                                </div>
+                                {% if district.contact.id is defined %}
+                                    {% set districtId = district.contact.id %}
+                                {% else %}
+                                    {% set districtId = 0 %}
+                                {% endif %}
+                                <div class="col-md-4">
+                                    <label>
+                                        <select name="contact" data-district-contact data-district-id="{{ district.id }}" class="form-select">
+                                            <option value="null">Boş</option>
+                                            {% for contact in contacts %}
+                                                <option
+                                                        {% if contact.id == districtId %}
+                                                        selected
+                                                        {% endif %}
+                                                        value="{{ contact.id }}">{{ contact.title }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </label>
+                                </div>
+                            </div>
+                            {% if loop.index != loop.last %}
+                                <hr>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+
+    </div>
+{% endblock %}
+{% block javascripts %}
+    <script>
+        $(document).ready(function () {
+            $('select[data-district-contact]').on('change', function () {
+                $(this).each(function () {
+                    let contact = {
+                        district:$(this).data('district-id'),
+                        contact:$(this).val()
+                    };
+                    $.ajax({
+                        url:"{{ path('ajax_district_contact') }}",
+                        type: "POST",
+                        dataType: "json",
+                        data: {
+                            district:contact.district,
+                            contact:contact.contact
+                        },
+                        async: true,
+                        success: function (data)
+                        {
+                            if(data === true){
+                                successToast();
+                            }else {
+                                location.reload();
+                            }
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+{% endblock %}

@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\City;
+use App\Entity\District;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -32,9 +33,8 @@ class CityController extends AbstractController
      */
     public function index()
     {
-        $city = $this->entityManager->getRepository(City::class)->findAll();
         return [
-            'citys' => $city
+            'city' => $this->entityManager->getRepository(City::class)->findAll()
         ];
     }
 }

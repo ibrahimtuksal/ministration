@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\City;
+use App\Entity\Contact;
+use App\Entity\District;
 use App\Entity\UserComment;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -70,5 +72,32 @@ class AjaxController extends AbstractController
         }
         $this->addFlash('error', "Bir şeyler ters gitti");
         return $this->redirect($request->headers->get('referer'));
+    }
+
+    /**
+     * @Route("/district/contact", name="ajax_district_contact", methods={"POST"})
+     * @IsGranted("ROLE_ADMIN", message="404 not found")
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function districtContact(Request $request)
+    {
+        /** @var District $district */
+        $district = $this->entityManager->getRepository(District::class)->find($request->request->get('district'));
+
+        /** @var Contact $contact */
+        $contact = $this->entityManager->getRepository(Contact::class)->find($request->request->get('contact'));
+
+        if ( ! $district instanceof District ){
+            $this->addFlash('error', 'Bir şeyler ters gitti');
+            return new JsonResponse(false);
+        }
+
+        $district->setContact(null);
+        if ($contact instanceof Contact) {
+            $district->setContact($contact);
+        }
+        $this->entityManager->flush();
+        return new JsonResponse(true);
     }
 }

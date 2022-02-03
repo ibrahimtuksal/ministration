@@ -1,0 +1,116 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}İletişim Ayarları{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-2 d-grid gap-2 offset-md-8">
+            <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                İletişim Tipleri
+            </button>
+        </div>
+        <div class="col-md-2 d-grid gap-2">
+            <a href="{{ path('admin_contact_add') }}" class="btn {% if contactType | length <= 0 %} disabled {% endif %}btn-warning">
+                Ekle <i class="fas fa-plus"></i>
+            </a>
+        </div>
+    </div>
+    <table class="table table-hover table-responsive text-center">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Başlık</th>
+            <th scope="col">Tip</th>
+            <th scope="col">Değer</th>
+            <th scope="col">Sayfalarda Gözüksün</th>
+            <th scope="col">Yan Bölgede Gözüksün</th>
+            <th scope="col">Sabit Hat</th>
+            <th scope="col">Düzenle</th>
+            <th scope="col">Sil</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for p in phones %}
+            <tr>
+                <th scope="row">{{ loop.index }}</th>
+                <td>{{ p.title }}</td>
+                <td>{{ p.type.name }}</td>
+                <td>{{ p.value }}</td>
+                <td>
+                    {% if p.isIndex %}
+                        <a href="{{ path('admin_contact_index', {'contact':p.id}) }}" class="btn btn-success btn-sm">Gözüküyor <i class="fas fa-eye"></i></a>
+                    {% else %}
+                        <a href="{{ path('admin_contact_index', {'contact':p.id}) }}" class="btn btn-secondary btn-sm">Göster <i class="fas fa-eye-slash"></i></a>
+                    {% endif %}
+                </td>
+                <td>
+                    {% if p.isSidebar %}
+                        <a href="{{ path('admin_contact_sidebar_index', {'contact':p.id}) }}" class="btn btn-success btn-sm">Gözüküyor <i class="fas fa-eye"></i></a>
+                    {% else %}
+                        <a href="{{ path('admin_contact_sidebar_index', {'contact':p.id}) }}" class="btn btn-secondary btn-sm">Göster <i class="fas fa-eye-slash"></i></a>
+                    {% endif %}
+                </td>
+                <td>
+                    {% if p.isFixed %}
+                        <a href="#" class="btn disabled btn-success btn-sm">Sabit <i class="fas fa-check-circle"></i></a>
+                    {% else %}
+                        <a href="{{ path('admin_contact_fixed', {'contact':p.id}) }}" class="btn btn-secondary btn-sm">Sabitle <i class="fas fa-times-circle"></i></a>
+                    {% endif %}
+                </td>
+                <td><a href="{{ path('admin_contact_update', {'contact':p.id}) }}" class="btn btn-primary btn-sm">Düzenle <i class="fas fa-pencil-alt"></i></a></td>
+                <td><a href="{{ path('admin_contact_delete', {'contact':p.id}) }}" class="btn btn-danger btn-sm">Sil <i class="fas fa-trash"></i></a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">İletişim Tipleri</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-2 d-grid gap-2 offset-md-10">
+                            <a href="{{ path('admin_contact_type_add') }}" class="btn btn-warning">
+                                Ekle <i class="fas fa-plus"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table class="table table-hover table-responsive text-center">
+                                <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">İsim</th>
+                                    <th scope="col">Değer</th>
+                                    <th scope="col">Buton Rengi</th>
+                                    <th scope="col">İkon</th>
+                                    <th scope="col">Düzenle</th>
+                                    <th scope="col">Sil</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for c in contactType %}
+                                    <tr>
+                                        <th scope="row">{{ loop.index }}</th>
+                                        <td>{{ c.name }}</td>
+                                        <td>{{ c.value.name }}</td>
+                                        <td class="{{ c.color.textName }}">{{ c.color.turkishName }}</td>
+                                        <td><i class="{{ c.icon }}"></i></td>
+                                        <td><a href="{{ path('admin_contact_type_update', {'contactType':c.id}) }}" class="btn btn-primary btn-sm">Düzenle <i class="fas fa-pencil"></i></a></td>
+                                        <td><a href="{{ path('admin_contact_type_delete', {'contactType': c.id}) }}" class="btn btn-danger btn-sm">Sil <i class="fas fa-trash"></i></a></td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
