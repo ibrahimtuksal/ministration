@@ -34,6 +34,11 @@ class ContactTypeValue
      */
     private $contactTypes;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $icon;
+
     public function __construct()
     {
         $this->contactTypes = new ArrayCollection();
@@ -94,6 +99,18 @@ class ContactTypeValue
                 $contactType->setValue(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getIcon(): ?string
+    {
+        return $this->icon;
+    }
+
+    public function setIcon(string $icon): self
+    {
+        $this->icon = $icon;
 
         return $this;
     }

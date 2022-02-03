@@ -14,7 +14,7 @@
     <div class="row mb-3">
         <div class="col">
             <label for="category">Tip</label>
-            <select name="type" class="form-control" id="category">
+            <select name="typeValue" class="form-control" id="category">
                 {% for c in contactTypeValues %}
                     <option value="{{ c.id }}">{{ c.name }}</option>
                 {% endfor %}

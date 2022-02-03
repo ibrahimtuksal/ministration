@@ -3,7 +3,7 @@
         <a class="btn-floating btn-lg btn-large {{ contact.type.color.btnName }} waves-effect" {% if global.general.isGoogletag %}
             onclick="return gtag_report_conversion('tel:{{ contact.value }}');" {% endif%}
            href="{{ contact.type.value.value }}{{ contact.value }}">
-            <i class="{{ contact.type.icon }}"></i>
+            <i class="{{ contact.type.value.icon }}"></i>
         </a>
         {% if loop.index != loop.last %}
             <br>

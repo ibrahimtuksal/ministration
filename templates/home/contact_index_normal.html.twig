@@ -1,27 +1,27 @@
 {% if district is defined %}
     {% if district.contact %}
-        <a class="text-center btn {{ district.contact.type.color.btnName }}" {% if global.general.isGoogletag %} onclick="return gtag_report_conversion('{{ district.contact.type.value.value }}{{ district.contact.value }}');" {% endif%} href="{{ district.contact.type.value.value }}{{ district.contact.value }}">{{ district.contact.title }} <i class="{{ district.contact.type.icon }}"></i></a>
+        <a class="text-center btn {{ district.contact.type.color.btnName }}" {% if global.general.isGoogletag %} onclick="return gtag_report_conversion('{{ district.contact.type.value.value }}{{ district.contact.value }}');" {% endif%} href="{{ district.contact.type.value.value }}{{ district.contact.value }}">{{ district.contact.title }} <i class="{{ district.contact.type.value.icon }}"></i></a>
 
-        <a class="text-center btn {{ global.contactWhatsApp.type.color.btnName }}" {% if global.general.isGoogletag %} onclick="return gtag_report_conversion('{{ global.contactWhatsApp.type.value.value }}{{ global.contactWhatsApp.value }}');" {% endif%} href="{{ global.contactWhatsApp.type.value.value }}{{ global.contactWhatsApp.value }}">{{ global.contactWhatsApp.title }} <i class="{{ global.contactWhatsApp.type.icon }}"></i></a>
+        <a class="text-center btn {{ global.contactWhatsApp.type.color.btnName }}" {% if global.general.isGoogletag %} onclick="return gtag_report_conversion('{{ global.contactWhatsApp.type.value.value }}{{ global.contactWhatsApp.value }}');" {% endif%} href="{{ global.contactWhatsApp.type.value.value }}{{ global.contactWhatsApp.value }}">{{ global.contactWhatsApp.title }} <i class="{{ global.contactWhatsApp.type.value.icon }}"></i></a>
     {% else %}
         {% for contact in global.contactIndex %}
-            <a class="text-center btn {{ contact.type.color.btnName }}" {% if global.general.isGoogletag %} onclick="return gtag_report_conversion('{{ contact.type.value.value }}{{ contact.value }}');" {% endif%} href="{{ contact.type.value.value }}{{ contact.value }}">{{ contact.title }} <i class="{{ contact.type.icon }}"></i></a>
+            <a class="text-center btn {{ contact.type.color.btnName }}" {% if global.general.isGoogletag %} onclick="return gtag_report_conversion('{{ contact.type.value.value }}{{ contact.value }}');" {% endif%} href="{{ contact.type.value.value }}{{ contact.value }}">{{ contact.title }} <i class="{{ contact.type.value.icon }}"></i></a>
         {% endfor %}
     {% endif %}
 {% else %}
     {% if neighborhood is defined %}
         {% if neighborhood.district.contact %}
-            <a class="text-center btn {{ neighborhood.district.contact.type.color.btnName }}" {% if global.general.isGoogletag %} onclick="return gtag_report_conversion('{{ neighborhood.district.contact.type.value.value }}{{ neighborhood.district.contact.value }}');" {% endif%} href="{{ neighborhood.district.contact.type.value.value }}{{ neighborhood.district.contact.value }}">{{ neighborhood.district.contact.title }} <i class="{{ neighborhood.district.contact.type.icon }}"></i></a>
+            <a class="text-center btn {{ neighborhood.district.contact.type.color.btnName }}" {% if global.general.isGoogletag %} onclick="return gtag_report_conversion('{{ neighborhood.district.contact.type.value.value }}{{ neighborhood.district.contact.value }}');" {% endif%} href="{{ neighborhood.district.contact.type.value.value }}{{ neighborhood.district.contact.value }}">{{ neighborhood.district.contact.title }} <i class="{{ neighborhood.district.contact.type.value.icon }}"></i></a>
 
-            <a class="text-center btn {{ global.contactWhatsApp.type.color.btnName }}" {% if global.general.isGoogletag %} onclick="return gtag_report_conversion('{{ global.contactWhatsApp.type.value.value }}{{ global.contactWhatsApp.value }}');" {% endif%} href="{{ global.contactWhatsApp.type.value.value }}{{ global.contactWhatsApp.value }}">{{ global.contactWhatsApp.title }} <i class="{{ global.contactWhatsApp.type.icon }}"></i></a>
+            <a class="text-center btn {{ global.contactWhatsApp.type.color.btnName }}" {% if global.general.isGoogletag %} onclick="return gtag_report_conversion('{{ global.contactWhatsApp.type.value.value }}{{ global.contactWhatsApp.value }}');" {% endif%} href="{{ global.contactWhatsApp.type.value.value }}{{ global.contactWhatsApp.value }}">{{ global.contactWhatsApp.title }} <i class="{{ global.contactWhatsApp.type.value.icon }}"></i></a>
         {% else %}
             {% for contact in global.contactIndex %}
-                <a class="text-center btn {{ contact.type.color.btnName }}" {% if global.general.isGoogletag %} onclick="return gtag_report_conversion('{{ contact.type.value.value }}{{ contact.value }}');" {% endif%} href="{{ contact.type.value.value }}{{ contact.value }}">{{ contact.title }} <i class="{{ contact.type.icon }}"></i></a>
+                <a class="text-center btn {{ contact.type.color.btnName }}" {% if global.general.isGoogletag %} onclick="return gtag_report_conversion('{{ contact.type.value.value }}{{ contact.value }}');" {% endif%} href="{{ contact.type.value.value }}{{ contact.value }}">{{ contact.title }} <i class="{{ contact.type.value.icon }}"></i></a>
             {% endfor %}
         {% endif %}
     {% else %}
         {% for contact in global.contactIndex %}
-            <a class="text-center btn {{ contact.type.color.btnName }}" {% if global.general.isGoogletag %} onclick="return gtag_report_conversion('{{ contact.type.value.value }}{{ contact.value }}');" {% endif%} href="{{ contact.type.value.value }}{{ contact.value }}">{{ contact.title }} <i class="{{ contact.type.icon }}"></i></a>
+            <a class="text-center btn {{ contact.type.color.btnName }}" {% if global.general.isGoogletag %} onclick="return gtag_report_conversion('{{ contact.type.value.value }}{{ contact.value }}');" {% endif%} href="{{ contact.type.value.value }}{{ contact.value }}">{{ contact.title }} <i class="{{ contact.type.value.icon }}"></i></a>
         {% endfor %}
     {% endif %}
 {% endif %}

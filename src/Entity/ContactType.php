@@ -25,11 +25,6 @@ class ContactType
     private $name;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $icon;
-
-    /**
      * @ORM\OneToMany(targetEntity=Contact::class, mappedBy="type")
      */
     private $contacts;
@@ -62,18 +57,6 @@ class ContactType
     public function setName(string $name): self
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    public function getIcon(): ?string
-    {
-        return $this->icon;
-    }
-
-    public function setIcon(?string $icon): self
-    {
-        $this->icon = $icon;
 
         return $this;
     }
