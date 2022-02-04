@@ -31,6 +31,8 @@ class IndexController extends AbstractController
 
     /**
      * @Route("/", name="admin")
+     * @param Request $request
+     * @return Response
      */
     public function index(Request $request): Response
     {

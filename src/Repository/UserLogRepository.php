@@ -65,6 +65,11 @@ class UserLogRepository extends ServiceEntityRepository
             $qb->andWhere('u.is_what = :isWhat')->setParameter('isWhat', true);
         }
 
+        if ($request->get('count') == 'on')
+        {
+            $qb->andWhere('u.count > :count')->setParameter('count', 1);
+        }
+
         return $qb->getQuery()->getResult();
     }
 

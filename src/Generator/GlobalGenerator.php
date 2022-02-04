@@ -8,6 +8,7 @@ use App\Entity\General;
 use App\Entity\Phone;
 use App\Entity\UserLog;
 use App\Service\ContactService;
+use App\Service\UserLogService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -52,8 +53,12 @@ class GlobalGenerator
      * @var ContactService
      */
     private ContactService $contactService;
+    /**
+     * @var UserLogService
+     */
+    private UserLogService $userLogService;
 
-    public function __construct(EntityManagerInterface $em, ContactService $contactService)
+    public function __construct(EntityManagerInterface $em, ContactService $contactService, UserLogService $userLogService)
     {
         $this->em = $em;
         $this->name = $this->setName();
@@ -66,6 +71,7 @@ class GlobalGenerator
         $this->contactSidebar = $this->contactSidebar();
         $this->contactFixed = $this->contactFixed();
         $this->contactWhatsApp = $this->contactWhatsApp();
+        $this->userLogService = $userLogService;
     }
 
     public function contactIndex()
@@ -88,19 +94,9 @@ class GlobalGenerator
         return $this->contactService->contactWhatsApp();
     }
 
-    public function die(Request $request){
-        $log = new UserLog();
-        $log->setIp($request->getClientIp());
-        $log->setCreatedAt(new \DateTime());
-        $log->setAgent($_SERVER['HTTP_USER_AGENT']);
-        if ($request->query->get('ads') === "1")
-        {
-            $log->setIsWhat(true);
-        } else {
-            $log->setIsWhat(false);
-        }
-        $this->em->persist($log);
-        $this->em->flush();
+    public function die(Request $request)
+    {
+        $this->userLogService->userLogControl($request);
     }
 
     public function setGeneral(): General

@@ -37,6 +37,11 @@ class UserLog
      */
     private $is_what;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $count;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -86,6 +91,18 @@ class UserLog
     public function setIsWhat(bool $is_what): self
     {
         $this->is_what = $is_what;
+
+        return $this;
+    }
+
+    public function getCount(): ?int
+    {
+        return $this->count;
+    }
+
+    public function setCount(?int $count): self
+    {
+        $this->count = $count;
 
         return $this;
     }
