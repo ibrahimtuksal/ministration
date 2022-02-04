@@ -26,9 +26,13 @@ class UserLogService
         if ($userLog instanceof UserLog){
             $nowDate = new \DateTime();
             $nowDate = $nowDate->format('Y-m-d H:i:s');
-            if ($userLog->getCount() < 5 && $this->dateDifference($userLog->getCreatedAt()->format('Y-m-d H:i:s'), $nowDate) < 24 ){
-                $userLog->setCount($userLog->getCount()+1);
-                $this->em->flush();
+            if ($this->dateDifference($userLog->getCreatedAt()->format('Y-m-d H:i:s'), $nowDate) < 24){
+                if ($userLog->getCount() < 5){
+                    $userLog->setCount($userLog->getCount()+1);
+                    $this->em->flush();
+                }else {
+                    return false;
+                }
             }else {
                 $log = new UserLog();
                 $log->setIp($request->getClientIp());
