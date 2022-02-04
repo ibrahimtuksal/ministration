@@ -91,7 +91,7 @@
                             <th>{{ loop.index }}</th>
                             <td>{{ log.ip }}</td>
                             <td>{{ log.agent }}</td>
-                            <td>{{ log.count }}/5</td>
+                            <td>{{ log.count | default('1')}}/5</td>
                             <td>{{ log.createdAt | date('Y-m-d H:i:s') }}</td>
                             <td>
                                 <button type="button" class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal">
