@@ -7,6 +7,7 @@ use App\Entity\BrandWithCity;
 use App\Entity\Category;
 use App\Entity\City;
 use App\Form\BrandFormType;
+use App\Form\BrandZoneContentFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -58,6 +59,8 @@ class BrandController extends AbstractController
     /**
      * @Route("/add", name="admin_brand_add")
      * @Template()
+     * @param Request $request
+     * @return array|RedirectResponse
      */
     public function add(Request $request)
     {
@@ -223,6 +226,28 @@ class BrandController extends AbstractController
         $this->em->flush();
         $this->addFlash('success', 'Transfer İşlemi Tamamlandı');
         return $this->redirectToRoute('admin_brand');
+    }
+
+    /**
+     * @Route("/content/{brand}", name="admin_brand_content")
+     * @Template()
+     * @param int $brand
+     * @param Request $request
+     * @return array|RedirectResponse
+     */
+    public function content(int $brand, Request $request)
+    {
+        $brand = $this->em->getRepository(Brand::class)->find($brand);
+        $form = $this->createForm(BrandZoneContentFormType::class, $brand);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->em->flush();
+            $this->addFlash('success', 'Başarıyla Kaydedildi');
+            return $this->redirectToRoute('admin_brand');
+        }
+
+        return ['form' => $form->createView()];
     }
 
 }

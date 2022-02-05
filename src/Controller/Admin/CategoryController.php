@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\Category;
 use App\Entity\City;
 use App\Entity\CityWithCategory;
+use App\Form\CategoryContentFormType;
 use App\Form\CategoryFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -83,7 +84,7 @@ class CategoryController extends AbstractController
                 }
                 $category->setPhoto("/public/uploads/".$newFilename);
             }
-
+            $category->setZoneContent(null);
             $category->setIsCity(false);
             $this->em->persist($category);
             $this->em->flush();
@@ -175,5 +176,27 @@ class CategoryController extends AbstractController
 
         $this->addFlash('success', 'Şehirler oluşturuldu');
         return $this->redirectToRoute('admin_category');
+    }
+
+    /**
+     * @Route("/content/{category}", name="admin_category_content")
+     * @Template()
+     * @param int $category
+     * @return array|RedirectResponse
+     */
+    public function content(int $category, Request $request)
+    {
+        $category = $this->em->getRepository(Category::class)->find($category);
+        $form = $this->createForm(CategoryContentFormType::class, $category);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()){
+            $this->em->flush();
+            $this->addFlash('success', 'Başarıyla Güncellendi');
+            return $this->redirectToRoute('admin_category');
+        }
+        return [
+            'form' => $form->createView()
+        ];
     }
 }

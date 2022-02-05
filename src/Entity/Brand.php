@@ -60,6 +60,11 @@ class Brand
      */
     private $is_city;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $zoneContent;
+
     public function __construct()
     {
         $this->brandContents = new ArrayCollection();
@@ -212,6 +217,18 @@ class Brand
     public function setIsCity(?bool $is_city): self
     {
         $this->is_city = $is_city;
+
+        return $this;
+    }
+
+    public function getZoneContent(): ?string
+    {
+        return $this->zoneContent;
+    }
+
+    public function setZoneContent(?string $zoneContent): self
+    {
+        $this->zoneContent = $zoneContent;
 
         return $this;
     }

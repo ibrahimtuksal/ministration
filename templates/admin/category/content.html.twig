@@ -1,0 +1,17 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Kategori Şehir İçeriği{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="alert alert-info">
+            <p class="text-center p-0">
+                Dinamik Bölgeler için %_zone_% anahtarını makaleninizde kullanınız
+            </p>
+        </div>
+    </div>
+    <p class="display-6 text-center">Kategori Şehir İçeriği</p>
+    <hr>
+    {{ form(form) }}
+
+{% endblock %}

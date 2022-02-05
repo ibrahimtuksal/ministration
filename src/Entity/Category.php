@@ -12,6 +12,9 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Category
 {
+
+    CONST ZONE_CONTENT_KEY = "%_zone_%";
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -53,6 +56,11 @@ class Category
      * @ORM\Column(type="text", nullable=true)
      */
     private $content;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $zoneContent;
 
     public function __construct()
     {
@@ -181,6 +189,18 @@ class Category
     public function setContent(?string $content): self
     {
         $this->content = $content;
+
+        return $this;
+    }
+
+    public function getZoneContent(): ?string
+    {
+        return $this->zoneContent;
+    }
+
+    public function setZoneContent(?string $zoneContent): self
+    {
+        $this->zoneContent = $zoneContent;
 
         return $this;
     }
