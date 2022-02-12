@@ -9,7 +9,7 @@
                 <strong>{{ neighborhood.name | capitalize }} {{ cityWithCategory.category.title }}</strong>
             </h2>
             <p class="grey-text w-responsive mx-auto mb-5 wow fadeIn" data-wow-delay="0.2s">
-                {{ cityWithCategory.category.content |raw }}
+                {{ cityWithCategory.category.zoneContent | replace({'%_zone_%': neighborhood.name | capitalize}) | raw }}
             </p>
             {% include 'home/contact_index_normal.html.twig' %}
         </section>
