@@ -19,57 +19,26 @@ class UserLogService
     }
 // todo: aynı gün girilmişse 5 den fazla kayıt atma
 // todo: reklam ile normali ayır
+
+/*
+ * ip daha önce girmemişse veri eklenir
+ * ip varsa ve 24 saat geçmemişse her girdiğinde sayıyı 1 arttırır girdiği sayıyı en fazla 5'e kadar yükseltir
+ * ip varsa ve 24 saat geçmişse yeni veri eklenir
+ */
     public function userLogControl(Request $request)
     {
-
-        $userLog = $this->em->getRepository(UserLog::class)->findOneBy(['ip' => $request->getClientIp()], ['id' => 'desc']);
-        if ($userLog instanceof UserLog){
-            $nowDate = new \DateTime();
-            if ($this->dateDifference($nowDate->format('Y-m-d H:i:s'), $userLog->getCreatedAt()->format('Y-m-d H:i:s') ) < 24){
-                if ($userLog->getCount() < 5){
-                    $userLog->setCount($userLog->getCount()+1);
-                    $this->em->flush();
-                }else {
-                    return false;
-                }
-            }else {
-                $log = new UserLog();
-                $log->setIp($request->getClientIp());
-                $log->setCreatedAt(new \DateTime());
-                $log->setAgent($_SERVER['HTTP_USER_AGENT']);
-                if ($request->query->get('ads') === "1")
-                {
-                    $log->setIsWhat(true);
-                } else {
-                    $log->setIsWhat(false);
-                }
-                $this->em->persist($log);
-                $this->em->flush();
-                return true;
-            }
-        }else {
-            $log = new UserLog();
-            $log->setIp($request->getClientIp());
-            $log->setCreatedAt(new \DateTime());
-            $log->setAgent($_SERVER['HTTP_USER_AGENT']);
-            if ($request->query->get('ads') === "1")
-            {
-                $log->setIsWhat(true);
-            } else {
-                $log->setIsWhat(false);
-            }
-            $this->em->persist($log);
-            $this->em->flush();
-            return true;
+        $log = new UserLog();
+        $log->setIp($request->getClientIp());
+        $log->setCreatedAt(new \DateTime());
+        $log->setAgent($_SERVER['HTTP_USER_AGENT']);
+        if ($request->query->get('ads') === "1")
+        {
+            $log->setIsWhat(true);
+        } else {
+            $log->setIsWhat(false);
         }
-        return false;
-    }
-
-    public function dateDifference(string $nowDate, string $createdAt)
-    {
-        $nowDate = strtotime( $nowDate );
-        $createdAt = strtotime( $createdAt );
-        $diff = $nowDate - $createdAt;
-        return $diff / ( 60 * 60 );
+        $this->em->persist($log);
+        $this->em->flush();
+        return true;
     }
 }
