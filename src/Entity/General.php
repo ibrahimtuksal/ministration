@@ -81,6 +81,11 @@ class General
      */
     private $headCss;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $isReturnPhoneForAds;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -226,6 +231,18 @@ class General
     public function setHeadCss(?string $headCss): self
     {
         $this->headCss = $headCss;
+
+        return $this;
+    }
+
+    public function getIsReturnPhoneForAds(): ?bool
+    {
+        return $this->isReturnPhoneForAds;
+    }
+
+    public function setIsReturnPhoneForAds(?bool $isReturnPhoneForAds): self
+    {
+        $this->isReturnPhoneForAds = $isReturnPhoneForAds;
 
         return $this;
     }

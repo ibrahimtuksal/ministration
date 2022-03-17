@@ -37,6 +37,9 @@ class GeneralFormType extends AbstractType
             ->add('is_googletag', null, [
                 'required' => false,
                 'label' => 'Geri dönüşüm sistemi Aktif/Pasif'])
+            ->add('isReturnPhoneForAds', null, [
+                'required' => false,
+                'label' => 'Reklamdan Girenleri Telefona Gönder Aktif/Pasif'])
             ->add('button', SubmitType::class, [
                 'label' => 'Kaydet',
                 'row_attr' => ['class' => 'd-grid gap-2']
