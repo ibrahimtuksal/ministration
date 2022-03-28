@@ -43,8 +43,6 @@ class UserLogService
             $connection->run("firewall-cmd --permanent --add-rich-rule=\"rule family='ipv4' source address='$ip/24' reject\"");
             // onayla
             $connection->run('firewall-cmd --reload');
-            // ban yetkisi kapat
-            $connection->run('service firewalld stop');
             // banladığını log'a bildir
             $userLog->setIsBanned(true);
         }else {
