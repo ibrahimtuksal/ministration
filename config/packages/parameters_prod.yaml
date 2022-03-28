@@ -1,0 +1,4 @@
+parameters:
+  ssh_url: '%env(SSHURL)%'
+  ssh_as: '%env(SSHAS)%'
+  ssh_pass: '%env(SSHPASS)%'

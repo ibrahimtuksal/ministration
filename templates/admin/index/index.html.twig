@@ -65,7 +65,7 @@
                         <th>#</th>
                         <th>IP</th>
                         <th>Agent</th>
-                        <th>Girme Sayısı</th>
+                        <th>Ban</th>
                         <th>Created At</th>
                         <th>IP Kopyala</th>
                     </tr>
@@ -83,7 +83,7 @@
                             <th>{{ loop.index }}</th>
                             <td>{{ log.ip }}</td>
                             <td>{{ log.agent }}</td>
-                            <td>{{ log.count | default('1')}}/5</td>
+                            <td><div class="{{ log.isBanned ? "bg-danger" : "bg-success" }} align-self-center" style="width: 15px; height: 15px;"></div></td>
                             <td>{{ log.createdAt | date('Y-m-d H:i:s') }}</td>
                             <td>
                                 <button type="button" class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal">

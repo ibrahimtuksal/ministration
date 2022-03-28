@@ -42,6 +42,11 @@ class UserLog
      */
     private $count;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $is_banned;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -103,6 +108,18 @@ class UserLog
     public function setCount(?int $count): self
     {
         $this->count = $count;
+
+        return $this;
+    }
+
+    public function getIsBanned(): ?bool
+    {
+        return $this->is_banned;
+    }
+
+    public function setIsBanned(bool $is_banned): self
+    {
+        $this->is_banned = $is_banned;
 
         return $this;
     }
