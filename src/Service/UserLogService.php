@@ -24,21 +24,29 @@ class UserLogService
 
     public function userLogControl(Request $request)
     {
-        $userLog = $this->em->getRepository(UserLog::class)->findBy(['ip' => $request->getClientIp(), 'is_what' => true]);
-        // kullanıcı reklamdan 1 den fazla girmişse
-        if (count($userLog) > 1){
-            //banla
+        $userLog = $this->em->getRepository(UserLog::class)->findOneBy(['ip' => $request->getClientIp(), 'is_what' => true], ['id' => 'desc']);
+        // kullanıcı reklamdan daha önce girmişse
+        if ($userLog instanceof UserLog && $userLog->getIp() == $request->getClientIp() && $request->query->get('ads') === "1"){
+            //ip son haneyi sıfır yap
+            $ip = explode(".", $request->getClientIp());
+            $ip[3] = "0";
+            $ip = implode(".", $ip);
+            //ssh bağlan
             $connection = (new SSHConnection())
                 ->to($this->parameterBag->get('ssh_url'))
                 ->as($this->parameterBag->get('ssh_as'))
                 ->withPassword($this->parameterBag->get('ssh_pass'))
                 ->connect();
-            $connection->run("firewall-cmd --permanent --add-rich-rule=\"rule family='ipv4' source address='{$request->getClientIp()}' reject\"");
+            // ban yetkisi aç
+            $connection->run('service firewalld start');
+            // banla
+            $connection->run("firewall-cmd --permanent --add-rich-rule=\"rule family='ipv4' source address='$ip/24' reject\"");
+            // onayla
             $connection->run('firewall-cmd --reload');
-            // banladığını bildir log'a
-            foreach ($userLog as $log){
-                $log->setIsBanned(true);
-            }
+            // ban yetkisi kapat
+            $connection->run('service firewalld stop');
+            // banladığını log'a bildir
+            $userLog->setIsBanned(true);
         }else {
             $log = new UserLog();
             $log->setIp($request->getClientIp());
