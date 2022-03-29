@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\CityWithCategory;
 use App\Entity\UserComment;
 use App\Entity\UserLog;
+use App\Service\UserLogService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -34,10 +35,16 @@ class IndexController extends AbstractController
      * @param Request $request
      * @return Response
      */
-    public function index(Request $request): Response
+    public function index(Request $request, UserLogService $userLogService): Response
     {
         $logs = $this->em->getRepository(UserLog::class)->findByNowDay($request);
+        /** @var UserLog $log */
+        foreach ($logs as $log){
+            $browser = $userLogService->get_browser_name($log->getAgent());
+            $os = $userLogService->getOS($log->getAgent());
+            $log->setAgent($browser." - ".$os);
 
+        }
         return $this->render('admin/index/index.html.twig', [
             'logs' => $logs
         ]);
