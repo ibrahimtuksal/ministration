@@ -15,11 +15,13 @@ class UserLogService
      */
     private EntityManagerInterface $em;
     private ParameterBagInterface $parameterBag;
+    private SmsService $smsService;
 
-    public function __construct(EntityManagerInterface $em, ParameterBagInterface $parameterBag)
+    public function __construct(EntityManagerInterface $em, ParameterBagInterface $parameterBag, SmsService $smsService)
     {
         $this->em = $em;
         $this->parameterBag = $parameterBag;
+        $this->smsService = $smsService;
     }
 
     public function userLogControl(Request $request)
@@ -45,6 +47,7 @@ class UserLogService
             $connection->run('firewall-cmd --reload');
             // banladığını log'a bildir
             $userLog->setIsBanned(true);
+            $this->smsService->sendSms("Birileri ban yedi hemen ads paneline ip'yi ekle!");
         }else {
             $log = new UserLog();
             $log->setIp($request->getClientIp());
@@ -54,6 +57,7 @@ class UserLogService
             if ($request->query->get('ads') === "1")
             {
                 $log->setIsWhat(true);
+                $this->smsService->sendSms("Reklamdan Giren bir kullanıcı var!");
             } else {
                 $log->setIsWhat(false);
             }

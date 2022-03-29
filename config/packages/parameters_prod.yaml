@@ -2,3 +2,6 @@ parameters:
   ssh_url: '%env(SSHURL)%'
   ssh_as: '%env(SSHAS)%'
   ssh_pass: '%env(SSHPASS)%'
+
+  sms_api_key: '%env(APIKEY)%'
+  sms_api_id: '%env(APIID)%'
