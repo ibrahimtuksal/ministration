@@ -18,22 +18,22 @@ class UserLog
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $ip;
 
     /**
-     * @ORM\Column(type="string", length=500)
+     * @ORM\Column(type="string", length=500, nullable=true)
      */
     private $agent;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $created_at;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", nullable=true)
      */
     private $is_what;
 
@@ -43,7 +43,7 @@ class UserLog
     private $count;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", nullable=true)
      */
     private $is_banned;
 
@@ -57,7 +57,7 @@ class UserLog
         return $this->ip;
     }
 
-    public function setIp(string $ip): self
+    public function setIp(?string $ip): self
     {
         $this->ip = $ip;
 
@@ -69,7 +69,7 @@ class UserLog
         return $this->agent;
     }
 
-    public function setAgent(string $agent): self
+    public function setAgent(?string $agent): self
     {
         $this->agent = $agent;
 
@@ -81,7 +81,7 @@ class UserLog
         return $this->created_at;
     }
 
-    public function setCreatedAt(\DateTimeInterface $created_at): self
+    public function setCreatedAt(?\DateTimeInterface $created_at): self
     {
         $this->created_at = $created_at;
 
@@ -93,7 +93,7 @@ class UserLog
         return $this->is_what;
     }
 
-    public function setIsWhat(bool $is_what): self
+    public function setIsWhat(?bool $is_what): self
     {
         $this->is_what = $is_what;
 
@@ -117,7 +117,7 @@ class UserLog
         return $this->is_banned;
     }
 
-    public function setIsBanned(bool $is_banned): self
+    public function setIsBanned(?bool $is_banned): self
     {
         $this->is_banned = $is_banned;
 
