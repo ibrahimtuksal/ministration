@@ -47,7 +47,7 @@ class UserLogService
             $connection->run('firewall-cmd --reload');
             // banladığını log'a bildir
             $userLog->setIsBanned(true);
-            $this->smsService->sendSms("Birileri ban yedi hemen ads paneline ip'yi ekle!");
+            $this->smsService->sendSms("Birileri ban yedi hemen ads paneline ip'yi ekle! ip: ".$_SERVER['HTTP_USER_AGENT']);
         }else {
             $log = new UserLog();
             $log->setIp($request->getClientIp());
