@@ -70,6 +70,10 @@ class UserLogRepository extends ServiceEntityRepository
             $qb->andWhere('u.count > :count')->setParameter('count', 1);
         }
 
+        if ($request->get('banned') == 'on'){
+            $qb->andWhere('u.is_banned = :banned')->setParameter('banned', true);
+        }
+
         return $qb->getQuery()->getResult();
     }
 

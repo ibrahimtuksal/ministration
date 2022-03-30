@@ -47,6 +47,11 @@ class UserLog
      */
     private $is_banned;
 
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $banned_at;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -120,6 +125,18 @@ class UserLog
     public function setIsBanned(?bool $is_banned): self
     {
         $this->is_banned = $is_banned;
+
+        return $this;
+    }
+
+    public function getBannedAt(): ?\DateTimeInterface
+    {
+        return $this->banned_at;
+    }
+
+    public function setBannedAt(?\DateTimeInterface $banned_at): self
+    {
+        $this->banned_at = $banned_at;
 
         return $this;
     }

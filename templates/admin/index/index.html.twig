@@ -46,6 +46,14 @@
                         </label>
                     </div>
                 </div>
+                <div class="col-md-2">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="banned" id="banned">
+                        <label class="form-check-label" for="banned">
+                            Güncel banlananları göster
+                        </label>
+                    </div>
+                </div>
             </div>
             <div class="row mb-5">
                 <div class="col-md-6 d-grid gap-2">
@@ -66,6 +74,7 @@
                         <th>IP</th>
                         <th>Tarayıcı - İşletim Sistemi</th>
                         <th>Ban</th>
+                        <th>Banlanma Tarihi</th>
                         <th>Created At</th>
                         <th>IP Kopyala</th>
                     </tr>
@@ -84,6 +93,7 @@
                             <td>{{ log.ip }}</td>
                             <td>{{ log.agent }}</td>
                             <td><div class="{{ log.isBanned ? "bg-danger" : "bg-success" }} align-self-center" style="width: 15px; height: 15px;"></div></td>
+                            <td>{{ log.bannedAt | date('Y-m-d H:i:s') == "now" | date('Y-m-d H:i:s') ? "-" : log.bannedAt | date('Y-m-d H:i:s') }}</td>
                             <td>{{ log.createdAt | date('Y-m-d H:i:s') }}</td>
                             <td>
                                 <button type="button" class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal">
