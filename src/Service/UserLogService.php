@@ -29,7 +29,6 @@ class UserLogService
         $ip = explode(".", $request->getClientIp());
         $ip[2] = "0";
         $ip[3] = "0";
-        $ip = implode(".", $ip);
         if ($ip[0] === "66" && $ip[1] === "249")
         {
             $log = new UserLog();
@@ -44,8 +43,9 @@ class UserLogService
                 $log->setIsWhat(false);
             }
             $this->em->persist($log);
-            return false;
+            return true;
         }
+        $ip = implode(".", $ip);
         $userLogs = $this->em->getRepository(UserLog::class)->findBy(['ip' => $request->getClientIp(), 'is_what' => true]);
         // kullanıcı reklamdan daha önce girmişse
         if (count($userLogs) >= 1){
