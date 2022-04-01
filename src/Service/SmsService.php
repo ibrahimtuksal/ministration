@@ -25,7 +25,6 @@ class SmsService
             'message' => $message,
             'phones' => [
                 '5524331111',
-                '5354116295',
                 '5413779956',
             ]
         ];

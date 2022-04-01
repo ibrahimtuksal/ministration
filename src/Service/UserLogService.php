@@ -26,6 +26,26 @@ class UserLogService
 
     public function userLogControl(Request $request)
     {
+        $ip = explode(".", $request->getClientIp());
+        $ip[2] = "0";
+        $ip[3] = "0";
+        $ip = implode(".", $ip);
+        if ($ip[0] === "66" && $ip[1] === "249")
+        {
+            $log = new UserLog();
+            $log->setIp($request->getClientIp());
+            $log->setCreatedAt(new \DateTime());
+            $log->setAgent($_SERVER['HTTP_USER_AGENT']);
+            $log->setIsBanned(false);
+            if ($request->query->get('ads') === "1")
+            {
+                $log->setIsWhat(true);
+            } else {
+                $log->setIsWhat(false);
+            }
+            $this->em->persist($log);
+            return false;
+        }
         $userLogs = $this->em->getRepository(UserLog::class)->findBy(['ip' => $request->getClientIp(), 'is_what' => true]);
         // kullanıcı reklamdan daha önce girmişse
         if (count($userLogs) >= 1){
@@ -34,10 +54,7 @@ class UserLogService
                 if ($userLog instanceof UserLog && $request->query->get('ads') === "1"){
                     if ( ! $userLog->getIsBanned() ){
                         //ip son haneyi sıfır yap
-                        $ip = explode(".", $request->getClientIp());
-                        $ip[2] = "0";
-                        $ip[3] = "0";
-                        $ip = implode(".", $ip);
+
                         //ssh bağlan
                         $connection = (new SSHConnection())
                             ->to($this->parameterBag->get('ssh_url'))
