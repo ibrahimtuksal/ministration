@@ -29,23 +29,17 @@ class BlogController extends AbstractController
      * @param string $blogSlug
      * @return Response
      */
-    public function index(string $blogSlug): Response
+    public function index(string $blogSlug, UserLogService $userLogService, Request $request, GlobalGenerator $globalGenerator): Response
     {
+        if ($globalGenerator->general->getIsReturnPhoneForAds() && $request->query->get('ads') == "1"){
+            $userLogService->userLogControl($request);
+            return $this->redirect('tel:05061614265');
+        }
         /** @var Blog $blog */
         $blog = $this->entityManager->getRepository(Blog::class)->findOneBy(['slug' => $blogSlug]);
 
         return $this->render('blog/index.html.twig', [
             'blog' => $blog
         ]);
-    }
-
-    /**
-     * @Route("/deneme", name="deneme")
-     */
-    public function deneme(UserLogService $userLogService, Request $request, GlobalGenerator $globalGenerator){
-        if ($globalGenerator->general->getIsReturnPhoneForAds()){
-            $userLogService->userLogControl($request);
-            return $this->redirect('tel:05061614265');
-        }
     }
 }

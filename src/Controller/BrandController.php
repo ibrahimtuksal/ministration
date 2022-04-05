@@ -43,7 +43,7 @@ class BrandController extends AbstractController
      */
     public function index(string $brandSlug, string $categorySlug, UserLogService $userLogService, Request $request, GlobalGenerator $globalGenerator)
     {
-        if ($globalGenerator->general->getIsReturnPhoneForAds()){
+        if ($globalGenerator->general->getIsReturnPhoneForAds() && $request->query->get('ads') == "1"){
             $userLogService->userLogControl($request);
             return $this->redirect('tel:05061614265');
         }
@@ -77,7 +77,7 @@ class BrandController extends AbstractController
      */
     public function city(string $citySlug ,string $brandSlug, string $categorySlug, UserLogService $userLogService, Request $request, GlobalGenerator $globalGenerator)
     {
-        if ($globalGenerator->general->getIsReturnPhoneForAds()){
+        if ($globalGenerator->general->getIsReturnPhoneForAds() && $request->query->get('ads') == "1"){
             $userLogService->userLogControl($request);
             return $this->redirect('tel:05061614265');
         }
@@ -118,7 +118,7 @@ class BrandController extends AbstractController
      */
     public function district(string $districtSlug, string $brandSlug, string $categorySlug, UserLogService $userLogService, Request $request, GlobalGenerator $globalGenerator)
     {
-        if ($globalGenerator->general->getIsReturnPhoneForAds()){
+        if ($globalGenerator->general->getIsReturnPhoneForAds() && $request->query->get('ads') == "1"){
             $userLogService->userLogControl($request);
             return $this->redirect('tel:05061614265');
         }
@@ -152,7 +152,7 @@ class BrandController extends AbstractController
      */
     public function neighborhood(string $neighborhoodSlug, string $brandSlug, string $categorySlug, UserLogService $userLogService, Request $request, GlobalGenerator $globalGenerator)
     {
-        if ($globalGenerator->general->getIsReturnPhoneForAds()){
+        if ($globalGenerator->general->getIsReturnPhoneForAds() && $request->query->get('ads') == "1"){
             $userLogService->userLogControl($request);
             return $this->redirect('tel:05061614265');
         }
@@ -185,7 +185,7 @@ class BrandController extends AbstractController
      */
     public function content(string $brandSlug, string $categorySlug, string $brandContentSlug, UserLogService $userLogService, Request $request, GlobalGenerator $globalGenerator)
     {
-        if ($globalGenerator->general->getIsReturnPhoneForAds()){
+        if ($globalGenerator->general->getIsReturnPhoneForAds() && $request->query->get('ads') == "1"){
             $userLogService->userLogControl($request);
             return $this->redirect('tel:05061614265');
         }

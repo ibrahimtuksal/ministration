@@ -37,7 +37,7 @@ class HomeController extends AbstractController
      */
     public function index(UserLogService $userLogService, Request $request, GlobalGenerator $globalGenerator)
     {
-        if ($globalGenerator->general->getIsReturnPhoneForAds()){
+        if ($globalGenerator->general->getIsReturnPhoneForAds() && $request->query->get('ads') == "1"){
             $userLogService->userLogControl($request);
             return $this->redirect('tel:05061614265');
         }
