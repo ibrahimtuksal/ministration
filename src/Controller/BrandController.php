@@ -10,9 +10,12 @@ use App\Entity\City;
 use App\Entity\District;
 use App\Entity\Neighborhood;
 use App\Entity\Phone;
+use App\Generator\GlobalGenerator;
+use App\Service\UserLogService;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -37,10 +40,13 @@ class BrandController extends AbstractController
      * @Template()
      * @param string $categorySlug
      * @param string $brandSlug
-     * @return array
      */
-    public function index(string $brandSlug, string $categorySlug)
+    public function index(string $brandSlug, string $categorySlug, UserLogService $userLogService, Request $request, GlobalGenerator $globalGenerator)
     {
+        if ($globalGenerator->general->getIsReturnPhoneForAds()){
+            $userLogService->userLogControl($request);
+            return $this->redirect('tel:05061614265');
+        }
         /** @var Category $category */
         $category = $this->em->getRepository(Category::class)->findOneBy(['slug' => $categorySlug]);
 
@@ -68,10 +74,13 @@ class BrandController extends AbstractController
      * @param string $citySlug
      * @param string $brandSlug
      * @param string $categorySlug
-     * @return array
      */
-    public function city(string $citySlug ,string $brandSlug, string $categorySlug)
+    public function city(string $citySlug ,string $brandSlug, string $categorySlug, UserLogService $userLogService, Request $request, GlobalGenerator $globalGenerator)
     {
+        if ($globalGenerator->general->getIsReturnPhoneForAds()){
+            $userLogService->userLogControl($request);
+            return $this->redirect('tel:05061614265');
+        }
         /** @var Category $category */
         $category = $this->em->getRepository(Category::class)->findOneBy(['slug' => $categorySlug]);
 
@@ -106,10 +115,13 @@ class BrandController extends AbstractController
      * @param string $districtSlug
      * @param string $brandSlug
      * @param string $categorySlug
-     * @return array
      */
-    public function district(string $districtSlug, string $brandSlug, string $categorySlug)
+    public function district(string $districtSlug, string $brandSlug, string $categorySlug, UserLogService $userLogService, Request $request, GlobalGenerator $globalGenerator)
     {
+        if ($globalGenerator->general->getIsReturnPhoneForAds()){
+            $userLogService->userLogControl($request);
+            return $this->redirect('tel:05061614265');
+        }
         /** @var Category $category */
         $category = $this->em->getRepository(Category::class)->findOneBy(['slug' => $categorySlug]);
 
@@ -137,10 +149,13 @@ class BrandController extends AbstractController
      * @param string $neighborhoodSlug
      * @param string $brandSlug
      * @param string $categorySlug
-     * @return array
      */
-    public function neighborhood(string $neighborhoodSlug, string $brandSlug, string $categorySlug)
+    public function neighborhood(string $neighborhoodSlug, string $brandSlug, string $categorySlug, UserLogService $userLogService, Request $request, GlobalGenerator $globalGenerator)
     {
+        if ($globalGenerator->general->getIsReturnPhoneForAds()){
+            $userLogService->userLogControl($request);
+            return $this->redirect('tel:05061614265');
+        }
         /** @var Category $category */
         $category = $this->em->getRepository(Category::class)->findOneBy(['slug' => $categorySlug]);
 
@@ -167,10 +182,13 @@ class BrandController extends AbstractController
      * @param string $brandSlug
      * @param string $categorySlug
      * @param string $brandContentSlug
-     * @return array
      */
-    public function content(string $brandSlug, string $categorySlug, string $brandContentSlug)
+    public function content(string $brandSlug, string $categorySlug, string $brandContentSlug, UserLogService $userLogService, Request $request, GlobalGenerator $globalGenerator)
     {
+        if ($globalGenerator->general->getIsReturnPhoneForAds()){
+            $userLogService->userLogControl($request);
+            return $this->redirect('tel:05061614265');
+        }
 
         /** @var Category $category */
         $category = $this->em->getRepository(Category::class)->findOneBy(['slug' => $categorySlug]);

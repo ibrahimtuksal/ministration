@@ -9,6 +9,8 @@ use App\Entity\Phone;
 use App\Entity\Slider;
 use App\Entity\UserComment;
 use App\Entity\UserLog;
+use App\Generator\GlobalGenerator;
+use App\Service\UserLogService;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -33,8 +35,12 @@ class HomeController extends AbstractController
      * @Route("/", name="home")
      * @Template()
      */
-    public function index()
+    public function index(UserLogService $userLogService, Request $request, GlobalGenerator $globalGenerator)
     {
+        if ($globalGenerator->general->getIsReturnPhoneForAds()){
+            $userLogService->userLogControl($request);
+            return $this->redirect('tel:05061614265');
+        }
         /** @var Corporate $corporateIndex */
         $corporateIndex = $this->em->getRepository(Corporate::class)->findOneBy(['is_index' => true]);
         /** @var Slider $sliders */

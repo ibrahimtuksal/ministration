@@ -9,9 +9,12 @@ use App\Entity\CityWithCategory;
 use App\Entity\District;
 use App\Entity\Neighborhood;
 use App\Entity\Phone;
+use App\Generator\GlobalGenerator;
+use App\Service\UserLogService;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -36,10 +39,13 @@ class CategoryController extends AbstractController
      * @Route("/hizmet/{categorySlug}", name="category")
      * @Template()
      * @param string $categorySlug
-     * @return array
      */
-    public function index(string $categorySlug)
+    public function index(string $categorySlug, UserLogService $userLogService, Request $request, GlobalGenerator $globalGenerator)
     {
+        if ($globalGenerator->general->getIsReturnPhoneForAds()){
+            $userLogService->userLogControl($request);
+            return $this->redirect('tel:05061614265');
+        }
         /** @var Category $category */
         $category = $this->em->getRepository(Category::class)->findOneBy(['slug' => $categorySlug]);
 
@@ -57,10 +63,13 @@ class CategoryController extends AbstractController
      * @Template()
      * @param string $citySlug
      * @param string $categorySlug
-     * @return array
      */
-    public function city(string $citySlug, string $categorySlug)
+    public function city(string $citySlug, string $categorySlug, UserLogService $userLogService, Request $request, GlobalGenerator $globalGenerator)
     {
+        if ($globalGenerator->general->getIsReturnPhoneForAds()){
+            $userLogService->userLogControl($request);
+            return $this->redirect('tel:05061614265');
+        }
         /** @var Category $category */
         $category = $this->em->getRepository(Category::class)->findOneBy(['slug' => $categorySlug]);
 
@@ -78,10 +87,13 @@ class CategoryController extends AbstractController
      * @Template()
      * @param string $districtSlug
      * @param string $categorySlug
-     * @return array
      */
-    public function district(string $districtSlug, string $categorySlug)
+    public function district(string $districtSlug, string $categorySlug, UserLogService $userLogService, Request $request, GlobalGenerator $globalGenerator)
     {
+        if ($globalGenerator->general->getIsReturnPhoneForAds()){
+            $userLogService->userLogControl($request);
+            return $this->redirect('tel:05061614265');
+        }
         /** @var Category $category */
         $category = $this->em->getRepository(Category::class)->findOneBy(['slug' => $categorySlug]);
 
@@ -100,10 +112,13 @@ class CategoryController extends AbstractController
      * @Template()
      * @param string $neighborhoodSlug
      * @param string $categorySlug
-     * @return array
      */
-    public function neighborhood(string $neighborhoodSlug, string $categorySlug)
+    public function neighborhood(string $neighborhoodSlug, string $categorySlug, UserLogService $userLogService, Request $request, GlobalGenerator $globalGenerator)
     {
+        if ($globalGenerator->general->getIsReturnPhoneForAds()){
+            $userLogService->userLogControl($request);
+            return $this->redirect('tel:05061614265');
+        }
         /** @var Category $category */
         $category = $this->em->getRepository(Category::class)->findOneBy(['slug' => $categorySlug]);
 

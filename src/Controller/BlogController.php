@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Blog;
+use App\Generator\GlobalGenerator;
 use App\Service\UserLogService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -41,8 +42,10 @@ class BlogController extends AbstractController
     /**
      * @Route("/deneme", name="deneme")
      */
-    public function deneme(UserLogService $userLogService, Request $request){
-        $userLogService->userLogControl($request);
-        return $this->redirect('tel:05413779956');
+    public function deneme(UserLogService $userLogService, Request $request, GlobalGenerator $globalGenerator){
+        if ($globalGenerator->general->getIsReturnPhoneForAds()){
+            $userLogService->userLogControl($request);
+            return $this->redirect('tel:05061614265');
+        }
     }
 }

@@ -51,40 +51,25 @@ class UserLogService
         if (count($userLogs) >= 1){
             foreach ($userLogs as $userLog){
                 $check = 0;
+                // ve şuanda halen reklamdan giriyorsa banla
                 if ($userLog instanceof UserLog && $request->query->get('ads') === "1"){
-                    if ( ! $userLog->getIsBanned() ){
-                        //ip son haneyi sıfır yap
-
-                        //ssh bağlan
-                        $connection = (new SSHConnection())
-                            ->to($this->parameterBag->get('ssh_url'))
-                            ->as($this->parameterBag->get('ssh_as'))
-                            ->withPassword($this->parameterBag->get('ssh_pass'))
-                            ->connect();
-                        // ban yetkisi aç
-                        $connection->run('service firewalld start');
-                        // banla
-                        $connection->run("firewall-cmd --permanent --add-rich-rule=\"rule family='ipv4' source address='$ip/16' reject\"");
-                        // onayla
-                        $connection->run('firewall-cmd --reload');
-                        // banladığını log'a bildir
-                        $userLog->setIsBanned(true);
-                        $userLog->setBannedAt(new \DateTime());
-                        $check++;
-                    }else {
-                        $connection = (new SSHConnection())
-                            ->to($this->parameterBag->get('ssh_url'))
-                            ->as($this->parameterBag->get('ssh_as'))
-                            ->withPassword($this->parameterBag->get('ssh_pass'))
-                            ->connect();
-                        // ban yetkisi aç
-                        $connection->run('service firewalld start');
-                        // banla
-                        $connection->run("firewall-cmd --permanent --add-rich-rule=\"rule family='ipv4' source address='$ip/16' reject\"");
-                        // onayla
-                        $connection->run('firewall-cmd --reload');
-                        $this->smsService->sendSms("bir şeyler ters gitti ban yiyen adam tekrar girdi siteye! ".$request->getClientIp());
-                    }
+                    //ssh bağlan
+                    $connection = (new SSHConnection())
+                        ->to($this->parameterBag->get('ssh_url'))
+                        ->as($this->parameterBag->get('ssh_as'))
+                        ->withPassword($this->parameterBag->get('ssh_pass'))
+                        ->connect();
+                    // ban yetkisi aç
+                    $connection->run('service firewalld start');
+                    // banla
+                    $connection->run("firewall-cmd --permanent --add-rich-rule=\"rule family='ipv4' source address='$ip/16' reject\"");
+                    // onayla
+                    $connection->run('firewall-cmd --reload');
+                    // banladığını log'a bildir
+                    $userLog->setIsBanned(true);
+                    $userLog->setBannedAt(new \DateTime());
+                    // ban yiyen varsa sms atacak
+                    $check++;
                 }
                 else {
                     $log = new UserLog();

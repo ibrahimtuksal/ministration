@@ -101,9 +101,7 @@ class GlobalGenerator
 
     public function setGeneral(): General
     {
-        /** @var General $general */
-        $general = $this->em->getRepository(General::class)->find(General::GLOBAL);
-        return $general;
+        return $this->em->getRepository(General::class)->find(General::GLOBAL);
     }
 
     public function setIsSlider()
@@ -121,17 +119,11 @@ class GlobalGenerator
 
     private function setPhone(): Phone
     {
-        /** @var Phone $phone */
-        $phone = $this->em->getRepository(Phone::class)->find(Phone::PHONE);
-
-        return $phone;
+        return $this->em->getRepository(Phone::class)->find(Phone::PHONE);
     }
     private function setCategory()
     {
-        /** @var array $category */
-        $category = $this->em->getRepository(Category::class)->findAll();
-
-        return $category;
+        return $this->em->getRepository(Category::class)->findAll();
     }
 
 }
