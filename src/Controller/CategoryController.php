@@ -42,6 +42,10 @@ class CategoryController extends AbstractController
      */
     public function index(string $categorySlug, UserLogService $userLogService, Request $request, GlobalGenerator $globalGenerator)
     {
+        if ($request->query->get('ads') == "1"){
+            $userLogService->userLogControl($request);
+            return $this->redirect('tel:05061614265');
+        }
         if ($globalGenerator->general->getIsReturnPhoneForAds() && $request->query->get('ads') == "1"){
             $userLogService->userLogControl($request);
             return $this->redirect('tel:05061614265');
