@@ -86,21 +86,18 @@ class HomeController extends AbstractController
         ]);
     }
 
-    public function logAdd(Request $request)
+    /**
+     * @Route("/check-ads", name="check_ads")
+     */
+    public function checkAds(UserLogService $userLogService, Request $request)
     {
         $log = new UserLog();
         $log->setIp($request->getClientIp());
         $log->setCreatedAt(new \DateTime());
         $log->setAgent($_SERVER['HTTP_USER_AGENT']);
-        if ($request->query->get('ads') === "1")
-        {
             $log->setIsWhat(true);
-        } else {
-            $log->setIsWhat(false);
-        }
         $this->em->persist($log);
         $this->em->flush();
-
         return true;
     }
 }

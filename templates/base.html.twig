@@ -91,12 +91,6 @@
     });
 </script>
 {% block javascripts %}
-    {{ global.die(app.request) }}
-    {% if global.general.isReturnPhoneForAds and app.request.query.get('ads') == "1" %}
-        <script>
-            window.replace.redirect('tel:05061614265');
-        </script>
-    {% endif %}
 {% endblock %}
 </body>
 </html>
