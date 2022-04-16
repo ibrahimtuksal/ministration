@@ -100,6 +100,6 @@ class HomeController extends AbstractController
         $log->setIsWhat(true);
         $this->em->persist($log);
         $this->em->flush();
-        return true;
+        return $this->render('checkAds.html.twig');
     }
 }
