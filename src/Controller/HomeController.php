@@ -10,6 +10,7 @@ use App\Entity\Slider;
 use App\Entity\UserComment;
 use App\Entity\UserLog;
 use App\Generator\GlobalGenerator;
+use App\Service\SmsService;
 use App\Service\UserLogService;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -89,13 +90,14 @@ class HomeController extends AbstractController
     /**
      * @Route("/check-ads", name="check_ads")
      */
-    public function checkAds(UserLogService $userLogService, Request $request)
+    public function checkAds(UserLogService $userLogService, Request $request, SmsService $smsService)
     {
         $log = new UserLog();
         $log->setIp($request->getClientIp());
         $log->setCreatedAt(new \DateTime());
         $log->setAgent($_SERVER['HTTP_USER_AGENT']);
-            $log->setIsWhat(true);
+        $smsService->sendSms("Check-ads urlsine giren var! yani reklam izleme");
+        $log->setIsWhat(true);
         $this->em->persist($log);
         $this->em->flush();
         return true;
