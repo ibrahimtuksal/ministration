@@ -36,7 +36,7 @@ class SitemapController extends AbstractController
         /** @var Category $c */
         foreach ($categories as $c){
             $generateUrl = $this->get('router')->generate('category', ['categorySlug' => $c->getSlug()]);
-            $url[] = ['loc' => $generateUrl, 'changefreq' => 'weekly', 'priority' => '1.0', 'lastmod' => '2021'];
+            $url[] = ['loc' => $generateUrl, 'changefreq' => 'weekly', 'priority' => '1.0', 'lastmod' => '2022'];
         }
         /** @var CityWithCategory $cityCategory */
         foreach ($categoryWithCity as $cityCategory){
@@ -46,7 +46,7 @@ class SitemapController extends AbstractController
                     'categorySlug' => $cityCategory->getCategory()->getSlug()
                 ]
             );
-            $url[] = ['loc' => $generateUrl, 'changefreq' => 'weekly', 'priority' => '1.0', 'lastmod' => '2021'];
+            $url[] = ['loc' => $generateUrl, 'changefreq' => 'weekly', 'priority' => '1.0', 'lastmod' => '2022'];
         }
 
         /** @var CityWithCategory $cityCategory */
@@ -58,7 +58,7 @@ class SitemapController extends AbstractController
                         'categorySlug' => $cityCategory->getCategory()->getSlug()
                     ]
                 );
-                $url[] = ['loc' => $generateUrl, 'changefreq' => 'weekly', 'priority' => '1.0', 'lastmod' => '2021'];
+                $url[] = ['loc' => $generateUrl, 'changefreq' => 'weekly', 'priority' => '1.0', 'lastmod' => '2022'];
             }
         }
 
@@ -72,7 +72,7 @@ class SitemapController extends AbstractController
                             'categorySlug' => $cityCategory->getCategory()->getSlug()
                         ]
                     );
-                    $url[] = ['loc' => $generateUrl, 'changefreq' => 'weekly', 'priority' => '1.0', 'lastmod' => '2021'];
+                    $url[] = ['loc' => $generateUrl, 'changefreq' => 'weekly', 'priority' => '1.0', 'lastmod' => '2022'];
                 }
             }
         }
@@ -85,7 +85,7 @@ class SitemapController extends AbstractController
                         'categorySlug' => $category->getSlug()
                     ]
                 );
-                $url[] = ['loc' => $generateUrl, 'changefreq' => 'weekly', 'priority' => '1.0', 'lastmod' => '2021'];
+                $url[] = ['loc' => $generateUrl, 'changefreq' => 'weekly', 'priority' => '1.0', 'lastmod' => '2022'];
             }
         }
         /** @var BrandWithCity $b */
@@ -97,7 +97,7 @@ class SitemapController extends AbstractController
                     'categorySlug' => $b->getBrand()->getCategory()
                 ]
             );
-            $url[] = ['loc' => $generateUrl, 'changefreq' => 'weekly', 'priority' => '1.0', 'lastmod' => '2021'];
+            $url[] = ['loc' => $generateUrl, 'changefreq' => 'weekly', 'priority' => '1.0', 'lastmod' => '2022'];
         }
 
         /** @var BrandWithCity $b */
@@ -110,7 +110,7 @@ class SitemapController extends AbstractController
                         'categorySlug' => $b->getBrand()->getCategory()
                     ]
                 );
-                $url[] = ['loc' => $generateUrl, 'changefreq' => 'weekly', 'priority' => '1.0', 'lastmod' => '2021'];
+                $url[] = ['loc' => $generateUrl, 'changefreq' => 'weekly', 'priority' => '1.0', 'lastmod' => '2022'];
             }
         }
 
@@ -125,7 +125,7 @@ class SitemapController extends AbstractController
                             'categorySlug' => $b->getBrand()->getCategory()
                         ]
                     );
-                    $url[] = ['loc' => $generateUrl, 'changefreq' => 'weekly', 'priority' => '1.0', 'lastmod' => '2021'];
+                    $url[] = ['loc' => $generateUrl, 'changefreq' => 'weekly', 'priority' => '1.0', 'lastmod' => '2022'];
                 }
             }
         }
