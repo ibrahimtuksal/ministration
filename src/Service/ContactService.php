@@ -48,14 +48,12 @@ class ContactService
     public function contactFixed()
     {
         /** @var Contact $contact */
-        $contact = $this->contactRepository->findOneBy(['is_fixed' => true]);
-        return $contact;
+        return $this->contactRepository->findOneBy(['is_fixed' => true]);
     }
 
     public function contactWhatsApp()
     {
         /** @var Contact $contact */
-        $contact = $this->contactRepository->getWhatsApp();
-        return $contact;
+        return $this->contactRepository->getWhatsApp();
     }
 }
