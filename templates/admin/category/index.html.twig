@@ -12,6 +12,7 @@
             <th scope="col">#</th>
             <th scope="col">Başlık</th>
             <th scope="col">Fotoğraf</th>
+            <th scope="col">Slider</th>
             <th scope="col">Bölge İçeriği</th>
             <th scope="col">Şehirleri Oluştur</th>
             <th scope="col">Düzenle</th>
@@ -30,6 +31,7 @@
                         YOK
                     {% endif %}
                 </td>
+                <td>{{ category.slider.title | default('-') }}</td>
                 <td><a href="{{ path('admin_category_content', {category:category.id}) }}" class="btn btn-info btn-sm">Bölge İçerik <i class="fas fa-pencil"></i></a></td>
 
                 <td>

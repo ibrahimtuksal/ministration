@@ -2,10 +2,13 @@
 
 namespace App\Generator;
 
+use App\Entity\Blog;
 use App\Entity\Category;
 use App\Entity\Contact;
+use App\Entity\Corporate;
 use App\Entity\General;
 use App\Entity\Phone;
+use App\Entity\Slider;
 use App\Entity\UserLog;
 use App\Service\ContactService;
 use App\Service\UserLogService;
@@ -124,6 +127,18 @@ class GlobalGenerator
     private function setCategory()
     {
         return $this->em->getRepository(Category::class)->findAll();
+    }
+    public function getCorporate()
+    {
+        return $this->em->getRepository(Corporate::class)->findAll();
+    }
+    public function getBlog()
+    {
+        return $this->em->getRepository(Blog::class)->findAll();
+    }
+    public function getSlider()
+    {
+        return $this->em->getRepository(Slider::class)->findBy([], ['queue' => 'ASC']);
     }
 
 }

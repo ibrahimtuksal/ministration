@@ -35,15 +35,25 @@
             .carousel-inner {
                 height: 100%;
             }
-            {% for sPhoto in sliders %}
-            .carousel-item:nth-child({{ loop.index }}) {
-                background-image: url("{{ sPhoto.photo }}");
-                background-repeat: no-repeat;
-                background-size: cover;
-                background-attachment: fixed;
-                background-position: center center;
-            }
-            {% endfor %}
+            {% if category.slider is defined and category.slider is not null %}
+                .carousel-item:nth-child(1) {
+                    background-image: url("{{ category.slider.photo }}");
+                    background-repeat: no-repeat;
+                    background-size: cover;
+                    background-attachment: fixed;
+                    background-position: center center;
+                }
+            {% else %}
+                {% for sPhoto in global.slider %}
+                .carousel-item:nth-child({{ loop.index }}) {
+                    background-image: url("{{ sPhoto.photo }}");
+                    background-repeat: no-repeat;
+                    background-size: cover;
+                    background-attachment: fixed;
+                    background-position: center center;
+                }
+                {% endfor %}
+            {% endif %}
         </style>
     {% endblock %}
 {% endif %}
@@ -67,7 +77,7 @@
                         <a class="nav-link dropdown-toggle title" id="navbarDropdownMenuLink" data-toggle="dropdown"
                            aria-haspopup="true" aria-expanded="false"> Hizmetler </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            {% for c in categorys %}
+                            {% for c in global.category %}
                                 <a class="dropdown-item" href="{{ path('category', {'categorySlug':c.slug}) }}">{{ c.title }}</a>
                             {% endfor %}
                         </div>
@@ -76,7 +86,7 @@
                         <a class="nav-link dropdown-toggle title" id="navbarDropdownMenuLink" data-toggle="dropdown"
                            aria-haspopup="true" aria-expanded="false"> Kurumsal </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            {% for corporate in corporates %}
+                            {% for corporate in global.corporate %}
                                 <a class="dropdown-item" href="{{ path('corporate', {'corporateSlug':corporate.slug}) }}">{{ corporate.title }}</a>
                             {% endfor %}
                         </div>
@@ -85,7 +95,7 @@
                         <a class="nav-link dropdown-toggle title" id="navbarDropdownMenuLink" data-toggle="dropdown"
                            aria-haspopup="true" aria-expanded="false"> Blog </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            {% for blog in blogs %}
+                            {% for blog in global.blog %}
                                 <a class="dropdown-item" href="{{ path('blog', {'blogSlug':blog.slug}) }}">{{ blog.title }}</a>
                             {% endfor %}
                         </div>
@@ -133,34 +143,39 @@
 
             <!-- Indicators -->
             <ol class="carousel-indicators">
-                {% for slider in sliders %}
-                    <li data-target="#carousel" data-slide-to="{{ slider.queue }}"
-                            {% if loop.index == 1 %}
-                                class="active"
-                            {% endif %}
-                    >
-                    </li>
+                {% if category.slider is defined and category.slider is not null %}
 
-                {% endfor %}
+                        <li data-target="#carousel" data-slide-to="{{ category.slider.queue }}" class="active">
+                        </li>
+
+                {% else %}
+                    {% for slider in global.slider %}
+                        <li data-target="#carousel" data-slide-to="{{ slider.queue }}"
+                                {% if loop.index == 1 %}
+                                    class="active"
+                                {% endif %}
+                        >
+                        </li>
+                    {% endfor %}
+                {% endif %}
             </ol>
             <!-- Indicators -->
 
             <!-- Slides -->
             <div class="carousel-inner" role="listbox">
-
-                {% for s in sliders %}
-                    <div class="carousel-item {% if loop.index == 1 %}active{% endif %}">
+                {% if category.slider is defined and category.slider is not null %}
+                    <div class="carousel-item active">
                         <!-- Mask -->
                         <div class="view">
                             <div
                                     class="h-100 d-flex justify-content-center align-items-center mask rgba-black-light white-text text-center">
                                 <ul class="list-unstyled animated fadeInUp col-md-12">
                                     <li>
-                                        <h1 class="display-6 font-weight-bold wow fadeIn" data-wow-delay="0.3s">{{ s.title }}</h1>
+                                        <h1 class="display-6 font-weight-bold wow fadeIn" data-wow-delay="0.3s">{{ category.slider.title }}</h1>
                                         <hr class="hr-light wow fadeIn w-50" data-wow-delay="0.3s">
                                     </li>
                                     <li>
-                                        <h3>{{ s.description }}</h3>
+                                        <h3>{{ category.slider.description }}</h3>
                                     </li>
                                     <li>
                                         {% include 'home/contact_index_normal.html.twig' %}
@@ -170,8 +185,31 @@
                         </div>
                         <!-- Mask -->
                     </div>
-                {% endfor %}
-
+                {% else %}
+                    {% for s in global.slider %}
+                        <div class="carousel-item {% if loop.index == 1 %}active{% endif %}">
+                            <!-- Mask -->
+                            <div class="view">
+                                <div
+                                        class="h-100 d-flex justify-content-center align-items-center mask rgba-black-light white-text text-center">
+                                    <ul class="list-unstyled animated fadeInUp col-md-12">
+                                        <li>
+                                            <h1 class="display-6 font-weight-bold wow fadeIn" data-wow-delay="0.3s">{{ s.title }}</h1>
+                                            <hr class="hr-light wow fadeIn w-50" data-wow-delay="0.3s">
+                                        </li>
+                                        <li>
+                                            <h3>{{ s.description }}</h3>
+                                        </li>
+                                        <li>
+                                            {% include 'home/contact_index_normal.html.twig' %}
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <!-- Mask -->
+                        </div>
+                    {% endfor %}
+                {% endif %}
             </div>
             <!-- Slides -->
 

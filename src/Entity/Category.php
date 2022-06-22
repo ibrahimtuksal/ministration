@@ -62,6 +62,11 @@ class Category
      */
     private $zoneContent;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Slider::class, inversedBy="categories")
+     */
+    private $slider;
+
     public function __construct()
     {
         $this->brands = new ArrayCollection();
@@ -201,6 +206,18 @@ class Category
     public function setZoneContent(?string $zoneContent): self
     {
         $this->zoneContent = $zoneContent;
+
+        return $this;
+    }
+
+    public function getSlider(): ?Slider
+    {
+        return $this->slider;
+    }
+
+    public function setSlider(?Slider $slider): self
+    {
+        $this->slider = $slider;
 
         return $this;
     }

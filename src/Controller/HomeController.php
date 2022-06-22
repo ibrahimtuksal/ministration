@@ -62,30 +62,6 @@ class HomeController extends AbstractController
         ];
     }
 
-    /**
-     * @return Response
-     */
-    public function header(): Response
-    {
-        /** @var Slider $sliders */
-        $sliders = $this->em->getRepository(Slider::class)->findBy([], ['queue' => 'ASC']);
-        /** @var Phone $phone */
-        $phone = $this->em->getRepository(Phone::class)->find(1);
-
-        /** @var Category $category */
-        $category = $this->em->getRepository(Category::class)->findAll();
-
-        $corporates = $this->em->getRepository(Corporate::class)->findAll();
-        $blogs = $this->em->getRepository(Blog::class)->findAll();
-
-        return $this->render('home/header.html.twig', [
-            'sliders' => $sliders,
-            'phone' => $phone,
-            'categorys' => $category,
-            'corporates' => $corporates,
-            'blogs' => $blogs
-        ]);
-    }
 
     /**
      * @Route("/check-ads", name="check_ads")

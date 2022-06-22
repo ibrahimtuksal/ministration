@@ -21,6 +21,7 @@ class CategoryFormType extends AbstractType
                 ])
             //->add('slug')
             ->add('photo', FileType::class,['required' => false, 'mapped' => false])
+            ->add('slider')
             ->add('content', CKEditorType::class, [
                 'label' => 'İçerik',
                 'config' => [

@@ -31,9 +31,7 @@
     {{ global.general.headCode | raw }}
 </head>
 <body>
-{{ render(controller(
-    'App\\Controller\\HomeController:header'
-)) }}
+{% include 'home/header.html.twig' %}
 <main>
     {% include 'home/contact_sidebar.html.twig' %}
 {% block body %}{% endblock %}

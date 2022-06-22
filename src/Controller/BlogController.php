@@ -25,7 +25,7 @@ class BlogController extends AbstractController
     }
 
     /**
-     * @Route("/markalar/{blogSlug}", name="blog")
+     * @Route("/blog/{blogSlug}", name="blog")
      * @param string $blogSlug
      * @return Response
      */

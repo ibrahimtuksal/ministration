@@ -108,20 +108,20 @@ class UserLogService
 //            }
 //            $this->em->persist($log);
 //        }
-//        $log = new UserLog();
-//        $log->setIp($request->getClientIp());
-//        $log->setCreatedAt(new \DateTime());
-//        $log->setAgent($_SERVER['HTTP_USER_AGENT']);
-//        $log->setIsBanned(false);
-//        if ($request->query->get('ads') === "1")
-//        {
-//            $log->setIsWhat(true);
-//            $this->smsService->sendSms("Reklamdan Giren bir kullanıcı var!");
-//        } else {
-//            $log->setIsWhat(false);
-//        }
-//        $this->em->persist($log);
-//        $this->em->flush();
+        $log = new UserLog();
+        $log->setIp($request->getClientIp());
+        $log->setCreatedAt(new \DateTime());
+        $log->setAgent($_SERVER['HTTP_USER_AGENT']);
+        $log->setIsBanned(false);
+        if ($request->query->get('ads') === "1")
+        {
+            $log->setIsWhat(true);
+            $this->smsService->sendSms("Reklamdan Giren bir kullanıcı var!");
+        } else {
+            $log->setIsWhat(false);
+        }
+        $this->em->persist($log);
+        $this->em->flush();
         return true;
     }
 
