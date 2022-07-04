@@ -21,7 +21,11 @@ class UserLogService
 
     public function userLogControl(Request $request)
     {
-        if ($this->get_browser_name($_SERVER['HTTP_USER_AGENT']) == false){
+        $agent = $this->get_browser_name($_SERVER['HTTP_USER_AGENT']);
+        if ($agent == false){
+            return true;
+        }
+        if (strpos($_SERVER['HTTP_USER_AGENT'], "bot") and $agent !== 'google'){
             return true;
         }
         $log = new UserLog();
@@ -55,7 +59,7 @@ class UserLogService
         elseif (strpos($t, 'firefox'   )                           ) return 'Firefox'          ;
         elseif (strpos($t, 'msie'      ) || strpos($t, 'trident/7')) return 'Internet Explorer';
 
-        elseif (strpos($t, 'google'    )                           )        return '[Bot] Googlebot';
+        elseif (strpos($t, 'google'    )                           )        return 'google';
         elseif (strpos($t, 'bing'      )                           )        return false;
         elseif (strpos($t, 'slurp'     )                           )        return false;
         elseif (strpos($t, 'duckduckgo')                           )        return false;
