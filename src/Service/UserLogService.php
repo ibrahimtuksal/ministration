@@ -3,9 +3,7 @@
 namespace App\Service;
 
 use App\Entity\UserLog;
-use DivineOmega\SSHConnection\SSHConnection;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 class UserLogService
@@ -14,18 +12,18 @@ class UserLogService
      * @var EntityManagerInterface
      */
     private EntityManagerInterface $em;
-    private ParameterBagInterface $parameterBag;
-    private SmsService $smsService;
 
-    public function __construct(EntityManagerInterface $em, ParameterBagInterface $parameterBag, SmsService $smsService)
+
+    public function __construct(EntityManagerInterface $em)
     {
         $this->em = $em;
-        $this->parameterBag = $parameterBag;
-        $this->smsService = $smsService;
     }
 
     public function userLogControl(Request $request)
     {
+        if ($this->get_browser_name($_SERVER['HTTP_USER_AGENT']) == false){
+            return true;
+        }
         $log = new UserLog();
         $log->setIp($request->getClientIp());
         $log->setCreatedAt(new \DateTime());
@@ -34,7 +32,7 @@ class UserLogService
         if ($request->query->get('ads') === "1")
         {
             $log->setIsWhat(true);
-            $this->smsService->sendSms("Reklamdan Giren bir kullanıcı var!");
+            //$this->smsService->sendSms("Reklamdan Giren bir kullanıcı var!");
         } else {
             $log->setIsWhat(false);
         }
@@ -57,31 +55,29 @@ class UserLogService
         elseif (strpos($t, 'firefox'   )                           ) return 'Firefox'          ;
         elseif (strpos($t, 'msie'      ) || strpos($t, 'trident/7')) return 'Internet Explorer';
 
-        elseif (strpos($t, 'google'    )                           ) return '[Bot] Googlebot'   ;
-        elseif (strpos($t, 'bing'      )                           ) return '[Bot] Bingbot'     ;
-        elseif (strpos($t, 'slurp'     )                           ) return '[Bot] Yahoo! Slurp';
-        elseif (strpos($t, 'duckduckgo')                           ) return '[Bot] DuckDuckBot' ;
-        elseif (strpos($t, 'baidu'     )                           ) return '[Bot] Baidu'       ;
-        elseif (strpos($t, 'yandex'    )                           ) return '[Bot] Yandex'      ;
-        elseif (strpos($t, 'sogou'     )                           ) return '[Bot] Sogou'       ;
-        elseif (strpos($t, 'exabot'    )                           ) return '[Bot] Exabot'      ;
-        elseif (strpos($t, 'msn'       )                           ) return '[Bot] MSN'         ;
-
-        elseif (strpos($t, 'mj12bot'   )                           ) return '[Bot] Majestic'     ;
-        elseif (strpos($t, 'ahrefs'    )                           ) return '[Bot] Ahrefs'       ;
-        elseif (strpos($t, 'semrush'   )                           ) return '[Bot] SEMRush'      ;
-        elseif (strpos($t, 'rogerbot'  ) || strpos($t, 'dotbot')   ) return '[Bot] Moz or OpenSiteExplorer';
-        elseif (strpos($t, 'frog'      ) || strpos($t, 'screaming')) return '[Bot] Screaming Frog';
-
-        elseif (strpos($t, 'facebook'  )                           ) return '[Bot] Facebook'     ;
-        elseif (strpos($t, 'pinterest' )                           ) return '[Bot] Pinterest'    ;
+        elseif (strpos($t, 'google'    )                           )        return '[Bot] Googlebot';
+        elseif (strpos($t, 'bing'      )                           )        return false;
+        elseif (strpos($t, 'slurp'     )                           )        return false;
+        elseif (strpos($t, 'duckduckgo')                           )        return false;
+        elseif (strpos($t, 'baidu'     )                           )        return false;
+        elseif (strpos($t, 'yandex'    )                           )        return false;
+        elseif (strpos($t, 'sogou'     )                           )        return false;
+        elseif (strpos($t, 'exabot'    )                           )        return false;
+        elseif (strpos($t, 'msn'       )                           )        return false;
+        elseif (strpos($t, 'mj12bot'   )                           )        return false;
+        elseif (strpos($t, 'ahrefs'    )                           )        return false;
+        elseif (strpos($t, 'semrush'   )                           )        return false;
+        elseif (strpos($t, 'rogerbot'  ) || strpos($t, 'dotbot')   ) return false;
+        elseif (strpos($t, 'frog'      ) || strpos($t, 'screaming')) return false;
+        elseif (strpos($t, 'facebook'  )                           )        return false;
+        elseif (strpos($t, 'pinterest' )                           )        return false;
 
         elseif (strpos($t, 'crawler' ) || strpos($t, 'api'    ) ||
             strpos($t, 'spider'  ) || strpos($t, 'http'   ) ||
             strpos($t, 'bot'     ) || strpos($t, 'archive') ||
-            strpos($t, 'info'    ) || strpos($t, 'data'   )    ) return '[Bot] Other'   ;
+            strpos($t, 'info'    ) || strpos($t, 'data'   )    ) return false   ;
 
-        return 'Other (Unknown)';
+        return false;
     }
 
     function getOS($user_agent) {
