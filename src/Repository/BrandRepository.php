@@ -19,22 +19,15 @@ class BrandRepository extends ServiceEntityRepository
         parent::__construct($registry, Brand::class);
     }
 
-    // /**
-    //  * @return Brand[] Returns an array of Brand objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function getBrandAlphabetical()
     {
-        return $this->createQueryBuilder('b')
-            ->andWhere('b.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('b.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+        $qb = $this->createQueryBuilder('b');
+        $qb->leftJoin('b.category', 'category');
+        $qb->orderBy('category.title', 'ASC');
+        $qb->addOrderBy('b.title', 'ASC');
+        return $qb->getQuery()->getResult();
     }
-    */
+
 
     /*
     public function findOneBySomeField($value): ?Brand
