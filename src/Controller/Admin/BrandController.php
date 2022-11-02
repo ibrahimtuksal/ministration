@@ -47,7 +47,7 @@ class BrandController extends AbstractController
      */
     public function index()
     {
-        $brands = $this->em->getRepository(Brand::class)->findAll();
+        $brands = $this->em->getRepository(Brand::class)->getBrandAlphabetical();
 
         $categorys = $this->em->getRepository(Category::class)->findAll();
         return [
