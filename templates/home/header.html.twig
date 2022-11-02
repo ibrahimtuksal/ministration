@@ -43,6 +43,14 @@
                     background-attachment: fixed;
                     background-position: center center;
                 }
+            {% elseif cityWithCategory.category.slider is defined and cityWithCategory.category.slider is not null %}
+            .carousel-item:nth-child(1) {
+                background-image: url("{{ cityWithCategory.category.slider.photo }}");
+                background-repeat: no-repeat;
+                background-size: cover;
+                background-attachment: fixed;
+                background-position: center center;
+            }
             {% else %}
                 {% for sPhoto in global.slider %}
                 .carousel-item:nth-child({{ loop.index }}) {
@@ -148,6 +156,9 @@
                         <li data-target="#carousel" data-slide-to="{{ category.slider.queue }}" class="active">
                         </li>
 
+                {% elseif cityWithCategory.category.slider is defined and cityWithCategory.category.slider is not null %}
+                    <li data-target="#carousel" data-slide-to="{{ cityWithCategory.category.slider.queue }}" class="active">
+                    </li>
                 {% else %}
                     {% for slider in global.slider %}
                         <li data-target="#carousel" data-slide-to="{{ slider.queue }}"
@@ -176,6 +187,28 @@
                                     </li>
                                     <li>
                                         <h3>{{ category.slider.description }}</h3>
+                                    </li>
+                                    <li>
+                                        {% include 'home/contact_index_normal.html.twig' %}
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- Mask -->
+                    </div>
+                {% elseif cityWithCategory.category.slider is defined and cityWithCategory.category.slider is not null %}
+                    <div class="carousel-item active">
+                        <!-- Mask -->
+                        <div class="view">
+                            <div
+                                    class="h-100 d-flex justify-content-center align-items-center mask rgba-black-light white-text text-center">
+                                <ul class="list-unstyled animated fadeInUp col-md-12">
+                                    <li>
+                                        <h1 class="display-6 font-weight-bold wow fadeIn" data-wow-delay="0.3s">{{ cityWithCategory.category.slider.title }}</h1>
+                                        <hr class="hr-light wow fadeIn w-50" data-wow-delay="0.3s">
+                                    </li>
+                                    <li>
+                                        <h3>{{ cityWithCategory.category.slider.description }}</h3>
                                     </li>
                                     <li>
                                         {% include 'home/contact_index_normal.html.twig' %}
