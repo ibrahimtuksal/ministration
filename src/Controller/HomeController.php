@@ -68,14 +68,8 @@ class HomeController extends AbstractController
      */
     public function checkAds(UserLogService $userLogService, Request $request, SmsService $smsService)
     {
-        $log = new UserLog();
-        $log->setIp($request->getClientIp());
-        $log->setCreatedAt(new \DateTime());
-        $log->setAgent($_SERVER['HTTP_USER_AGENT']);
+        $userLogService->userLogControl($request);
         $smsService->sendSms("Check-ads urlsine giren var! yani reklam izleme");
-        $log->setIsWhat(true);
-        $this->em->persist($log);
-        $this->em->flush();
-        return $this->render('checkAds.html.twig');
+        return $this->render('home/index.html.twig');
     }
 }
