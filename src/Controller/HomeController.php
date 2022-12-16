@@ -63,7 +63,7 @@ class HomeController extends AbstractController
     /**
      * @Route("/check-ads", name="check_ads")
      */
-    public function checkAds(UserLogService $userLogService, Request $request, SmsService $smsService)
+    public function checkAds(UserLogService $userLogService, Request $request, SmsService $smsService): Response
     {
         $userLogService->userLogControl($request);
         /** @var Corporate $corporateIndex */
@@ -77,12 +77,12 @@ class HomeController extends AbstractController
 
         $blogs = $this->em->getRepository(Blog::class)->findAll();
 
-        return [
+        return $this->render('home/index.html.twig',[
             'sliders' => $sliders,
             'phone' => $phone,
             'corporateIndex' => $corporateIndex,
             'categorys' => $category,
             'blogs' => $blogs
-        ];
+        ]);
     }
 }
