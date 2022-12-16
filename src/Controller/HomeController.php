@@ -66,7 +66,23 @@ class HomeController extends AbstractController
     public function checkAds(UserLogService $userLogService, Request $request, SmsService $smsService)
     {
         $userLogService->userLogControl($request);
-        $smsService->sendSms("Check-ads urlsine giren var! yani reklam izleme");
-        return $this->render('home/index.html.twig');
+        /** @var Corporate $corporateIndex */
+        $corporateIndex = $this->em->getRepository(Corporate::class)->findOneBy(['is_index' => true]);
+        /** @var Slider $sliders */
+        $sliders = $this->em->getRepository(Slider::class)->findBy([], ['queue' => 'ASC']);
+        /** @var Phone $phone */
+        $phone = $this->em->getRepository(Phone::class)->find(1);
+        /** @var Category $category */
+        $category = $this->em->getRepository(Category::class)->findAll();
+
+        $blogs = $this->em->getRepository(Blog::class)->findAll();
+
+        return [
+            'sliders' => $sliders,
+            'phone' => $phone,
+            'corporateIndex' => $corporateIndex,
+            'categorys' => $category,
+            'blogs' => $blogs
+        ];
     }
 }
