@@ -38,10 +38,6 @@ class HomeController extends AbstractController
      */
     public function index(UserLogService $userLogService, Request $request, GlobalGenerator $globalGenerator)
     {
-        if ($globalGenerator->general->getIsReturnPhoneForAds() && $request->query->get('ads') == "1"){
-            $userLogService->userLogControl($request);
-            return $this->redirect('tel:05061614265');
-        }
         /** @var Corporate $corporateIndex */
         $corporateIndex = $this->em->getRepository(Corporate::class)->findOneBy(['is_index' => true]);
         /** @var Slider $sliders */
@@ -60,22 +56,5 @@ class HomeController extends AbstractController
             'categorys' => $category,
             'blogs' => $blogs
         ];
-    }
-
-
-    /**
-     * @Route("/check-ads", name="check_ads")
-     */
-    public function checkAds(UserLogService $userLogService, Request $request, SmsService $smsService)
-    {
-        $log = new UserLog();
-        $log->setIp($request->getClientIp());
-        $log->setCreatedAt(new \DateTime());
-        $log->setAgent($_SERVER['HTTP_USER_AGENT']);
-        $smsService->sendSms("Check-ads urlsine giren var! yani reklam izleme");
-        $log->setIsWhat(true);
-        $this->em->persist($log);
-        $this->em->flush();
-        return $this->render('checkAds.html.twig');
     }
 }
