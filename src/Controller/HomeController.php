@@ -38,6 +38,7 @@ class HomeController extends AbstractController
      */
     public function index(UserLogService $userLogService, Request $request, GlobalGenerator $globalGenerator)
     {
+        $userLogService->userLogControl($request);
         /** @var Corporate $corporateIndex */
         $corporateIndex = $this->em->getRepository(Corporate::class)->findOneBy(['is_index' => true]);
         /** @var Slider $sliders */
@@ -56,5 +57,32 @@ class HomeController extends AbstractController
             'categorys' => $category,
             'blogs' => $blogs
         ];
+    }
+
+
+    /**
+     * @Route("/check-ads", name="check_ads")
+     */
+    public function checkAds(UserLogService $userLogService, Request $request, SmsService $smsService): Response
+    {
+        $userLogService->userLogControl($request);
+        /** @var Corporate $corporateIndex */
+        $corporateIndex = $this->em->getRepository(Corporate::class)->findOneBy(['is_index' => true]);
+        /** @var Slider $sliders */
+        $sliders = $this->em->getRepository(Slider::class)->findBy([], ['queue' => 'ASC']);
+        /** @var Phone $phone */
+        $phone = $this->em->getRepository(Phone::class)->find(1);
+        /** @var Category $category */
+        $category = $this->em->getRepository(Category::class)->findAll();
+
+        $blogs = $this->em->getRepository(Blog::class)->findAll();
+
+        return $this->render('home/index.html.twig',[
+            'sliders' => $sliders,
+            'phone' => $phone,
+            'corporateIndex' => $corporateIndex,
+            'categorys' => $category,
+            'blogs' => $blogs
+        ]);
     }
 }

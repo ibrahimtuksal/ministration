@@ -43,6 +43,7 @@ class CategoryController extends AbstractController
     public function index(string $categorySlug, UserLogService $userLogService, Request $request, GlobalGenerator $globalGenerator)
     {
         //$this->redirect('tel:05061614265');
+        $userLogService->userLogControl($request);
         /** @var Category $category */
         $category = $this->em->getRepository(Category::class)->findOneBy(['slug' => $categorySlug]);
 
@@ -63,10 +64,7 @@ class CategoryController extends AbstractController
      */
     public function city(string $citySlug, string $categorySlug, UserLogService $userLogService, Request $request, GlobalGenerator $globalGenerator)
     {
-        if ($globalGenerator->general->getIsReturnPhoneForAds() && $request->query->get('ads') == "1"){
-            $userLogService->userLogControl($request);
-            return $this->redirect('tel:05061614265');
-        }
+        $userLogService->userLogControl($request);
         /** @var Category $category */
         $category = $this->em->getRepository(Category::class)->findOneBy(['slug' => $categorySlug]);
 
@@ -87,10 +85,7 @@ class CategoryController extends AbstractController
      */
     public function district(string $districtSlug, string $categorySlug, UserLogService $userLogService, Request $request, GlobalGenerator $globalGenerator)
     {
-        if ($globalGenerator->general->getIsReturnPhoneForAds() && $request->query->get('ads') == "1"){
-            $userLogService->userLogControl($request);
-            return $this->redirect('tel:05061614265');
-        }
+        $userLogService->userLogControl($request);
         /** @var Category $category */
         $category = $this->em->getRepository(Category::class)->findOneBy(['slug' => $categorySlug]);
 
