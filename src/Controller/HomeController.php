@@ -38,7 +38,6 @@ class HomeController extends AbstractController
      */
     public function index(UserLogService $userLogService, Request $request, GlobalGenerator $globalGenerator)
     {
-        $userLogService->userLogControl($request);
         /** @var Corporate $corporateIndex */
         $corporateIndex = $this->em->getRepository(Corporate::class)->findOneBy(['is_index' => true]);
         /** @var Slider $sliders */
